@@ -1,0 +1,28 @@
+# Models
+*.gguf
+*.bin
+*.safetensors
+
+# Databases & Storage
+storage/chroma_db/
+storage/memories.json
+storage/vital_backup.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Finetune artifacts
+finetune/checkpoints/
+finetune/lora_weights/
+
+# Sensitive
+.env
+api_keys.txt
+
+# OS
+.DS_Store
+Thumbs.db
