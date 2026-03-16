@@ -326,13 +326,14 @@ def main():
     parser.add_argument("--worker", default="github")
     args = parser.parse_args()
 
-    token = args.token or os.environ.get("GITHUB_TOKEN")
+    # GitHub Token prioritize: arg > env
+    token = args.token or os.getenv("GITHUB_TOKEN")
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"\n🕷️  TuminhAGI GitHub Crawler")
     print(f"   Language: {args.language} | Target: {args.count} examples")
-    print(f"   Token: {'✅ có' if token else '❌ không có (rate limit 60/hr)'}\n")
+    print(f"   Token: {'✅ có' if token else '❌ không có (rate limit 60/hr)'}")
 
     # Load existing để dedupe
     seen = set()
@@ -359,7 +360,7 @@ def main():
             break
 
         print(f"🔍 Query: {query}")
-        repos = search_repos(query, token, per_page=5)
+        repos = search_repos(query, token, per_page=10)
         print(f"   Found {len(repos)} repos")
         time.sleep(1)
 

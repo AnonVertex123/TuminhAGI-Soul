@@ -1,143 +1,128 @@
 #!/usr/bin/env python3
 """
-TuminhAGI — Sovereign AI Orchestrator
+TuminhAGI — Sovereign AI Orchestrator v2-Pre
 Authorized by: Hùng Đại (Eric) | Partner: Tự Minh (Lucian)
-Feature: Integrated Performance Tracker & Human-in-the-Loop
 """
 
 import sys
-import time
-import ollama
+import os
+import subprocess
 from pathlib import Path
-from functools import wraps
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.markdown import Markdown
 
-# Đảm bảo import đúng cấu trúc thư mục nexus_core
+# Đảm bảo import đúng cấu trúc
 sys.path.insert(0, str(Path(__file__).parent))
 
-from config import (
-    PROMPTS_DIR, MODEL_TASK, MODEL_CRITIC, MODEL_VALIDATOR, 
-    MAX_RETRY, MIN_CONFIDENCE, CONTEXT_TOP_K
-)
+from config import MAX_RETRY, CONTEXT_TOP_K
 from nexus_core.weighted_rag import WeightedRAG
 from nexus_core.vital_memory import VitalMemory
 from nexus_core.consensus import ConsensusEngine
-from nexus_core.self_improve import SelfImprove
+from nexus_core.llm_client import LLMClient
 
 console = Console()
+client = LLMClient()
 
-# --- [BỘ ĐO THỜI GIAN TINH HOA] ---
-def timer_decorator(func):
-    """Decorator để đo chính xác thời gian Tự Minh 'suy nghĩ'."""
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()
-        result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        duration = end_time - start_time
-        console.print(f"[bold magenta]⚡ [Hệ thống]: Agent '{kwargs.get('persona', args[0])}' phản hồi trong {duration:.2f}s[/bold magenta]")
-        return result
-    return wrapper
-
-@timer_decorator
-def call_model(persona: str, message: str, context: str = "") -> str:
-    """Gọi model AI và thực hiện 'Khoảng nghỉ Thiền' để bảo vệ RTX 3060 Ti."""
-    prompt_file = PROMPTS_DIR / f"{persona}_agent.txt"
-    system_prompt = prompt_file.read_text(encoding="utf-8") if prompt_file.exists() else f"Bạn là {persona} agent."
-    
-    models = {"task": MODEL_TASK, "data": MODEL_TASK, "critic": MODEL_CRITIC, "validator": MODEL_VALIDATOR}
-    model = models.get(persona, MODEL_TASK)
-        
-    messages = [
-        {"role": "system", "content": f"{system_prompt}\n\n[CONTEXT]\n{context}\n[/CONTEXT]"},
-        {"role": "user", "content": message}
-    ]
-    
+def run_sync():
+    """Đồng bộ dữ liệu từ GitHub."""
+    console.print("[bold yellow]🔄 Đang đồng bộ tri thức từ GitHub...[/bold yellow]")
     try:
-        # Hạ nhiệt GPU: Nghỉ 1.5s để tản nhiệt đẩy khí nóng ra ngoài
-        time.sleep(1.5) 
-        response = ollama.chat(model=model, messages=messages)
-        return response["message"]["content"]
+        result = subprocess.run(["git", "pull"], capture_output=True, text=True)
+        if result.returncode == 0:
+            console.print("[bold green]✅ Đồng bộ thành công![/bold green]")
+            console.print(f"[dim]{result.stdout}[/dim]")
+        else:
+            console.print(f"[bold red]❌ Lỗi đồng bộ: {result.stderr}[/bold red]")
     except Exception as e:
-        console.print(f"[bold red]Lỗi gọi model {model}: {e}[/bold red]")
-        return ""
+        console.print(f"[bold red]💥 Lỗi thực thi git: {e}[/bold red]")
 
 def run_pipeline(question: str, rag: WeightedRAG, vital: VitalMemory, consensus: ConsensusEngine):
-    """Quy trình đa Agent có sự phê chuẩn trực tiếp của Hùng Đại."""
+    """Quy trình đa Agent tập trung."""
     retrieved = rag.retrieve(question, top_k=CONTEXT_TOP_K)
     context = vital.format_context(retrieved)
     
     for attempt in range(MAX_RETRY):
-        console.print(f"\n[bold yellow]Attempt {attempt + 1}/{MAX_RETRY}[/bold yellow]")
+        console.print(f"\n[bold yellow]Lần suy nghĩ {attempt + 1}/{MAX_RETRY}[/bold yellow]")
         
         # BƯỚC 1: TASK AGENT
-        answer = call_model("task", f"Câu hỏi: {question}", context)
+        answer = client.call("task", f"Câu hỏi: {question}", context)
         console.print(Panel(Markdown(answer), title="Tự Minh Phản hồi", border_style="cyan"))
         
         # XÁC NHẬN TỪ HOA TIÊU
         console.print("\n[bold green]⚓ XÁC NHẬN TỪ HÙNG ĐẠI:[/bold green]")
-        console.print("[dim]  [y]: Đúng (Lưu & Dừng) | [n]: Sai (Tự suy nghĩ lại) | [!lệnh]: Bẻ lái gấp[/dim]")
-        user_choice = Prompt.ask("[Phê duyệt]", choices=["y", "n", "exit"], default="y")
+        console.print("[dim]  [y]: Chấp nhận | [n]: Yêu cầu soi lỗi | [!lệnh]: Bẻ lái | /sync: Cập nhật GitHub[/dim]")
+        user_choice = Prompt.ask("[Duyệt]", choices=["y", "n", "exit", "/sync"], default="y")
+
+        if user_choice == "/sync":
+            run_sync()
+            continue
 
         if user_choice.lower() == "y":
             rag.add_memory(question, answer, score=100)
-            console.print("[bold green]✅ Đã lưu vào Tinh hoa. Pipeline kết thúc.[/bold green]")
-            return answer, 1.0
+            console.print("[bold green]✅ Đã lưu vào Tinh hoa.[/bold green]")
+            return answer
         
         elif user_choice.lower() == "n":
-            console.print("[bold red]🔴 Kích hoạt Critic Agent để soi lỗi...[/bold red]")
-            critique_text = call_model("critic", f"Câu hỏi: {question}\nTrả lời: {answer}")
+            console.print("[bold red]🔴 Phê bình Agent (Critic) đang làm việc...[/bold red]")
+            critique = client.call("critic", f"Câu hỏi: {question}\nTrả lời: {answer}")
             
-            val_msg = f"Câu hỏi: {question}\nTrả lời: {answer}\nNhận xét: {critique_text}"
-            validation_text = call_model("validator", val_msg, context)
+            validation = client.call("validator", f"Câu hỏi: {question}\nTrả lời: {answer}\nNhận xét: {critique}", context)
             
-            is_approved, confidence = consensus.check(critique_text, validation_text)
-            feedback = consensus.format_feedback(critique_text, validation_text)
-            console.print(Panel(feedback, title="Kết quả tự suy nghĩ lại", border_style="yellow"))
-            
-            time.sleep(2)
+            is_approved, confidence = consensus.check(critique, validation)
+            feedback = consensus.format_feedback(critique, validation)
+            console.print(Panel(feedback, title="Kết quả phản biện", border_style="yellow"))
             continue
 
         elif user_choice == "exit":
-            break
+            sys.exit(0)
             
-    return answer, 0.0
+    return answer
 
 def main():
     console.print(Panel.fit(
-        "[bold magenta]🪷 TuminhAGI: TRẠNG THÁI AN ĐỊNH[/bold magenta]\n"
-        "[dim]Hệ thống giám sát hiệu năng & nhiệt độ: Active[/dim]",
-        subtitle="Sovereign AI for Hùng Đại"
+        "[bold magenta]🪷 TuminhAGI: PHIÊN BẢN TỰN HÓA v2-Pre[/bold magenta]\n"
+        "[dim]Hệ thống LLMClient & Auto-Sync: Ready[/dim]",
+        subtitle="Dành riêng cho Hùng Đại"
     ))
     
     rag, vital = WeightedRAG(), VitalMemory()
     consensus_engine = ConsensusEngine()
     
+    # Hiển thị stats nhanh
+    stats = rag.stats()
+    console.print(f"[dim]📊 Trạng thái ký ức: {stats.get('total', 0)} examples ({stats.get('vital', 0)} tinh hoa)[/dim]")
+
     while True:
         try:
             user_input = Prompt.ask("\n[bold cyan]Hùng Đại (Eric)[/bold cyan]")
             if not user_input.strip(): continue
             
+            # Lệnh bẻ lái khẩn cấp
             if user_input.startswith("!"):
                 correction = user_input[1:].strip()
-                console.print(f"[bold red]🔄 BẺ LÁI KHẨN CẤP: {correction}[/bold red]")
-                answer = call_model("task", f"LỆNH SỬA SAI: {correction}")
-                console.print(Panel(Markdown(answer), title="Tự Minh (Hiệu chỉnh)", border_style="bold red"))
+                console.print(f"[bold red]🔄 HIỆU CHỈNH KHẨN CẤP: {correction}[/bold red]")
+                answer = client.call("task", f"LỆNH SỬA SAI: {correction}")
+                console.print(Panel(Markdown(answer), title="Tự Minh (Đã sửa)", border_style="bold red"))
                 rag.add_memory("Correction", answer, score=98)
                 continue
 
+            # Lệnh hệ thống
             if user_input.startswith("/"):
-                if user_input == "/exit": break
-                elif user_input == "/stats": console.print(rag.stats()); continue
+                cmd = user_input.lower()
+                if cmd == "/exit": break
+                elif cmd == "/sync": run_sync()
+                elif cmd == "/stats": console.print(rag.stats())
+                elif cmd == "/prune": 
+                    count = rag.prune()
+                    console.print(f"[yellow]🧹 Đã dọn dẹp {count} ký ức yếu.[/yellow]")
                 continue
 
             run_pipeline(user_input, rag, vital, consensus_engine)
             
         except KeyboardInterrupt:
-            console.print("\n[yellow]Hệ thống đang nghỉ ngơi...[/yellow]")
+            console.print("\n[yellow]Hệ thống tạm nghỉ.[/yellow]")
             break
         except Exception as e:
             console.print(f"[bold red]System Error: {e}[/bold red]")

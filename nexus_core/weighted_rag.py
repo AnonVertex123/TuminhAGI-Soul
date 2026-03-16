@@ -118,10 +118,15 @@ class WeightedRAG:
             
             human_score = mem.get("score", 0) / 100.0
             
+            # Vòng lặp gia cố (Reinforcement weight)
+            # Mỗi lần được Hùng Đại xác nhận (reinforced), memory càng có giá trị
+            reinf_score = min(1.0, mem.get("reinforced", 0) / 5.0)
+            
             age_days = (current_time - mem.get("ts", current_time)) / 86400
             recency = max(0.0, 1.0 - (age_days / 30.0))
             
-            final_score = (bm25_score * W_BM25) + (vec_sim * W_VECTOR) + (human_score * W_HUMAN) + (recency * W_RECENCY)
+            # Công thức chuẩn v2
+            final_score = (bm25_score * 0.20) + (vec_sim * 0.30) + (human_score * 0.25) + (recency * 0.10) + (reinf_score * 0.15)
             
             mem_copy = mem.copy()
             mem_copy["_search_score"] = final_score
@@ -129,6 +134,16 @@ class WeightedRAG:
             
         results.sort(key=lambda x: x["_search_score"], reverse=True)
         return results[:top_k]
+
+    def consolidate_duplicates(self, threshold: float = 0.95) -> int:
+        """Tìm và gộp các ký ức gần giống nhau (>95%) để tránh Context bị lặp."""
+        if len(self.memories) < 2: return 0
+        
+        to_remove = []
+        # Logic đơn giản: Check text similarity hoặc vector similarity nếu có thể
+        # Ở đây ta dùng basic text overlap cho nhanh, hoặc vector nếu collection query hỗ trợ
+        # Tạm thời để placeholder logic gộp dựa trên ID đã biết hoặc text hash
+        return 0
 
     def reinforce(self, mem_id: str, bonus: int = 15):
         for mem in self.memories:
