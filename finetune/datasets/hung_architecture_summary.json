@@ -1,8 +1,9 @@
 {
   "worker": "hung",
   "topic": "architecture",
-  "total": 200,
-  "api_calls": 40,
-  "success_rate": "100.0%",
-  "generated_at": "2026-03-16T04:00:07.732265"
+  "total_unique": 102,
+  "api_calls": 31,
+  "dupes_skipped": 53,
+  "unique_rate": "65.8%",
+  "generated_at": "2026-03-16T05:00:15.038360"
 }
