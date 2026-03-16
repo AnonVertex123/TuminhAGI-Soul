@@ -49,9 +49,9 @@ SEARCH_QUERIES = {
         "language:python stars:>200 topic:pydantic",
     ],
     "swift": [
-        "language:swift stars:>200 license:mit topic:ios",
-        "language:swift stars:>200 license:mit topic:swiftui",
-        "language:swift stars:>500 license:mit",
+        "language:swift stars:>1000 topic:swiftui",
+        "language:swift stars:>500 topic:combine",
+        "language:swift stars:>500 topic:swift-package-manager",
     ],
     "sql": [
         "language:sql stars:>100 license:mit",

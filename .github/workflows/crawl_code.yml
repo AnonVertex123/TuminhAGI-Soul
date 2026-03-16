@@ -15,10 +15,10 @@ on:
     inputs:
       language:
         description: 'Ngôn ngữ cần cào (python/swift/sql/javascript)'
-        default: 'python'
+        default: 'swift'
       count:
         description: 'Số lượng examples mục tiêu'
-        default: '50'
+        default: '200'
 
 jobs:
   crawl:
