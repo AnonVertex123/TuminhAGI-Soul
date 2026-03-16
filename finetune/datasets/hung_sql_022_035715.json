@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Liệt kê tên tất cả các khách hàng từ bảng Customers.",
+    "input": "Customers(CustomerID, CustomerName, City, Country)",
+    "output": "SELECT CustomerName FROM Customers;\n-- Câu lệnh này chọn cột CustomerName từ bảng Customers, trả về danh sách tên của tất cả khách hàng."
+  },
+  {
+    "instruction": "Tìm tất cả các đơn hàng có tổng giá trị lớn hơn 100 từ bảng Orders và OrderDetails.",
+    "input": "Orders(OrderID, CustomerID, OrderDate), OrderDetails(OrderID, ProductID, Quantity, UnitPrice)",
+    "output": "SELECT O.OrderID\nFROM Orders O\nJOIN OrderDetails OD ON O.OrderID = OD.OrderID\nGROUP BY O.OrderID\nHAVING SUM(OD.Quantity * OD.UnitPrice) > 100;\n-- Câu lệnh này kết hợp bảng Orders và OrderDetails dựa trên OrderID, tính tổng giá trị của mỗi đơn hàng và lọc ra những đơn hàng có tổng giá trị lớn hơn 100."
+  },
+  {
+    "instruction": "Cập nhật thành phố của khách hàng có CustomerID là 1 thành 'New York' trong bảng Customers.",
+    "input": "Customers(CustomerID, CustomerName, City, Country)",
+    "output": "UPDATE Customers\nSET City = 'New York'\nWHERE CustomerID = 1;\n-- Câu lệnh này cập nhật giá trị của cột City thành 'New York' cho bản ghi có CustomerID bằng 1 trong bảng Customers."
+  },
+  {
+    "instruction": "Tìm số lượng sản phẩm khác nhau có trong bảng Products.",
+    "input": "Products(ProductID, ProductName, CategoryID, UnitPrice)",
+    "output": "SELECT COUNT(DISTINCT ProductID) AS NumberOfProducts\nFROM Products;\n-- Câu lệnh này sử dụng hàm COUNT(DISTINCT ProductID) để đếm số lượng ProductID khác nhau trong bảng Products, trả về tổng số sản phẩm khác nhau."
+  },
+  {
+    "instruction": "Liệt kê tên sản phẩm và tên danh mục tương ứng từ bảng Products và Categories.",
+    "input": "Products(ProductID, ProductName, CategoryID, UnitPrice), Categories(CategoryID, CategoryName)",
+    "output": "SELECT P.ProductName, C.CategoryName\nFROM Products P\nJOIN Categories C ON P.CategoryID = C.CategoryID;\n-- Câu lệnh này kết hợp bảng Products và Categories dựa trên CategoryID, trả về tên sản phẩm và tên danh mục tương ứng."
+  },
+  {
+    "instruction": "Liệt kê tên tất cả các khách hàng từ bảng Customers.",
+    "input": "Customers(CustomerID, CustomerName, City, Country)",
+    "output": "SELECT CustomerName FROM Customers;\n-- Câu lệnh này chọn cột CustomerName từ bảng Customers, trả về danh sách tên của tất cả khách hàng."
+  },
+  {
+    "instruction": "Tìm tất cả các đơn hàng có tổng giá trị lớn hơn 100 từ bảng Orders và OrderDetails.",
+    "input": "Orders(OrderID, CustomerID, OrderDate), OrderDetails(OrderID, ProductID, Quantity, UnitPrice)",
+    "output": "SELECT O.OrderID\nFROM Orders O\nJOIN OrderDetails OD ON O.OrderID = OD.OrderID\nGROUP BY O.OrderID\nHAVING SUM(OD.Quantity * OD.UnitPrice) > 100;\n-- Câu lệnh này kết hợp bảng Orders và OrderDetails dựa trên OrderID, tính tổng giá trị của mỗi đơn hàng và lọc ra những đơn hàng có tổng giá trị lớn hơn 100."
+  },
+  {
+    "instruction": "Cập nhật thành phố của khách hàng có CustomerID là 1 thành 'New York' trong bảng Customers.",
+    "input": "Customers(CustomerID, CustomerName, City, Country)",
+    "output": "UPDATE Customers\nSET City = 'New York'\nWHERE CustomerID = 1;\n-- Câu lệnh này cập nhật giá trị của cột City thành 'New York' cho bản ghi có CustomerID bằng 1 trong bảng Customers."
+  },
+  {
+    "instruction": "Tìm số lượng sản phẩm khác nhau có trong bảng Products.",
+    "input": "Products(ProductID, ProductName, CategoryID, UnitPrice)",
+    "output": "SELECT COUNT(DISTINCT ProductID) AS NumberOfProducts\nFROM Products;\n-- Câu lệnh này sử dụng hàm COUNT(DISTINCT ProductID) để đếm số lượng ProductID khác nhau trong bảng Products, trả về tổng số sản phẩm khác nhau."
+  },
+  {
+    "instruction": "Liệt kê tên các danh mục và số lượng sản phẩm trong mỗi danh mục từ bảng Categories và Products.",
+    "input": "Categories(CategoryID, CategoryName), Products(ProductID, ProductName, CategoryID, UnitPrice)",
+    "output": "SELECT C.CategoryName, COUNT(P.ProductID) AS NumberOfProducts\nFROM Categories C\nLEFT JOIN Products P ON C.CategoryID = P.CategoryID\nGROUP BY C.CategoryName;\n-- Câu lệnh này kết hợp bảng Categories và Products dựa trên CategoryID, đếm số lượng sản phẩm trong mỗi danh mục và trả về tên danh mục cùng với số lượng sản phẩm tương ứng. Sử dụng LEFT JOIN để đảm bảo tất cả các danh mục đều được liệt kê, kể cả những danh mục không có sản phẩm nào."
+  }
+]

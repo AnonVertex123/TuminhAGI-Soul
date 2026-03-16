@@ -1,0 +1,8 @@
+{
+  "worker": "hung",
+  "topic": "sql",
+  "total": 300,
+  "api_calls": 60,
+  "success_rate": "100.0%",
+  "generated_at": "2026-03-16T04:01:03.217204"
+}
