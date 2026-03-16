@@ -27,12 +27,39 @@ class EarEngine:
             self.model = None
 
     def _download_model(self):
-        print(f"📥 Đang tải mô hình thính giác Vietnamese (Offline)...")
+        from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, DownloadColumn, TransferSpeedColumn, TimeRemainingColumn
+        
+        print(f"📥 Đang chuẩn bị tải mô hình thính giác Vietnamese (Offline)...")
         MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
         zip_path = MODEL_PATH.parent / "vosk_vn.zip"
         
+        # Xóa file cũ nếu bị kẹt
+        if zip_path.exists():
+            os.remove(zip_path)
+
         try:
-            urllib.request.urlretrieve(MODEL_URL, zip_path)
+            with Progress(
+                TextColumn("[bold blue]{task.description}", justify="right"),
+                BarColumn(bar_width=40),
+                "[progress.percentage]{task.percentage:>3.1f}%",
+                "•",
+                DownloadColumn(),
+                "•",
+                TransferSpeedColumn(),
+                "•",
+                TimeRemainingColumn(),
+            ) as progress:
+                
+                task_id = progress.add_task("Đang tải Vosk Model", total=None)
+                
+                def reporthook(blocknum, blocksize, totalsize):
+                    if progress.tasks[task_id].total is None and totalsize > 0:
+                        progress.update(task_id, total=totalsize)
+                    progress.update(task_id, completed=blocknum * blocksize)
+
+                urllib.request.urlretrieve(MODEL_URL, zip_path, reporthook)
+
+            print(f"📦 Đang giải nén mô hình...")
             with zipfile.ZipFile(zip_path, 'r') as zip_ref:
                 zip_ref.extractall(MODEL_PATH.parent)
             
@@ -46,6 +73,7 @@ class EarEngine:
             print(f"✅ Đã cài đặt xong mô hình thính giác tại {MODEL_PATH}")
         except Exception as e:
             print(f"❌ Lỗi tải mô hình: {e}")
+            if zip_path.exists(): os.remove(zip_path)
 
     def listen(self, timeout=10):
         """Lắng nghe và chuyển thành văn bản."""
