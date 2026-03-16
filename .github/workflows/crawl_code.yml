@@ -21,13 +21,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Crawler
-        env:
-          GITHUB_TOKEN: ${{ secrets.CRWL_TOKEN }}
         shell: bash
         run: |
           python github_crawler.py \
             --language ${{ github.event.inputs.language || 'swift' }} \
             --count ${{ github.event.inputs.count || '200' }} \
+            --token "${{ secrets.CRWL_TOKEN }}" \
             --worker github_bot
 
       - name: Commit & push
