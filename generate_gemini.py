@@ -64,7 +64,8 @@ def main():
     while len(all_ex) < args.count:
         bs = min(args.batch_size, args.count - len(all_ex))
         print(f"  Call {calls+1}: {bs} examples... ", end="", flush=True)
-        prompt = SYSTEM_PROMPT + "\n\n" + TOPIC_PROMPTS[args.topic].format(n=bs)
+        avoid = "\n\nQUAN TRỌNG: KHÔNG tạo examples về các chủ đề sau (đã có rồi):\n- factorial, palindrome, fibonacci, max list, sum even\n- tìm khách hàng mới, lời mời làm việc\n- URL shortener\nTạo chủ đề HOÀN TOÀN MỚI, khác biệt 100%."
+        prompt = SYSTEM_PROMPT + "\n\n" + TOPIC_PROMPTS[args.topic].format(n=bs) + avoid
         try:
             r = client.models.generate_content(
                 model=args.model, contents=prompt,
