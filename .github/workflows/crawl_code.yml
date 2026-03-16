@@ -9,8 +9,8 @@ name: Crawl Production Code
 
 on:
   schedule:
-    # Chạy mỗi 12 tiếng: 3h sáng và 15h chiều (UTC)
-    - cron: '0 3,15 * * *'
+    # Chạy mỗi 12 tiếng: 12h trưa và 12h đêm (UTC+7)
+    - cron: '0 5,17 * * *'
   workflow_dispatch:
     inputs:
       language:
