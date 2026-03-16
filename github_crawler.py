@@ -204,15 +204,6 @@ def extract_python(code: str) -> list:
     return funcs
 
 def extract_swift(code: str) -> list:
-    funcs = []
-    lines = code.splitlines()
-    pattern = r'^\s*(///.*?\n)*\s*(public|private|internal|open)?\s*(func|struct|class|enum|extension|protocol)\s+(\w+)'
-    
-    for i, line in enumerate(lines):
-        if re.search(pattern, line):
-            chunk, doc = [], []
-            j = i - 1
-            while j >= 0 and lines[j].strip().startswith("///"):
     """Bóc tách các block (struct, class, func) dựa trên đếm dấu ngoặc { }."""
     blocks = []
     lines = code.split("\n")
