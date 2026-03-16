@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện về mặt hiệu năng bằng cách sử dụng vòng lặp thay vì đệ quy để tránh tràn stack với số n lớn.\n\ndef factorial(n):\n  if n < 0:\n    return None  # Xử lý trường hợp số âm\n  result = 1\n  for i in range(1, n + 1):\n    result *= i\n  return result"
+  },
+  {
+    "instruction": "Viết chương trình kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(s):\n  return s == s[::-1]",
+    "output": "Hàm đã đúng, nhưng chưa xử lý các ký tự đặc biệt và khoảng trắng. Nên loại bỏ chúng trước khi kiểm tra.\n\ndef is_palindrome(s):\n  processed_string = ''.join(filter(str.isalnum, s)).lower()\n  return processed_string == processed_string[::-1]"
+  },
+  {
+    "instruction": "Viết hàm tìm số lớn nhất trong một list số.",
+    "input": "",
+    "output": "Hàm tìm số lớn nhất trong một list số.\n\ndef find_max(numbers):\n  if not numbers:\n    return None  # Xử lý trường hợp list rỗng\n  max_num = numbers[0]\n  for num in numbers:\n    if num > max_num:\n      max_num = num\n  return max_num"
+  },
+  {
+    "instruction": "Viết chương trình in ra bảng cửu chương từ 1 đến 10.",
+    "input": "for i in range(1, 11):\n  print(i)",
+    "output": "Chương trình chỉ in số từ 1 đến 10, chưa in bảng cửu chương. Cần lồng vòng lặp để in bảng cửu chương.\n\nfor i in range(1, 11):\n  for j in range(1, 11):\n    print(f'{i} x {j} = {i*j}')"
+  },
+  {
+    "instruction": "Viết hàm tính tổng các số chẵn trong một list.",
+    "input": "def sum_even(numbers):\n  total = 0\n  for num in numbers:\n    total += num\n  return total",
+    "output": "Hàm tính tổng tất cả các số trong list, không chỉ số chẵn. Cần thêm điều kiện kiểm tra số chẵn.\n\ndef sum_even(numbers):\n  total = 0\n  for num in numbers:\n    if num % 2 == 0:\n      total += num\n  return total"
+  },
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng. Đây là một ví dụ hoàn chỉnh:\n```python\ndef factorial(n):\n  if n == 0:\n    return 1\n  elif n < 0:\n    return \"Không thể tính giai thừa của số âm\"\n  else:\n    return n * factorial(n-1)\n\n# Ví dụ sử dụng\nprint(factorial(5))  # Output: 120\nprint(factorial(0))  # Output: 1\nprint(factorial(-1)) # Output: Không thể tính giai thừa của số âm\n```"
+  },
+  {
+    "instruction": "Viết một hàm để kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(s):\n  return s == s[::-1]",
+    "output": "Hàm đã đúng. Tuy nhiên, có thể cải thiện để bỏ qua khoảng trắng và chữ hoa/thường:\n```python\ndef is_palindrome(s):\n  s = s.lower().replace(\" \", \"\")\n  return s == s[::-1]\n\n# Ví dụ sử dụng\nprint(is_palindrome(\"Racecar\"))  # Output: True\nprint(is_palindrome(\"A man a plan a canal Panama\"))  # Output: True\nprint(is_palindrome(\"hello\"))  # Output: False\n```"
+  },
+  {
+    "instruction": "Viết một hàm để tìm số lớn nhất trong một danh sách.",
+    "input": "",
+    "output": "Đây là một hàm để tìm số lớn nhất trong một danh sách:\n```python\ndef find_max(numbers):\n  if not numbers:\n    return None  # Xử lý trường hợp danh sách rỗng\n  max_num = numbers[0]\n  for num in numbers:\n    if num > max_num:\n      max_num = num\n  return max_num\n\n# Ví dụ sử dụng\nnumbers = [1, 5, 2, 8, 3]\nprint(find_max(numbers))  # Output: 8\nprint(find_max([])) # Output: None\n```"
+  },
+  {
+    "instruction": "Viết một hàm để tính tổng các số chẵn trong một danh sách.",
+    "input": "def sum_even(numbers):\n  total = 0\n  for number in numbers:\n    total += number\n  return total",
+    "output": "Hàm này tính tổng tất cả các số trong danh sách, không chỉ số chẵn. Đây là phiên bản sửa lỗi:\n```python\ndef sum_even(numbers):\n  total = 0\n  for number in numbers:\n    if number % 2 == 0:\n      total += number\n  return total\n\n# Ví dụ sử dụng\nnumbers = [1, 2, 3, 4, 5, 6]\nprint(sum_even(numbers))  # Output: 12\n```"
+  },
+  {
+    "instruction": "Viết một hàm để đảo ngược một chuỗi.",
+    "input": "def reverse_string(s):\n  reversed_string = \"\"\n  for char in s:\n    reversed_string = char + reversed_string\n  return reversed_string",
+    "output": "Hàm đã đúng. Đây là một cách khác, ngắn gọn hơn:\n```python\ndef reverse_string(s):\n  return s[::-1]\n\n# Ví dụ sử dụng\nprint(reverse_string(\"hello\"))  # Output: olleh\n```"
+  }
+]

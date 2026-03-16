@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện về mặt hiệu năng bằng cách sử dụng vòng lặp thay vì đệ quy để tránh tràn stack với số n lớn. Dưới đây là phiên bản sử dụng vòng lặp:\n\ndef factorial(n):\n  if n < 0:\n    return None  # Giai thừa không xác định cho số âm\n  result = 1\n  for i in range(1, n + 1):\n    result *= i\n  return result"
+  },
+  {
+    "instruction": "Viết chương trình kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(s):\n  s = s.lower()\n  return s == s[::-1]",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện bằng cách loại bỏ các ký tự không phải chữ cái hoặc số trước khi kiểm tra. Điều này giúp xử lý các chuỗi có dấu cách hoặc dấu câu.\n\ndef is_palindrome(s):\n  import re\n  s = re.sub(r'[^a-zA-Z0-9]', '', s).lower()\n  return s == s[::-1]"
+  },
+  {
+    "instruction": "Viết hàm tìm số lớn nhất trong một danh sách.",
+    "input": "",
+    "output": "Hàm tìm số lớn nhất trong một danh sách:\n\ndef find_max(numbers):\n  if not numbers:\n    return None  # Trả về None nếu danh sách rỗng\n  max_num = numbers[0]\n  for num in numbers:\n    if num > max_num:\n      max_num = num\n  return max_num"
+  },
+  {
+    "instruction": "Viết chương trình in ra bảng cửu chương từ 1 đến 10.",
+    "input": "for i in range(1, 11):\n  for j in range(1, 11):\n    print(i * j)",
+    "output": "Chương trình đã đúng, nhưng có thể cải thiện về mặt hiển thị bằng cách căn chỉnh các số để bảng cửu chương dễ đọc hơn. Sử dụng f-string để định dạng đầu ra:\n\nfor i in range(1, 11):\n  for j in range(1, 11):\n    print(f'{i} * {j} = {i*j:2}')"
+  },
+  {
+    "instruction": "Viết hàm tính tổng các số chẵn trong một danh sách.",
+    "input": "def sum_even(numbers):\n  total = 0\n  for num in numbers:\n    if num % 2 == 0:\n      total += num\n  return total",
+    "output": "Hàm đã đúng và hiệu quả. Có thể viết ngắn gọn hơn bằng cách sử dụng list comprehension:\n\ndef sum_even(numbers):\n  return sum([num for num in numbers if num % 2 == 0])"
+  },
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện để xử lý các trường hợp đầu vào không hợp lệ (ví dụ: số âm). Dưới đây là phiên bản hoàn chỉnh hơn:\n\ndef factorial(n):\n  if not isinstance(n, int) or n < 0:\n    raise ValueError(\"Input must be a non-negative integer.\")\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)"
+  },
+  {
+    "instruction": "Viết một chương trình để tìm số lớn nhất trong một danh sách.",
+    "input": "numbers = [1, 5, 2, 8, 3]\nmax_number = 0\nfor number in numbers:\n  if number > max_number:\n    max_number = number\nprint(max_number)",
+    "output": "Code hoạt động đúng, nhưng khởi tạo `max_number = 0` có thể gây ra lỗi nếu tất cả các số trong danh sách đều âm. Nên khởi tạo bằng phần tử đầu tiên của danh sách:\n\nnumbers = [1, 5, 2, 8, 3]\nif not numbers:\n  print(\"Danh sách rỗng\")\nelse:\n  max_number = numbers[0]\n  for number in numbers:\n    if number > max_number:\n      max_number = number\n  print(max_number)"
+  },
+  {
+    "instruction": "Viết hàm kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(text):\n  return text == text[::-1]",
+    "output": "Hàm hoạt động tốt, nhưng không xử lý các ký tự đặc biệt và khoảng trắng. Để kiểm tra palindrome chính xác hơn, nên loại bỏ các ký tự không phải chữ cái và chuyển đổi chuỗi về chữ thường:\n\ndef is_palindrome(text):\n  processed_text = ''.join(filter(str.isalnum, text)).lower()\n  return processed_text == processed_text[::-1]"
+  },
+  {
+    "instruction": "Viết một chương trình để đọc một file CSV và in ra các hàng.",
+    "input": "import csv\n\nwith open('data.csv', 'r') as file:\n  reader = csv.reader(file)\n  for row in reader:\n    print(row)",
+    "output": "Code hoạt động đúng. Tuy nhiên, nên thêm xử lý ngoại lệ để xử lý trường hợp file không tồn tại hoặc không đúng định dạng:\n\nimport csv\n\ntry:\n  with open('data.csv', 'r') as file:\n    reader = csv.reader(file)\n    for row in reader:\n      print(row)\nexcept FileNotFoundError:\n  print(\"File không tồn tại.\")\nexcept csv.Error:\n  print(\"Lỗi khi đọc file CSV.\")"
+  },
+  {
+    "instruction": "Viết hàm tính tổng của các số trong một list sử dụng reduce.",
+    "input": "from functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y)",
+    "output": "Hàm bị thiếu đối số khởi tạo cho `reduce`. Cần cung cấp giá trị khởi tạo là 0 để đảm bảo tính đúng đắn:\n\nfrom functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y, numbers, 0)"
+  }
+]
