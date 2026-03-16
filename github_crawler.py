@@ -159,19 +159,20 @@ def crawl_repo_turbo(owner: str, name: str, lang: str, branch: str = "main", tok
     # Lọc file code xịn
     candidate_files = []
     for item in data["tree"]:
-        if item["type"] == "blob" and item["name"].lower().endswith(ext):
-            path_lower = item["path"].lower()
+        file_path = item.get("path", "")
+        if item["type"] == "blob" and file_path.lower().endswith(ext):
+            path_lower = file_path.lower()
             # Junk Filter nâng cao: Bỏ Tests, Mock, Package.swift
             if any(junk in path_lower for junk in JUNK_PATHS): continue
             if "test" in path_lower or "mock" in path_lower: continue
             if path_lower.endswith("package.swift"): continue
             
-            candidate_files.append(item["path"])
+            candidate_files.append(file_path)
 
     if not candidate_files:
-        print(f"   ⚠️  {repo_full}: 0 files matches {ext} (filtered)")
         return []
 
+    print(f"      📄 Tìm thấy {len(candidate_files)} file tiềm năng...")
     # Giới hạn lấy 10 file tinh hoa nhất mỗi repo để tránh spam
     for path in candidate_files[:10]:
         raw_url = f"https://raw.githubusercontent.com/{repo_full}/{branch}/{path}"
@@ -267,34 +268,33 @@ def to_example(func: dict, repo: str, lang: str) -> dict:
 def process_repo(repo, lang, token, output_dir, target_count, worker_name):
     global total_collected, progress_chunk
     
-    with lock:
-        if total_collected >= target_count: return
+    try:
+        with lock:
+            if total_collected >= target_count: return
 
-    owner, name = repo["owner"]["login"], repo["name"]
-    branch = repo.get("default_branch", "main")
-    
-    print(f"   🔍 Cào repo: {owner}/{name} (Branch: {branch})")
-    examples = crawl_repo_turbo(owner, name, lang, branch, token)
-    
-    new_found = []
-    with lock:
-        for ex in examples:
-            if total_collected >= target_count: break
-            h = hashlib.md5(ex["input"].encode()).hexdigest()
-            if h not in seen_hashes:
-                seen_hashes.add(h); seen_hashes.add(h) # Dùng input hash đẻ tránh trùng
-                new_found.append(ex)
-                total_collected += 1
+        owner, name = repo["owner"]["login"], repo["name"]
+        branch = repo.get("default_branch", "main")
+        
+        print(f"   🔍 Cào repo: {owner}/{name} (Branch: {branch})")
+        examples = crawl_repo_turbo(owner, name, lang, branch, token)
+        
+        new_found = []
+        with lock:
+            for ex in examples:
+                h = hashlib.md5(ex["input"].encode()).hexdigest()
+                if h not in seen_hashes:
+                    seen_hashes.add(h)
+                    new_found.append(ex)
+                    total_collected += 1
+                    if total_collected >= target_count: break
         
         if new_found:
+            ts = time.strftime("%H%M%S")
+            fname = output_dir / f"{worker_name}_{lang}_{total_collected:03}_{ts}.json"
+            json.dump(new_found, open(fname, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
             print(f"   ✅ {owner}/{name}: +{len(new_found)} (Total: {total_collected}/{target_count})")
-            if total_collected // 20 >= progress_chunk:
-                fname = output_dir / f"{worker_name}_{lang}_{progress_chunk:03d}.json"
-                json.dump(new_found, open(fname, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-                progress_chunk += 1
-            else:
-                fname = output_dir / f"temp_{worker_name}_{lang}.json"
-                json.dump(new_found, open(fname, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"   ❌ Lỗi thread ({repo.get('full_name', 'unknown')}): {e}")
 
 # ─── MAIN ────────────────────────────────────────────────────────────────────
 
