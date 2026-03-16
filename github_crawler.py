@@ -174,19 +174,18 @@ def crawl_repo_turbo(owner: str, name: str, lang: str, branch: str = "main", tok
 
     # Giới hạn lấy 10 file tinh hoa nhất mỗi repo để tránh spam
     for path in candidate_files[:10]:
-        raw_url = f"https://raw.githubusercontent.com/{repo_full}/main/{path}"
+        raw_url = f"https://raw.githubusercontent.com/{repo_full}/{branch}/{path}"
         try:
             resp = requests.get(raw_url, timeout=10)
-            if resp.status_code != 200:
-                raw_url = raw_url.replace("/main/", "/master/")
-                resp = requests.get(raw_url, timeout=10)
-            
             if resp.status_code == 200:
                 code = resp.text
                 funcs = extract_python(code) if lang == "python" else extract_swift(code)
                 for f in funcs:
                     all_examples.append(to_example(f, repo_full, lang))
-        except: continue
+            else:
+                print(f"      ❌ Raw Error ({resp.status_code}): {raw_url}")
+        except Exception as e:
+            print(f"      ❌ Raw Exception: {e}")
         
     return all_examples
 
@@ -236,6 +235,10 @@ def extract_swift(code: str) -> list:
                     "code": "\n".join(chunk), 
                     "docstring": " ".join(doc) if doc else "Swift production example."
                 })
+            else:
+                # Debug ranh mãnh: in ra nếu file bị loại vì quá ngắn
+                if len(chunk) > 0:
+                    pass # print(f"      ⚠️  Bỏ qua {line.strip()[:20]}... (Chỉ có {len(chunk)} dòng)")
     return funcs
 
 def to_example(func: dict, repo: str, lang: str) -> dict:
