@@ -1,26 +1,24 @@
 name: Crawl Production Code
 
 on:
-  schedule:
-    - cron: '0 5,17 * * *'
   workflow_dispatch:
     inputs:
       language:
-        description: 'Ngôn ngữ (python/swift/sql/javascript)'
         default: 'swift'
       count:
-        description: 'Số lượng'
         default: '200'
 
 jobs:
   crawl:
-    name: "Crawl ${{ github.event.inputs.language || 'swift' }}"
+    name: "Crawl swift"
     runs-on: [self-hosted, tuminh-power]
     
     steps:
       - uses: actions/checkout@v4
 
       - name: Run Crawler
+        env:
+          GITHUB_TOKEN: ${{ secrets.CRWL_TOKEN }}
         shell: powershell
         run: |
           python github_crawler.py `
