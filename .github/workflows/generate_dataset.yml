@@ -11,6 +11,9 @@
 
 name: Generate Dataset
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   schedule:
     # Chạy mỗi 6 tiếng: 0h, 6h, 12h, 18h (UTC+7 thì +7)
@@ -34,8 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
