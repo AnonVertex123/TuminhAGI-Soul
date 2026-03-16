@@ -41,14 +41,16 @@ QUALITY_FILTERS = {
 
 SEARCH_QUERIES = {
     "python": [
-        "language:python stars:>300",
+        "language:python stars:200..1000",
         "language:python topic:fastapi",
+        "language:python topic:machine-learning",
     ],
     "swift": [
-        "language:swift stars:>200",
-        "language:swift topic:swiftui",
+        "language:swift stars:100..500",      # Tìm những viên ngọc thô tâm huyết
+        "language:swift \"struct *: View\"", # Bắt buộc phải có cấu trúc View (SwiftUI)
+        "language:swift \"async throws\"",   # Code xử lý API hiện đại
         "language:swift topic:combine",
-        "SwiftUI production examples",
+        "language:swift topic:swiftui",
     ],
 }
 
@@ -102,6 +104,15 @@ def search_repos(query: str, token: str = None, per_page: int = 15) -> list:
     except Exception: return []
 
 def relax_query(query: str) -> str:
+    # 1. Xử lý dải stars: 100..500 -> 50..500 -> 30..500
+    range_match = re.search(r'stars:(\d+)\.\.(\d+)', query)
+    if range_match:
+        low, high = int(range_match.group(1)), int(range_match.group(2))
+        new_low = max(30, low // 2)
+        if new_low == low: return re.sub(r'stars:\d+\.\.\d+\s*', '', query).strip()
+        return query.replace(f'stars:{low}..{high}', f'stars:{new_low}..{high}')
+    
+    # 2. Xử lý stars đơn: stars:>200
     star_match = re.search(r'stars:>(\d+)', query)
     if star_match:
         stars = int(star_match.group(1))
@@ -141,10 +152,13 @@ def crawl_repo_turbo(owner: str, name: str, lang: str, token: str = None) -> lis
     # Lọc file code xịn
     candidate_files = []
     for item in data["tree"]:
-        if item["type"] == "blob" and item["path"].lower().endswith(ext):
-            # Junk Filter
-            if any(junk in item["path"].lower() for junk in JUNK_PATHS):
-                continue
+        if item["type"] == "blob" and item["name"].lower().endswith(ext):
+            path_lower = item["path"].lower()
+            # Junk Filter nâng cao: Bỏ Tests, Mock, Package.swift
+            if any(junk in path_lower for junk in JUNK_PATHS): continue
+            if "test" in path_lower or "mock" in path_lower: continue
+            if path_lower.endswith("package.swift"): continue
+            
             candidate_files.append(item["path"])
 
     if not candidate_files:
