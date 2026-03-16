@@ -44,7 +44,7 @@ def main():
     ap.add_argument("--count", type=int, default=50)
     ap.add_argument("--batch-size", type=int, default=5)
     ap.add_argument("--output-dir", default="finetune/datasets")
-    ap.add_argument("--api-key", default=None)
+    ap.add_argument("--api-key", default="AIzaSyB6NwZUbw_YKMvmlu2IEo2i0gPtajCrWhw")
     ap.add_argument("--delay", type=float, default=4.0)
     ap.add_argument("--model", default="gemini-2.0-flash")
     args = ap.parse_args()
