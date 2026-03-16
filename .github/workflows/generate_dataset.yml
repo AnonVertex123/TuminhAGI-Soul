@@ -63,37 +63,3 @@ jobs:
           git diff --staged --quiet || git commit -m "🤖 [hung] add ${{ github.event.inputs.topic_hung || 'swift' }} examples"
           git push
 
-  # ── Job 2: Tài khoản Friend — chạy SONG SONG với Job 1 ────────────────────
-  generate-friend:
-    if: ${{ secrets.GEMINI_KEY_FRIEND != '' }}
-    name: "Friend — ${{ github.event.inputs.topic_friend || 'sql' }}"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install google-generativeai
-
-      - name: Generate dataset
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_KEY_FRIEND }}
-        run: |
-          python generate_gemini.py \
-            --worker friend \
-            --topic ${{ github.event.inputs.topic_friend || 'sql' }} \
-            --count ${{ github.event.inputs.count || '50' }} \
-            --batch-size 5 \
-            --delay 3
-
-      - name: Commit & push
-        run: |
-          git config user.name "TuminhAGI Bot"
-          git config user.email "bot@tuminh.ai"
-          git add finetune/datasets/
-          git diff --staged --quiet || git commit -m "🤖 [friend] add ${{ github.event.inputs.topic_friend || 'sql' }} examples"
-          git push
