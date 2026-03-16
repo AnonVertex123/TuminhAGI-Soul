@@ -58,12 +58,14 @@ jobs:
         run: |
           git config user.name "TuminhAGI Bot"
           git config user.email "bot@tuminh.ai"
+          git pull --rebase origin main
           git add finetune/datasets/
           git diff --staged --quiet || git commit -m "🤖 [hung] add ${{ github.event.inputs.topic_hung || 'swift' }} examples"
           git push
 
   # ── Job 2: Tài khoản Friend — chạy SONG SONG với Job 1 ────────────────────
   generate-friend:
+    if: ${{ secrets.GEMINI_KEY_FRIEND != '' }}
     name: "Friend — ${{ github.event.inputs.topic_friend || 'sql' }}"
     runs-on: ubuntu-latest
     steps:
