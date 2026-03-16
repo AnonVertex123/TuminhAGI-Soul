@@ -213,33 +213,44 @@ def extract_swift(code: str) -> list:
             chunk, doc = [], []
             j = i - 1
             while j >= 0 and lines[j].strip().startswith("///"):
-                doc.insert(0, lines[j].replace("///", "").strip())
-                j -= 1
-            
-            start_i = i
-            end_i = min(len(lines), i + 100)
-            brace_count, found_open = 0, False
-            for k in range(start_i, end_i):
-                chunk.append(lines[k])
-                brace_count += lines[k].count("{")
-                brace_count -= lines[k].count("}")
-                if "{" in lines[k]: found_open = True
-                if found_open and brace_count <= 0:
-                    break
-            
-            if QUALITY_FILTERS["min_function_lines"] <= len(chunk) <= QUALITY_FILTERS["max_function_lines"]:
-                name_match = re.search(r'(func|struct|class|enum|extension|protocol)\s+(\w+)', line)
+    """Bóc tách các block (struct, class, func) dựa trên đếm dấu ngoặc { }."""
+    blocks = []
+    lines = code.split("\n")
+    current_block = []
+    brace_count = 0
+    in_block = False
+    
+    for line in lines:
+        stripped = line.strip()
+        if not stripped: continue
+        if stripped.startswith("//"): continue # Bỏ qua comment
+        
+        if not in_block:
+            # Tìm điểm bắt đầu của một block có giá trị
+            if any(k in stripped for k in ["struct ", "class ", "func ", "extension ", "enum ", "protocol "]):
+                in_block = True
+                current_block = [line]
+                brace_count = stripped.count("{") - stripped.count("}")
+            continue
+        
+        current_block.append(line)
+        brace_count += stripped.count("{") - stripped.count("}")
+        
+        # Nếu brace_count quay về 0 (hoặc nhỏ hơn), block đã kết thúc
+        if brace_count <= 0 and in_block:
+            if QUALITY_FILTERS["min_function_lines"] <= len(current_block) <= QUALITY_FILTERS["max_function_lines"]:
+                name_match = re.search(r'(func|struct|class|enum|extension|protocol)\s+(\w+)', current_block[0])
                 name = name_match.group(2) if name_match else "unknown"
-                funcs.append({
-                    "name": name, 
-                    "code": "\n".join(chunk), 
-                    "docstring": " ".join(doc) if doc else "Swift production example."
+                blocks.append({
+                    "name": name,
+                    "code": "\n".join(current_block),
+                    "docstring": "Swift quality block."
                 })
-            else:
-                # Debug ranh mãnh: in ra nếu file bị loại vì quá ngắn
-                if len(chunk) > 0:
-                    pass # print(f"      ⚠️  Bỏ qua {line.strip()[:20]}... (Chỉ có {len(chunk)} dòng)")
-    return funcs
+            in_block = False
+            current_block = []
+            brace_count = 0
+            
+    return blocks
 
 def to_example(func: dict, repo: str, lang: str) -> dict:
     return {
