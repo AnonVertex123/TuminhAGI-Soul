@@ -1,0 +1,27 @@
+[
+  {
+    "instruction": "Tạo một hàm kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "",
+    "output": "```swift\nfunc isPalindrome(_ str: String) -> Bool {\n    let cleanedString = str.lowercased().filter { $0.isLetter || $0.isNumber }\n    return cleanedString == String(cleanedString.reversed())\n}\n\n// Giải thích:\n// 1. `lowercased()`: Chuyển chuỗi về chữ thường để bỏ qua sự khác biệt về hoa thường.\n// 2. `filter { $0.isLetter || $0.isNumber }`: Loại bỏ các ký tự không phải chữ cái hoặc số.\n// 3. `reversed()`: Đảo ngược chuỗi đã làm sạch.\n// 4. So sánh chuỗi đã làm sạch với chuỗi đảo ngược. Nếu bằng nhau, chuỗi là palindrome.\n```"
+  },
+  {
+    "instruction": "Sửa lỗi trong đoạn code sau: Đoạn code này cố gắng tải một ảnh từ URL nhưng bị crash khi URL không hợp lệ.",
+    "input": "```swift\nimport UIKit\n\nfunc loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {\n    let url = URL(string: urlString)!\n    URLSession.shared.dataTask(with: url) {\n        (data, response, error) in\n        if let data = data, let image = UIImage(data: data) {\n            completion(image)\n        } else {\n            completion(nil)\n        }\n    }.resume()\n}\n```",
+    "output": "```swift\nimport UIKit\n\nfunc loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {\n    guard let url = URL(string: urlString) else {\n        completion(nil)\n        return\n    }\n    URLSession.shared.dataTask(with: url) {\n        (data, response, error) in\n        if let data = data, let image = UIImage(data: data) {\n            completion(image)\n        } else {\n            completion(nil)\n        }\n    }.resume()\n}\n\n// Giải thích:\n// Đoạn code gốc sử dụng force unwrapping (!) cho URL, gây crash nếu URL không hợp lệ.\n// Code đã sửa sử dụng `guard let` để kiểm tra xem URL có hợp lệ hay không. Nếu không hợp lệ, hàm sẽ trả về nil và không tiếp tục thực thi.\n```"
+  },
+  {
+    "instruction": "Viết code để hiển thị một danh sách các item trong một UITableView. Mỗi item có một tên.",
+    "input": "",
+    "output": "```swift\nimport UIKit\n\nclass ItemTableViewCell: UITableViewCell {\n    var itemName: String = \"\" {\n        didSet {\n            textLabel?.text = itemName\n        }\n    }\n}\n\nclass ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {\n    let items = [\"Apple\", \"Banana\", \"Orange\"]\n\n    @IBOutlet weak var tableView: UITableView!\n\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        tableView.dataSource = self\n        tableView.delegate = self\n    }\n\n    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {\n        return items.count\n    }\n\n    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {\n        let cell = tableView.dequeueReusableCell(withIdentifier: \"ItemCell\", for: indexPath)\n        cell.itemName = items[indexPath.row]\n        return cell\n    }\n}\n\n// Giải thích:\n// 1. Tạo một UITableViewCell tùy chỉnh để hiển thị tên item.\n// 2. ViewController conform với UITableViewDataSource và UITableViewDelegate.\n// 3. Trong viewDidLoad(), thiết lập dataSource và delegate cho UITableView.\n// 4. Implement các hàm required của UITableViewDataSource để cung cấp dữ liệu cho UITableView.\n```"
+  },
+  {
+    "instruction": "Thêm một animation đơn giản (fade in) khi một UIView xuất hiện trên màn hình.",
+    "input": "",
+    "output": "```swift\nimport UIKit\n\nclass ViewController: UIViewController {\n\n    @IBOutlet weak var myView: UIView!\n\n    override func viewDidLoad() {\n        super.viewDidLoad()\n        myView.alpha = 0.0 // Ban đầu ẩn view\n        UIView.animate(withDuration: 0.5) {\n            self.myView.alpha = 1.0 // Hiển thị view với animation\n        }\n    }\n}\n\n// Giải thích:\n// 1. Đặt alpha của UIView thành 0.0 để ẩn nó.\n// 2. Sử dụng UIView.animate(withDuration:) để tạo animation.\n// 3. Trong block animation, đặt alpha của UIView thành 1.0 để hiển thị nó.\n// 4. withDuration chỉ định thời gian animation (0.5 giây).\n```"
+  },
+  {
+    "instruction": "Viết code để lưu một chuỗi vào UserDefaults.",
+    "input": "",
+    "output": "```swift\nimport UIKit\n\nfunc saveString(key: String, value: String) {\n    let defaults = UserDefaults.standard\n    defaults.set(value, forKey: key)\n    defaults.synchronize() // Đảm bảo dữ liệu được lưu ngay lập tức\n}\n\nfunc loadString(key: String) -> String? {\n    let defaults = UserDefaults.standard\n    return defaults.string(forKey: key)\n}\n\n// Ví dụ sử dụng:\n// saveString(key: \"myString\", value: \"Hello, world!\")\n// if let myString = loadString(key: \"myString\") {\n//     print(myString)\n// }\n\n// Giải thích:\n// 1. `UserDefaults.standard`: Lấy đối tượng UserDefaults mặc định.\n// 2. `set(value, forKey:)`: Lưu giá trị vào UserDefaults với key tương ứng.\n// 3. `synchronize()`: Đảm bảo dữ liệu được lưu vào đĩa ngay lập tức.\n// 4. `string(forKey:)`: Lấy giá trị từ UserDefaults với key tương ứng. Trả về nil nếu key không tồn tại.\n```"
+  }
+]
