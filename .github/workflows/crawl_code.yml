@@ -2,33 +2,27 @@ name: Crawl Production Code
 
 on:
   schedule:
-    # Chạy mỗi 12 tiếng: 12h trưa và 12h đêm (UTC+7)
     - cron: '0 5,17 * * *'
   workflow_dispatch:
     inputs:
       language:
-        description: 'Ngôn ngữ cần cào (python/swift/sql/javascript)'
+        description: 'Ngôn ngữ (python/swift/sql/javascript)'
         default: 'swift'
       count:
-        description: 'Số lượng examples mục tiêu'
+        description: 'Số lượng'
         default: '200'
 
 jobs:
   crawl:
     name: "Crawl ${{ github.event.inputs.language || 'swift' }}"
-    # THAY ĐỔI QUAN TRỌNG: Chạy trên RTX 3060 của Hùng Đại
     runs-on: [self-hosted, tuminh-power]
     
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-
     steps:
       - uses: actions/checkout@v4
 
       - name: Run Crawler
         env:
           GITHUB_TOKEN: ${{ secrets.CRWL_TOKEN }}
-        # Sử dụng bash của Git trên Windows (tự động nhận diện)
         shell: bash
         run: |
           python github_crawler.py \
@@ -42,5 +36,4 @@ jobs:
           git config user.name "TuminhAGI Crawler"
           git config user.email "crawler@tuminh.ai"
           git add finetune/datasets/
-          # Chỉ commit nếu có file mới
           git diff --staged --quiet || (git commit -m "🤖 [crawler] add real-world examples" && git push)
