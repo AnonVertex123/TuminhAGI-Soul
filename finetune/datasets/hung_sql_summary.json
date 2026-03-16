@@ -1,8 +1,9 @@
 {
   "worker": "hung",
   "topic": "sql",
-  "total": 300,
-  "api_calls": 60,
-  "success_rate": "100.0%",
-  "generated_at": "2026-03-16T04:01:03.217204"
+  "total_unique": 102,
+  "api_calls": 106,
+  "dupes_skipped": 388,
+  "unique_rate": "20.8%",
+  "generated_at": "2026-03-16T06:08:45.869579"
 }
