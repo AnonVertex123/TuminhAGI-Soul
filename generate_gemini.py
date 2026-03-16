@@ -13,7 +13,8 @@ from datetime import datetime
 from pathlib import Path
 
 try:
-    import google.generativeai as genai
+    from google import genai
+    from google.genai import types
 except ImportError:
     print("❌ Thiếu thư viện. Chạy: pip install google-generativeai")
     exit(1)
@@ -173,12 +174,16 @@ def validate_example(ex: dict, topic: str) -> bool:
     return True
 
 
-def generate_batch(model, topic: str, batch_size: int) -> list:
+def generate_batch(client, args, topic: str, batch_size: int) -> list:
     prompt = TOPIC_PROMPTS[topic].format(n=batch_size)
     try:
-        response = model.generate_content(
-            prompt,
-            generation_config={"temperature": 0.85, "max_output_tokens": 8192},
+        response = client.models.generate_content(
+            model=args.model,
+            contents=SYSTEM_PROMPT + "\n\n" + prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.85,
+                max_output_tokens=8192,
+            ),
         )
         examples = parse_response(response.text)
         return [ex for ex in examples if validate_example(ex, topic)]
@@ -204,11 +209,7 @@ def main():
         print("❌ Cần GEMINI_API_KEY")
         exit(1)
 
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name=args.model,
-        system_instruction=SYSTEM_PROMPT,
-    )
+    client = genai.Client(api_key=api_key)
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -226,7 +227,7 @@ def main():
         batch_size = min(args.batch_size, args.count - len(all_examples))
         print(f"  📦 Call {calls+1}: generating {batch_size}... ", end="", flush=True)
 
-        batch = generate_batch(model, args.topic, batch_size)
+        batch = generate_batch(client, args, args.topic, batch_size)
 
         if batch:
             all_examples.extend(batch)
