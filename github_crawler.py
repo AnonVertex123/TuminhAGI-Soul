@@ -33,10 +33,10 @@ if sys.platform == "win32":
 # ─── CONFIG ──────────────────────────────────────────────────────────────────
 
 QUALITY_FILTERS = {
-    "min_stars": 30,
-    "min_function_lines": 40,   # Tăng tiêu chuẩn để lấy code "nặng đô"
-    "max_function_lines": 500,
-    "min_docstring_words": 10,  # Chỉ lấy code có giải thích rõ ràng
+    "min_stars": 50,
+    "min_function_lines": 20,   # Hạ từ 40 xuống 20 để "vào việc" nhanh hơn
+    "max_function_lines": 500, 
+    "min_docstring_words": 0,    # SwiftUI thường ít docstring, ta không nên ép buộc
 }
 
 SEARCH_QUERIES = {
@@ -282,7 +282,7 @@ def main():
     parser.add_argument("--query", help="Custom search query to override defaults")
     args = parser.parse_args()
 
-    token = args.token or os.getenv("GITHUB_TOKEN")
+    token = (args.token or os.getenv("GITHUB_TOKEN", "")).strip()
     output_dir = Path("finetune/datasets")
     output_dir.mkdir(parents=True, exist_ok=True)
 
