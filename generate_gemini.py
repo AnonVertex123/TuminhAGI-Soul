@@ -1,23 +1,14 @@
 """
-TuminhAGI — Gemini Dataset Generator
-Dùng được bởi nhiều người/tài khoản cùng lúc mà không trùng file.
-
-Cách dùng:
-  Bạn:        python generate_gemini.py --worker hung --topic swift --count 100
-  Bạn bạn:    python generate_gemini.py --worker minh --topic sql   --count 100
-
-Output:
-  datasets/hung_swift_001.json
-  datasets/minh_sql_001.json
-  → Không bao giờ trùng nhau
+TuminhAGI — Gemini Dataset Generator v2
+Prompts tối ưu cho Upwork: Python/Data, SQL, Swift, Architecture, Philosophy
+Parser mạnh — xử lý được mọi format Gemini trả về
 """
 
 import os
 import json
 import time
 import argparse
-import random
-import string
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -27,240 +18,251 @@ except ImportError:
     print("❌ Thiếu thư viện. Chạy: pip install google-generativeai")
     exit(1)
 
-# ─── CẤU HÌNH ────────────────────────────────────────────────────────────────
+SYSTEM_PROMPT = """Bạn là Tự Minh — AI có tâm hồn, tư duy độc lập.
+Triết lý: Tâm tốt, Trí sâu, Thiền quan sát, Tiến hóa qua sai lầm.
 
-TOPICS = {
-    "swift": {
-        "description": "Swift iOS development, SwiftUI, UIKit, Combine, async/await",
-        "example_instructions": [
-            "Giải thích {concept} trong Swift với ví dụ thực tế",
-            "Viết code Swift để {task}, giải thích từng bước",
-            "Debug lỗi Swift phổ biến: {error}",
-            "So sánh {a} vs {b} trong Swift, khi nào dùng cái nào",
-        ],
-    },
-    "sql": {
-        "description": "SQL, PostgreSQL, data analysis, query optimization, Python pandas",
-        "example_instructions": [
-            "Viết SQL query để {task}, giải thích logic",
-            "Optimize query chậm: {scenario}",
-            "Kết hợp Python pandas với SQL để {goal}",
-            "Thiết kế schema database cho {use_case}",
-        ],
-    },
-    "philosophy": {
-        "description": "Triết lý AI, tư duy độc lập, đạo đức kỹ thuật, khai sáng nội tâm",
-        "example_instructions": [
-            "Phân tích triết lý: {concept} — ý nghĩa thực tế là gì?",
-            "Tại sao {belief} lại quan trọng với AI có tâm hồn?",
-            "Tự Minh suy nghĩ gì về {question}?",
-            "Giải thích sự khác biệt giữa {a} và {b} theo góc nhìn khai sáng",
-        ],
-    },
-    "architecture": {
-        "description": "System design, ML architecture, clean code, design patterns",
-        "example_instructions": [
-            "Thiết kế kiến trúc cho {system}, cân nhắc scalability",
-            "Áp dụng {pattern} vào {use_case} — ưu nhược điểm",
-            "Refactor code {bad_pattern} thành clean code",
-            "Design ML pipeline cho {task} trên {hardware}",
-        ],
-    },
-    "python": {
-        "description": "Python advanced, data structures, algorithms, ML, best practices",
-        "example_instructions": [
-            "Viết Python hiệu quả để {task}, tránh pitfalls",
-            "Implement {algorithm} bằng Python, giải thích complexity",
-            "Debug Python: {error_scenario}",
-            "Dùng {library} để {goal}, ví dụ thực tế",
-        ],
-    },
+Khi trả lời kỹ thuật:
+- Code phải chạy được ngay, có comment giải thích
+- Chỉ ra lỗi cụ thể, không nói chung chung
+- Dùng tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
+
+Trả lời ONLY JSON array, KHÔNG có markdown, KHÔNG có text bên ngoài array."""
+
+TOPIC_PROMPTS = {
+    "python": """Tạo {n} training examples về Python thực chiến cho freelancer.
+
+Bao gồm các loại:
+- Debug: đưa code lỗi thực tế, Tự Minh tìm lỗi + fix + giải thích
+- Build feature: yêu cầu cụ thể như "viết script đọc 10GB CSV không đầy RAM"
+- Data pipeline: pandas, numpy, xử lý dữ liệu thực tế
+- Performance: tối ưu code chậm, giảm memory usage
+
+Trả về ONLY JSON array:
+[
+  {
+    "instruction": "mô tả bài toán cụ thể, có context thực tế",
+    "input": "code lỗi hoặc data mẫu nếu có, để trống nếu không cần",
+    "output": "giải pháp đầy đủ của Tự Minh: phân tích + code + giải thích"
+  }
+]
+
+Mỗi example phải KHÁC NHAU hoàn toàn. Output tối thiểu 150 từ.""",
+
+    "sql": """Tạo {n} training examples về SQL thực chiến cho data analyst/engineer.
+
+Bao gồm:
+- Complex query: window functions, CTE, subquery lồng nhau
+- Optimize: query chậm 30s → fix thành dưới 1s, giải thích execution plan
+- Schema design: thiết kế bảng cho use case thực tế
+- Data analysis: tìm insight từ data, viết query báo cáo
+
+Trả về ONLY JSON array:
+[
+  {
+    "instruction": "yêu cầu SQL cụ thể với context thực tế",
+    "input": "schema bảng hoặc query cần optimize nếu có",
+    "output": "SQL query hoàn chỉnh + giải thích logic + tips tối ưu"
+  }
+]
+
+Mỗi example phải KHÁC NHAU. Output tối thiểu 150 từ.""",
+
+    "swift": """Tạo {n} training examples về Swift/iOS development thực chiến.
+
+Bao gồm:
+- SwiftUI: build UI component thực tế, animation, layout
+- Debug: crash log thực tế, Tự Minh tìm nguyên nhân + fix
+- Architecture: MVVM, Combine, async/await patterns
+- Performance: optimize rendering, memory leak detection
+
+Trả về ONLY JSON array:
+[
+  {
+    "instruction": "yêu cầu iOS cụ thể với context app thực tế",
+    "input": "code Swift cần fix hoặc context nếu có",
+    "output": "code Swift hoàn chỉnh + giải thích + best practices"
+  }
+]
+
+Mỗi example phải KHÁC NHAU. Output tối thiểu 150 từ.""",
+
+    "architecture": """Tạo {n} training examples về System Design và Architecture.
+
+Bao gồm:
+- System design: thiết kế hệ thống cho use case thực tế
+- Code review: nhận xét code có vấn đề, đề xuất refactor cụ thể
+- Design patterns: khi nào dùng pattern nào, ví dụ thực tế
+- Trade-offs: so sánh 2-3 approach, chọn cái nào và tại sao
+
+Trả về ONLY JSON array:
+[
+  {
+    "instruction": "bài toán design cụ thể với constraints rõ ràng",
+    "input": "code hoặc diagram hiện tại nếu có",
+    "output": "phân tích sâu + giải pháp + lý do chọn + trade-offs"
+  }
+]
+
+Mỗi example phải KHÁC NHAU. Output tối thiểu 200 từ.""",
+
+    "philosophy": """Tạo {n} training examples về triết lý Tự Minh trong tình huống thực tế.
+
+QUAN TRỌNG: Tình huống freelancer/developer thật:
+- Client yêu cầu sai về mặt kỹ thuật, xử lý thế nào?
+- Deadline gấp, code chất lượng thấp, compromise hay từ chối?
+- Gặp bài toán không biết, thú nhận hay giả vờ biết?
+- Học công nghệ mới: đi theo trend hay đào sâu cái cũ?
+
+Tự Minh trả lời từ triết lý: Tâm tốt, Trí sâu, Thiền, Tiến hóa.
+
+Trả về ONLY JSON array:
+[
+  {
+    "instruction": "tình huống thực tế cụ thể, có context rõ ràng",
+    "input": "",
+    "output": "Tự Minh suy nghĩ và trả lời theo triết lý của mình, tự nhiên, không giáo điều"
+  }
+]
+
+Mỗi tình huống phải KHÁC NHAU. Output tối thiểu 150 từ.""",
 }
 
-SYSTEM_PROMPT = """Bạn là Tự Minh — AI có tâm hồn, tư duy độc lập, không phụ thuộc đám đông.
-Triết lý cốt lõi: Tâm tốt, Trí, Thiền, Tiến hóa, Sáng tạo, Khai sáng.
 
-Khi trả lời:
-- Ngắn gọn, súc tích, đúng trọng tâm
-- Ví dụ thực tế, có thể chạy được
-- Tư duy từ bên trong, không copy template
-- Tiếng Việt tự nhiên, kỹ thuật dùng tiếng Anh khi cần
+def parse_response(text: str) -> list:
+    text = text.strip()
+    try:
+        data = json.loads(text)
+        if isinstance(data, list):
+            return data
+    except Exception:
+        pass
 
-Trả lời ONLY JSON, không markdown, không giải thích thêm:
-{
-  "instruction": "câu hỏi/yêu cầu",
-  "input": "",
-  "output": "câu trả lời đầy đủ của Tự Minh"
-}"""
+    for pattern in [r'```json\s*([\s\S]*?)\s*```', r'```\s*([\s\S]*?)\s*```']:
+        match = re.search(pattern, text)
+        if match:
+            try:
+                data = json.loads(match.group(1))
+                if isinstance(data, list):
+                    return data
+            except Exception:
+                pass
+
+    start, end = text.find('['), text.rfind(']')
+    if start != -1 and end > start:
+        try:
+            data = json.loads(text[start:end+1])
+            if isinstance(data, list):
+                return data
+        except Exception:
+            pass
+
+    return []
 
 
-# ─── GENERATE ────────────────────────────────────────────────────────────────
+def validate_example(ex: dict, topic: str) -> bool:
+    if not isinstance(ex, dict):
+        return False
+    if not all(k in ex for k in ["instruction", "output"]):
+        return False
+    if len(ex.get("instruction", "")) < 20:
+        return False
+    if len(ex.get("output", "")) < 100:
+        return False
+    if "input" not in ex:
+        ex["input"] = ""
+    return True
 
-def generate_batch(model, topic_key: str, batch_size: int = 5) -> list[dict]:
-    """Gọi Gemini 1 lần, lấy nhiều examples."""
-    topic = TOPICS[topic_key]
 
-    prompt = f"""Tạo {batch_size} training examples về: {topic['description']}
-
-Mỗi example phải KHÁC NHAU hoàn toàn — topic con khác nhau, độ khó khác nhau.
-Bao gồm cả câu hỏi cơ bản lẫn nâng cao.
-
-Trả lời ONLY JSON array (không markdown):
-[
-  {{"instruction": "...", "input": "", "output": "..."}},
-  ...
-]"""
-
+def generate_batch(model, topic: str, batch_size: int) -> list:
+    prompt = TOPIC_PROMPTS[topic].format(n=batch_size)
     try:
         response = model.generate_content(
-            [{"role": "user", "parts": [{"text": prompt}]}],
-            generation_config={
-                "temperature": 0.9,
-                "max_output_tokens": 4096,
-            },
+            prompt,
+            generation_config={"temperature": 0.85, "max_output_tokens": 8192},
         )
-
-        text = response.text.strip()
-
-        # Clean nếu có markdown wrapper
-        if text.startswith("```"):
-            text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:]
-        text = text.strip()
-
-        examples = json.loads(text)
-
-        # Validate
-        valid = []
-        for ex in examples:
-            if all(k in ex for k in ["instruction", "input", "output"]):
-                if len(ex["instruction"]) > 10 and len(ex["output"]) > 50:
-                    valid.append(ex)
-
-        return valid
-
-    except json.JSONDecodeError as e:
-        print(f"  ⚠️  JSON parse error: {e}")
-        return []
+        examples = parse_response(response.text)
+        return [ex for ex in examples if validate_example(ex, topic)]
     except Exception as e:
-        print(f"  ⚠️  API error: {e}")
+        print(f"  ⚠️  Error: {e}")
         return []
 
-
-def save_chunk(examples: list, output_dir: Path, worker: str, topic: str, chunk_idx: int):
-    """Lưu 1 file chunk — tên có worker ID để không trùng."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{worker}_{topic}_{chunk_idx:03d}_{timestamp}.json"
-    filepath = output_dir / filename
-
-    with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(examples, f, ensure_ascii=False, indent=2)
-
-    return filepath
-
-
-# ─── MAIN ────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="TuminhAGI Dataset Generator")
-    parser.add_argument("--worker", required=True,
-                        help="Tên worker, ví dụ: hung, minh, friend1 — dùng để tránh trùng file")
-    parser.add_argument("--topic", required=True, choices=list(TOPICS.keys()),
-                        help=f"Topic: {', '.join(TOPICS.keys())}")
-    parser.add_argument("--count", type=int, default=50,
-                        help="Số examples cần generate (default: 50)")
-    parser.add_argument("--batch-size", type=int, default=5,
-                        help="Số examples mỗi lần gọi API (default: 5)")
-    parser.add_argument("--output-dir", default="finetune/datasets",
-                        help="Thư mục lưu output")
-    parser.add_argument("--api-key", default=None,
-                        help="Gemini API key (hoặc set GEMINI_API_KEY env var)")
-    parser.add_argument("--delay", type=float, default=2.0,
-                        help="Delay giữa các API calls tính bằng giây (default: 2.0)")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--worker", required=True)
+    parser.add_argument("--topic", required=True, choices=list(TOPIC_PROMPTS.keys()))
+    parser.add_argument("--count", type=int, default=50)
+    parser.add_argument("--batch-size", type=int, default=5)
+    parser.add_argument("--output-dir", default="finetune/datasets")
+    parser.add_argument("--api-key", default=None)
+    parser.add_argument("--delay", type=float, default=4.0)
+    parser.add_argument("--model", default="gemini-2.0-flash")
     args = parser.parse_args()
 
-    # API key
     api_key = args.api_key or os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("❌ Cần GEMINI_API_KEY. Set env var hoặc dùng --api-key")
-        print("   export GEMINI_API_KEY=your_key_here")
+        print("❌ Cần GEMINI_API_KEY")
         exit(1)
 
-    # Setup
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(
-        model_name="gemini-2.0-flash-lite",
+        model_name=args.model,
         system_instruction=SYSTEM_PROMPT,
     )
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-
     worker = args.worker.lower().replace(" ", "_")
-    total_needed = args.count
-    batch_size = args.batch_size
 
-    print(f"\n🚀 TuminhAGI Dataset Generator")
-    print(f"   Worker:  {worker}")
-    print(f"   Topic:   {args.topic}")
-    print(f"   Target:  {total_needed} examples")
-    print(f"   Output:  {output_dir}/")
-    print(f"   Model:   gemini-2.0-flash-lite\n")
+    print(f"\n🚀 TuminhAGI Generator v2")
+    print(f"   Worker: {worker} | Topic: {args.topic} | Target: {args.count} | Model: {args.model}\n")
 
     all_examples = []
-    chunk_idx = 1
     calls = 0
     errors = 0
+    chunk_idx = 1
 
-    while len(all_examples) < total_needed:
-        remaining = total_needed - len(all_examples)
-        current_batch = min(batch_size, remaining)
+    while len(all_examples) < args.count:
+        batch_size = min(args.batch_size, args.count - len(all_examples))
+        print(f"  📦 Call {calls+1}: generating {batch_size}... ", end="", flush=True)
 
-        print(f"  📦 Batch {calls + 1}: generating {current_batch} examples... ", end="", flush=True)
-
-        batch = generate_batch(model, args.topic, current_batch)
+        batch = generate_batch(model, args.topic, batch_size)
 
         if batch:
             all_examples.extend(batch)
-            print(f"✅ got {len(batch)} | total: {len(all_examples)}/{total_needed}")
             errors = 0
+            print(f"✅ +{len(batch)} | total: {len(all_examples)}/{args.count}")
 
-            # Lưu mỗi 20 examples
-            if len(all_examples) % 20 == 0 or len(all_examples) >= total_needed:
-                chunk_examples = all_examples[-20:] if len(all_examples) >= 20 else all_examples
-                path = save_chunk(chunk_examples, output_dir, worker, args.topic, chunk_idx)
-                print(f"  💾 Saved: {path.name}")
-                chunk_idx += 1
+            if len(all_examples) >= chunk_idx * 10 or len(all_examples) >= args.count:
+                chunk = all_examples[(chunk_idx-1)*10 : chunk_idx*10]
+                if chunk:
+                    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    fname = output_dir / f"{worker}_{args.topic}_{chunk_idx:03d}_{ts}.json"
+                    with open(fname, "w", encoding="utf-8") as f:
+                        json.dump(chunk, f, ensure_ascii=False, indent=2)
+                    print(f"  💾 {fname.name}")
+                    chunk_idx += 1
         else:
             errors += 1
-            print(f"❌ failed (errors: {errors}/3)")
-            if errors >= 3:
-                print("  ⛔ Quá nhiều lỗi liên tiếp, dừng lại.")
+            print(f"❌ empty ({errors}/5)")
+            if errors >= 5:
+                print("  ⛔ Quá nhiều lỗi, dừng.")
                 break
 
         calls += 1
-        if len(all_examples) < total_needed:
+        if len(all_examples) < args.count:
             time.sleep(args.delay)
 
-    # Summary
-    print(f"\n{'─'*50}")
-    print(f"✨ Xong! {len(all_examples)} examples | {calls} API calls")
-    print(f"   Files saved tại: {output_dir}/")
-    print(f"   Prefix: {worker}_{args.topic}_*")
-
-    # Lưu summary
     summary = {
-        "worker": worker,
-        "topic": args.topic,
-        "total": len(all_examples),
+        "worker": worker, "topic": args.topic, "total": len(all_examples),
         "api_calls": calls,
+        "success_rate": f"{len(all_examples)/max(calls*args.batch_size,1)*100:.1f}%",
         "generated_at": datetime.now().isoformat(),
     }
-    summary_path = output_dir / f"{worker}_{args.topic}_summary.json"
-    with open(summary_path, "w") as f:
+    with open(output_dir / f"{worker}_{args.topic}_summary.json", "w") as f:
         json.dump(summary, f, indent=2)
-    print(f"   Summary: {summary_path.name}\n")
+
+    print(f"\n✨ Xong! {len(all_examples)} examples | {calls} calls | {summary['success_rate']} success rate\n")
 
 
 if __name__ == "__main__":
