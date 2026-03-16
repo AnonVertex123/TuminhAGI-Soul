@@ -68,7 +68,7 @@ def main():
         try:
             r = client.models.generate_content(
                 model=args.model, contents=prompt,
-                config=types.GenerateContentConfig(temperature=0.85, max_output_tokens=8192)
+                config=types.GenerateContentConfig(temperature=1.0, max_output_tokens=8192)
             )
             print(f"DEBUG RESPONSE: {r.text[:500]}")
             batch = [e for e in parse(r.text) if ok(e)]
