@@ -138,21 +138,22 @@ def search_repos_with_fallback(query: str, token: str = None) -> list:
 
 # ─── TURBO CRAWL LOGIC ───────────────────────────────────────────────────────
 
-def crawl_repo_turbo(owner: str, name: str, lang: str, token: str = None) -> list:
+def crawl_repo_turbo(owner: str, name: str, lang: str, branch: str = "main", token: str = None) -> list:
     repo_full = f"{owner}/{name}"
     all_examples = []
     ext = ".py" if lang == "python" else ".swift"
     
-    # Dùng Git Trees API với recursive=1
-    tree_url = f"https://api.github.com/repos/{repo_full}/git/trees/main?recursive=1"
+    # Dùng Git Trees API với recursive=1 và đúng branch mặc định
+    tree_url = f"https://api.github.com/repos/{repo_full}/git/trees/{branch}?recursive=1"
     data = github_request(tree_url, token)
     
     if not data or "tree" not in data:
-        # Thử lại với master
-        tree_url = tree_url.replace("main", "master")
-        data = github_request(tree_url, token)
+        # Thử lại với master nếu branch truyền vào thất bại (phòng hờ)
+        if branch != "master":
+            tree_url = tree_url.replace(f"/{branch}?", "/master?")
+            data = github_request(tree_url, token)
+        
         if not data or "tree" not in data:
-            print(f"   ⚠️  {repo_full}: Không lấy được tree (main/master)")
             return []
 
     # Lọc file code xịn
@@ -254,7 +255,10 @@ def process_repo(repo, lang, token, output_dir, target_count, worker_name):
         if total_collected >= target_count: return
 
     owner, name = repo["owner"]["login"], repo["name"]
-    examples = crawl_repo_turbo(owner, name, lang, token)
+    branch = repo.get("default_branch", "main")
+    
+    print(f"   🔍 Cào repo: {owner}/{name} (Branch: {branch})")
+    examples = crawl_repo_turbo(owner, name, lang, branch, token)
     
     new_found = []
     with lock:
