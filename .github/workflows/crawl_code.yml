@@ -1,10 +1,3 @@
-# .github/workflows/crawl_code.yml
-# TuminhAGI — Tự động cào code thật từ GitHub
-#
-# Setup:
-#   GitHub repo → Settings → Secrets → Actions → New secret:
-#   CRWL_TOKEN = GitHub Personal Access Token (PAT)
-
 name: Crawl Production Code
 
 on:
@@ -22,10 +15,13 @@ on:
 
 jobs:
   crawl:
-    name: "Crawl ${{ github.event.inputs.language || 'python' }}"
-    runs-on: ubuntu-latest
+    name: "Crawl ${{ github.event.inputs.language || 'swift' }}"
+    # THAY ĐỔI QUAN TRỌNG: Chạy trên RTX 3060 của Hùng Đại
+    runs-on: [self-hosted, tuminh-power]
+    
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
     steps:
       - uses: actions/checkout@v4
 
@@ -37,20 +33,19 @@ jobs:
       - name: Run Crawler
         env:
           GITHUB_TOKEN: ${{ secrets.CRWL_TOKEN }}
+        # Sử dụng bash của Git trên Windows (tự động nhận diện)
+        shell: bash
         run: |
           python github_crawler.py \
-            --language ${{ github.event.inputs.language || 'python' }} \
-            --count ${{ github.event.inputs.count || '50' }} \
+            --language ${{ github.event.inputs.language || 'swift' }} \
+            --count ${{ github.event.inputs.count || '200' }} \
             --worker github_bot
 
       - name: Commit & push
+        shell: bash
         run: |
           git config user.name "TuminhAGI Crawler"
           git config user.email "crawler@tuminh.ai"
-          git stash --include-untracked
-          git pull --rebase origin main
-          git stash pop || true
           git add finetune/datasets/
-          git diff --staged --quiet || git commit -m "🤖 [crawler] add real-world examples"
-          git push
-        shell: /usr/bin/bash -e {0}
+          # Chỉ commit nếu có file mới
+          git diff --staged --quiet || (git commit -m "🤖 [crawler] add real-world examples" && git push)

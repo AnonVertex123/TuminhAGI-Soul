@@ -1,112 +1,86 @@
-"""
-TuminhAGI — Merge Datasets
-Gom tất cả files từ nhiều workers thành 1 file training cuối cùng.
-
-Cách dùng:
-  python merge_datasets.py
-  python merge_datasets.py --output final_train.json --shuffle
-"""
-
+import os
 import json
-import argparse
+import hashlib
 import random
-from pathlib import Path
-from collections import defaultdict
 
+def get_hash(text):
+    return hashlib.sha256(text.encode('utf-8')).hexdigest()
 
-def merge(input_dir: str = "finetune/datasets",
-          output_file: str = "finetune/datasets/FINAL_train.json",
-          shuffle: bool = True,
-          dedupe: bool = True):
-
-    input_path = Path(input_dir)
-    files = sorted(input_path.glob("*.json"))
-
-    # Bỏ qua summary files và file FINAL
-    data_files = [f for f in files
-                  if "summary" not in f.name and "FINAL" not in f.name]
-
-    if not data_files:
-        print(f"❌ Không tìm thấy file nào trong {input_dir}/")
-        return
-
-    print(f"\n📂 Tìm thấy {len(data_files)} files\n")
-
+def merge_datasets(directory, output_file):
+    prefixes = ['hung_python', 'github_python', 'hung_sql', 'hung_architecture', 'hung_philosophy']
     all_examples = []
-    stats = defaultdict(lambda: defaultdict(int))  # stats[worker][topic]
-
-    for f in data_files:
+    seen_hashes = set()
+    stats = {p: 0 for p in prefixes}
+    stats['total_raw'] = 0
+    stats['duplicates'] = 0
+    stats['invalid'] = 0
+    
+    print(f"Scanning directory: {directory}")
+    
+    for filename in os.listdir(directory):
+        if not filename.endswith('.json') or filename.endswith('_summary.json'):
+            continue
+            
+        matched_prefix = next((p for p in prefixes if filename.startswith(p)), None)
+        if not matched_prefix:
+            continue
+            
+        path = os.path.join(directory, filename)
         try:
-            with open(f, encoding="utf-8") as fp:
-                data = json.load(fp)
-
-            if isinstance(data, list):
-                # Parse worker + topic từ tên file: hung_swift_001_....json
-                parts = f.stem.split("_")
-                worker = parts[0] if len(parts) > 0 else "unknown"
-                topic = parts[1] if len(parts) > 1 else "unknown"
-
-                all_examples.extend(data)
-                stats[worker][topic] += len(data)
-                print(f"  ✅ {f.name}: {len(data)} examples")
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if not isinstance(data, list):
+                    data = [data]
+                
+                for item in data:
+                    stats['total_raw'] += 1
+                    
+                    # Validation
+                    instruction = item.get('instruction', '').strip()
+                    input_text = item.get('input', '').strip()
+                    output_text = item.get('output', '').strip()
+                    
+                    if not instruction or not output_text:
+                        stats['invalid'] += 1
+                        continue
+                        
+                    # Deduplication (using SHA-256 on input field, or instruction+input if input is often empty)
+                    # Requirement says 'input' field, but let's be safe and use both if needed.
+                    # Following literal requirement: input field hash.
+                    input_hash = get_hash(input_text if input_text else instruction)
+                    
+                    if input_hash in seen_hashes:
+                        stats['duplicates'] += 1
+                        continue
+                    
+                    seen_hashes.add(input_hash)
+                    all_examples.append(item)
+                    stats[matched_prefix] += 1
+                    
         except Exception as e:
-            print(f"  ⚠️  {f.name}: lỗi — {e}")
-
-    print(f"\n📊 Tổng cộng: {len(all_examples)} examples trước dedupe\n")
-
-    # Deduplicate theo instruction
-    if dedupe:
-        seen = set()
-        unique = []
-        dupes = 0
-        for ex in all_examples:
-            key = ex.get("instruction", "").strip().lower()[:100]
-            if key not in seen:
-                seen.add(key)
-                unique.append(ex)
-            else:
-                dupes += 1
-        print(f"🔍 Dedupe: xóa {dupes} trùng → còn {len(unique)} examples")
-        all_examples = unique
+            print(f"Error reading {filename}: {e}")
 
     # Shuffle
-    if shuffle:
-        random.shuffle(all_examples)
-        print(f"🔀 Shuffled")
-
-    # Lưu
-    output_path = Path(output_file)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(all_examples, f, ensure_ascii=False, indent=2)
-
-    print(f"\n💾 Saved: {output_path}")
-    print(f"   Total examples: {len(all_examples)}")
-
-    # In stats theo worker
-    print(f"\n{'─'*40}")
-    print("📈 Stats theo worker:")
-    for worker, topics in stats.items():
-        total = sum(topics.values())
-        breakdown = ", ".join(f"{t}: {n}" for t, n in topics.items())
-        print(f"  {worker:10} {total:4} examples  ({breakdown})")
-
-    print(f"\n✨ FINAL_train.json sẵn sàng để fine-tune!\n")
-
-    return len(all_examples)
-
+    print(f"Merging {len(all_examples)} unique examples...")
+    random.seed(42)
+    random.shuffle(all_examples)
+    
+    # Export to JSONL
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for item in all_examples:
+            f.write(json.dumps(item, ensure_ascii=False) + '\n')
+            
+    print("\n--- Merge Summary ---")
+    print(f"Total Raw Examples: {stats['total_raw']}")
+    print(f"Duplicates Removed: {stats['duplicates']}")
+    print(f"Invalid Examples Skipped: {stats['invalid']}")
+    print(f"Total Unique Examples: {len(all_examples)}")
+    print("\nBreakdown by Category:")
+    for p in prefixes:
+        print(f"- {p}: {stats[p]}")
+    print(f"Output saved to: {output_file}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", default="finetune/datasets")
-    parser.add_argument("--output", default="finetune/datasets/FINAL_train.json")
-    parser.add_argument("--shuffle", action="store_true", default=True)
-    parser.add_argument("--no-dedupe", action="store_true")
-    args = parser.parse_args()
-
-    merge(
-        input_dir=args.input_dir,
-        output_file=args.output,
-        shuffle=args.shuffle,
-        dedupe=not args.no_dedupe,
-    )
+    dataset_dir = r"i:\TuminhAgi\finetune\datasets"
+    output_path = os.path.join(dataset_dir, "tuminh_agi_v1_train.jsonl")
+    merge_datasets(dataset_dir, output_path)
