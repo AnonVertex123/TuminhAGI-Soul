@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Thiết kế hệ thống rút gọn URL (URL Shortener)",
+    "input": "",
+    "output": "Sử dụng cơ sở dữ liệu key-value (Redis, Memcached) để lưu trữ ánh xạ giữa URL gốc và URL rút gọn.  Thuật toán băm (MD5, SHA-256) hoặc base62 encoding để tạo URL rút gọn.  Cân nhắc sử dụng bộ đếm để tránh xung đột.  Cache để tăng tốc độ truy cập.  Phân tán hệ thống để đảm bảo khả năng mở rộng và chịu lỗi. Lý do: Đơn giản, nhanh chóng, dễ mở rộng, phù hợp với yêu cầu truy cập đọc nhiều."
+  },
+  {
+    "instruction": "Thiết kế hệ thống gợi ý bạn bè (Friend Suggestion System)",
+    "input": "",
+    "output": "Sử dụng đồ thị để biểu diễn mối quan hệ giữa người dùng.  Thuật toán tìm kiếm bạn chung (Common Friends).  Thuật toán PageRank hoặc các thuật toán tương tự để đánh giá mức độ liên quan.  Sử dụng cache để lưu trữ kết quả gợi ý.  Cập nhật đồ thị theo thời gian thực hoặc theo lô. Lý do: Hiệu quả trong việc tìm kiếm các kết nối tiềm năng dựa trên mạng lưới hiện có."
+  },
+  {
+    "instruction": "Thiết kế hệ thống lưu trữ và phân phối ảnh (Image Storage and Distribution System)",
+    "input": "",
+    "output": "Sử dụng Object Storage (Amazon S3, Google Cloud Storage) để lưu trữ ảnh.  CDN (Content Delivery Network) để phân phối ảnh đến người dùng gần nhất.  Thumbnail generation để giảm tải cho băng thông.  Metadata storage (database) để lưu trữ thông tin về ảnh.  Caching để giảm độ trễ. Lý do: Khả năng mở rộng cao, chi phí thấp, hiệu suất tốt, phù hợp với lưu trữ lượng lớn dữ liệu không cấu trúc."
+  },
+  {
+    "instruction": "Thiết kế hệ thống chat thời gian thực (Real-time Chat System)",
+    "input": "",
+    "output": "Sử dụng WebSockets để thiết lập kết nối liên tục giữa client và server.  Message broker (RabbitMQ, Kafka) để xử lý và phân phối tin nhắn.  Database (MongoDB, Cassandra) để lưu trữ lịch sử chat.  Load balancing để phân phối tải.  Phân tán hệ thống để đảm bảo khả năng mở rộng. Lý do: Đảm bảo độ trễ thấp, khả năng mở rộng cao, và khả năng xử lý đồng thời nhiều kết nối."
+  },
+  {
+    "instruction": "Thiết kế hệ thống theo dõi thống kê (Analytics Tracking System)",
+    "input": "",
+    "output": "Sử dụng message queue (Kafka, RabbitMQ) để thu thập dữ liệu từ nhiều nguồn.  Data pipeline (Spark, Flink) để xử lý và biến đổi dữ liệu.  Data warehouse (Snowflake, BigQuery) để lưu trữ dữ liệu.  OLAP database (ClickHouse) để truy vấn và phân tích dữ liệu.  Dashboarding tools (Tableau, Grafana) để trực quan hóa dữ liệu. Lý do: Khả năng xử lý lượng lớn dữ liệu, khả năng phân tích dữ liệu phức tạp, và khả năng trực quan hóa dữ liệu dễ dàng."
+  },
+  {
+    "instruction": "Thiết kế hệ thống rút gọn URL (URL Shortener)",
+    "input": "",
+    "output": "Sử dụng cơ sở dữ liệu key-value (Redis, Memcached) để lưu trữ ánh xạ giữa URL gốc và URL rút gọn.  Thuật toán băm (MD5, SHA-256) hoặc base62 encoding để tạo URL rút gọn.  Cân nhắc sử dụng bộ đếm để tránh xung đột.  Cache để tăng tốc độ truy cập.  Phân tán hệ thống để đảm bảo khả năng mở rộng và chịu lỗi. Lý do: Đơn giản, nhanh chóng, dễ mở rộng, phù hợp với yêu cầu truy cập đọc nhiều."
+  },
+  {
+    "instruction": "Thiết kế hệ thống gợi ý bạn bè (Friend Suggestion System)",
+    "input": "",
+    "output": "Sử dụng đồ thị để biểu diễn mối quan hệ giữa người dùng.  Thuật toán tìm kiếm bạn chung (Common Friends).  Thuật toán PageRank hoặc các thuật toán tương tự để đánh giá mức độ liên quan.  Sử dụng cache để lưu trữ kết quả gợi ý.  Cập nhật đồ thị theo thời gian thực hoặc theo lô. Lý do: Hiệu quả trong việc tìm kiếm các kết nối tiềm năng dựa trên mạng lưới hiện có."
+  },
+  {
+    "instruction": "Thiết kế hệ thống lưu trữ và phân phối ảnh (Image Storage and Distribution System)",
+    "input": "",
+    "output": "Sử dụng Object Storage (Amazon S3, Google Cloud Storage) để lưu trữ ảnh.  CDN (Content Delivery Network) để phân phối ảnh đến người dùng gần nhất.  Thumbnail generation để giảm tải cho băng thông.  Metadata storage (database) để lưu trữ thông tin về ảnh.  Caching để giảm độ trễ. Lý do: Khả năng mở rộng cao, chi phí thấp, hiệu suất tốt."
+  },
+  {
+    "instruction": "Thiết kế hệ thống chat thời gian thực (Real-time Chat System)",
+    "input": "",
+    "output": "Sử dụng WebSockets để duy trì kết nối liên tục giữa client và server.  Message broker (RabbitMQ, Kafka) để xử lý và phân phối tin nhắn.  Database (MongoDB, Cassandra) để lưu trữ lịch sử chat.  Load balancing để phân phối tải.  Phân vùng dữ liệu để cải thiện khả năng mở rộng. Lý do: Đảm bảo độ trễ thấp, khả năng mở rộng cao, và độ tin cậy."
+  },
+  {
+    "instruction": "Thiết kế hệ thống thu thập và phân tích log (Log Aggregation and Analysis System)",
+    "input": "",
+    "output": "Sử dụng Log shippers (Fluentd, Logstash) để thu thập log từ nhiều nguồn.  Message queue (Kafka) để lưu trữ tạm thời log.  Log storage (Elasticsearch) để lưu trữ và tìm kiếm log.  Data visualization (Kibana) để phân tích và trực quan hóa log.  Alerting system để thông báo khi có sự cố. Lý do: Tập trung hóa log, dễ dàng tìm kiếm và phân tích, phát hiện sự cố nhanh chóng."
+  }
+]
