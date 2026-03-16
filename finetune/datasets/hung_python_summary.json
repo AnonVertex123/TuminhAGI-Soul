@@ -1,8 +1,9 @@
 {
   "worker": "hung",
   "topic": "python",
-  "total": 100,
-  "api_calls": 20,
-  "success_rate": "100.0%",
-  "generated_at": "2026-03-16T04:00:27.040829"
+  "total_unique": 51,
+  "api_calls": 14,
+  "dupes_skipped": 14,
+  "unique_rate": "78.5%",
+  "generated_at": "2026-03-16T04:39:19.981015"
 }
