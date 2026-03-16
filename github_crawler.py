@@ -74,6 +74,9 @@ def github_request(url: str, token: str = None, params: dict = None) -> dict:
 
     try:
         response = requests.get(url, headers=headers, params=params, timeout=15)
+        if response.status_code != 200:
+            print(f"❌ Lỗi GitHub API ({response.status_code}): {response.text}")
+            
         if response.status_code == 200:
             return response.json()
         elif response.status_code == 403:
@@ -97,6 +100,9 @@ def search_repos(query: str, token: str = None, per_page: int = 15) -> list:
 
     try:
         response = requests.get(url, headers=headers, params=params, timeout=15)
+        if response.status_code != 200:
+            print(f"❌ Lỗi GitHub API ({response.status_code}): {response.text}")
+
         if response.status_code == 200:
             data = response.json()
             return data.get("items", [])
