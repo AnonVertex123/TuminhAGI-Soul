@@ -210,25 +210,35 @@ def extract_swift(code: str) -> list:
     current_block = []
     brace_count = 0
     in_block = False
+    has_seen_open_brace = False
     
     for line in lines:
         stripped = line.strip()
         if not stripped: continue
-        if stripped.startswith("//"): continue # Bỏ qua comment
+        if stripped.startswith("//") and not stripped.startswith("///"): continue
         
         if not in_block:
             # Tìm điểm bắt đầu của một block có giá trị
             if any(k in stripped for k in ["struct ", "class ", "func ", "extension ", "enum ", "protocol "]):
                 in_block = True
+                has_seen_open_brace = "{" in stripped
                 current_block = [line]
                 brace_count = stripped.count("{") - stripped.count("}")
+                
+                # Trường hợp block 1 dòng: func x() {}
+                if has_seen_open_brace and brace_count <= 0:
+                    if QUALITY_FILTERS["min_function_lines"] <= len(current_block) <= QUALITY_FILTERS["max_function_lines"]:
+                        blocks.append({"name": "one_liner", "code": line, "docstring": "Swift snippet."})
+                    in_block = False
+                    current_block = []
             continue
         
         current_block.append(line)
+        if "{" in stripped: has_seen_open_brace = True
         brace_count += stripped.count("{") - stripped.count("}")
         
-        # Nếu brace_count quay về 0 (hoặc nhỏ hơn), block đã kết thúc
-        if brace_count <= 0 and in_block:
+        # Chỉ kết thúc nếu đã từng thấy dấu { và brace_count quay về 0
+        if in_block and has_seen_open_brace and brace_count <= 0:
             if QUALITY_FILTERS["min_function_lines"] <= len(current_block) <= QUALITY_FILTERS["max_function_lines"]:
                 name_match = re.search(r'(func|struct|class|enum|extension|protocol)\s+(\w+)', current_block[0])
                 name = name_match.group(2) if name_match else "unknown"
@@ -240,6 +250,7 @@ def extract_swift(code: str) -> list:
             in_block = False
             current_block = []
             brace_count = 0
+            has_seen_open_brace = False
             
     return blocks
 
