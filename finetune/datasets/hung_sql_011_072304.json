@@ -1,0 +1,12 @@
+[
+  {
+    "instruction": "Bảng SalesData (Region, Product, Sales). Chuyển đổi dữ liệu từ dạng dài sang dạng rộng, với các cột Region, Product1, Product2, Product3,... tương ứng với các sản phẩm khác nhau.",
+    "input": "SELECT Region, Product, Sales FROM SalesData;",
+    "output": "```sql\n-- PostgreSQL\nSELECT\n    Region,\n    MAX(CASE WHEN Product = 'Product1' THEN Sales END) AS Product1,\n    MAX(CASE WHEN Product = 'Product2' THEN Sales END) AS Product2,\n    MAX(CASE WHEN Product = 'Product3' THEN Sales END) AS Product3\nFROM\n    SalesData\nGROUP BY\n    Region;\n\n-- MySQL (sử dụng conditional aggregation)\nSELECT\n    Region,\n    SUM(CASE WHEN Product = 'Product1' THEN Sales ELSE 0 END) AS Product1,\n    SUM(CASE WHEN Product = 'Product2' THEN Sales ELSE 0 END) AS Product2,\n    SUM(CASE WHEN Product = 'Product3' THEN Sales ELSE 0 END) AS Product3\nFROM\n    SalesData\nGROUP BY\n    Region;\n```\n\n**Execution Plan (ví dụ):**\n```\nHashAggregate (cost=...) \n  -> Seq Scan on salesdata (cost=...)\n```\n\n**Giải thích:**\nCâu truy vấn này sử dụng conditional aggregation (CASE WHEN) để chuyển đổi dữ liệu từ dạng dài sang dạng rộng.  Đối với mỗi Region, nó tính tổng Sales cho mỗi Product.  Execution plan cho thấy một HashAggregate được sử dụng để nhóm dữ liệu theo Region và tính toán các giá trị tổng hợp.  Số lượng cột Product trong câu truy vấn phụ thuộc vào số lượng sản phẩm khác nhau trong bảng SalesData."
+  },
+  {
+    "instruction": "Bảng Logs (LogID, Timestamp, Message, Details JSONB).  Truy xuất tất cả các log có mức độ nghiêm trọng là 'error' từ trường Details JSONB.",
+    "input": "SELECT * FROM Logs;",
+    "output": "```sql\n-- PostgreSQL\nSELECT * FROM Logs WHERE Details ->> 'severity' = 'error';\n\n-- MySQL (sử dụng JSON_EXTRACT)\nSELECT * FROM Logs WHERE JSON_EXTRACT(Details, '$.severity') = 'error';\n```\n\n**Execution Plan (ví dụ):**\n```\nSeq Scan on logs (cost=...) \n  Filter: (details ->> 'severity' = 'error')\n```\n\n**Giải thích:**\nCâu truy vấn này sử dụng các hàm JSONB (PostgreSQL) hoặc JSON_EXTRACT (MySQL) để truy xuất giá trị của trường 'severity' từ cột Details JSONB.  Sau đó, nó so sánh giá trị này với 'error' để lọc ra các log có mức độ nghiêm trọng là 'error'. Execution plan cho thấy một Seq Scan trên bảng Logs với một Filter áp dụng để lọc các bản ghi dựa trên giá trị trong trường JSONB. Việc tạo index trên trường 'severity' trong JSONB có thể cải thiện hiệu suất truy vấn."
+  }
+]
