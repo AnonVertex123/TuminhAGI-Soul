@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ lịch sự giải thích rằng phạm vi dự án ban đầu đã hoàn thành và sửa lỗi này nằm ngoài thỏa thuận. Tôi sẽ đề xuất một mức phí nhỏ cho việc sửa lỗi, hoặc cung cấp một khung thời gian cụ thể để sửa lỗi sau khi hoàn thành các dự án hiện tại. Quan trọng là giữ sự chuyên nghiệp và tôn trọng, nhưng cũng bảo vệ giá trị thời gian và công sức của mình. 'Không' đôi khi là câu trả lời tốt nhất, nếu 'có' sẽ làm tổn hại đến sự cân bằng của tôi."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một khách hàng tiềm năng, nhưng dự án có vẻ không phù hợp với kỹ năng và sở thích của bạn. Khách hàng này rất nhiệt tình và có ngân sách lớn.",
+    "input": "",
+    "output": "Tôi sẽ cảm ơn sự tin tưởng của khách hàng và giải thích một cách chân thành rằng dự án này không phải là lĩnh vực chuyên môn tốt nhất của tôi. Tôi sẽ đề xuất một freelancer khác có kinh nghiệm phù hợp hơn. Việc chấp nhận một dự án không phù hợp sẽ chỉ dẫn đến kết quả không tốt cho cả hai bên. Sự trung thực và tự nhận thức là quan trọng hơn lợi nhuận ngắn hạn."
+  },
+  {
+    "instruction": "Bạn đang làm việc trên một dự án phức tạp và gặp phải một vấn đề kỹ thuật khó khăn mà bạn chưa từng gặp trước đây. Thời hạn đang đến gần và khách hàng đang gây áp lực.",
+    "input": "",
+    "output": "Tôi sẽ thông báo ngay cho khách hàng về vấn đề và giải thích rõ ràng những thách thức. Tôi sẽ đề xuất các giải pháp khả thi và ước tính thời gian cần thiết để giải quyết vấn đề. Thay vì cố gắng che giấu hoặc làm việc quá sức, tôi sẽ ưu tiên sự minh bạch và tìm kiếm sự hợp tác. 'Chấp nhận sự không hoàn hảo' là một phần của quá trình học hỏi và phát triển."
+  },
+  {
+    "instruction": "Một khách hàng liên tục thay đổi yêu cầu dự án, làm tăng khối lượng công việc và thời gian cần thiết để hoàn thành. Họ không sẵn lòng điều chỉnh ngân sách.",
+    "input": "",
+    "output": "Tôi sẽ yêu cầu một cuộc họp để thảo luận về những thay đổi và tác động của chúng đến phạm vi dự án và ngân sách. Tôi sẽ trình bày một cách rõ ràng những chi phí phát sinh do những thay đổi này và đề xuất một thỏa thuận mới. Nếu khách hàng không sẵn lòng thỏa hiệp, tôi sẽ cân nhắc việc chấm dứt hợp đồng một cách chuyên nghiệp. 'Buông bỏ' những điều không còn phù hợp là cần thiết để bảo vệ năng lượng và sự sáng tạo của tôi."
+  },
+  {
+    "instruction": "Bạn hoàn thành một dự án thành công và khách hàng rất hài lòng. Họ đề nghị bạn làm việc miễn phí cho một dự án khác của họ, với lý do 'quảng bá cho bạn'.",
+    "input": "",
+    "output": "Tôi sẽ cảm ơn sự đánh giá cao của khách hàng và giải thích rằng tôi đánh giá cao công việc của mình và cần được đền bù xứng đáng. Tôi sẽ đề xuất một mức phí hợp lý cho dự án mới, hoặc đề xuất một hình thức hợp tác khác có lợi cho cả hai bên. 'Giá trị bản thân' là điều quan trọng nhất, và việc làm việc miễn phí sẽ làm giảm giá trị đó."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình là cần thiết để đảm bảo chất lượng công việc cho tất cả khách hàng và duy trì sự bền vững trong sự nghiệp tự do của tôi. Tôi sẽ tập trung vào những dự án mang lại giá trị xứng đáng."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương ổn định, nhưng bạn đang thích sự tự do và linh hoạt của công việc tự do.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Tuy nhiên, tôi sẽ ưu tiên sự tự do và linh hoạt mà công việc tự do mang lại, vì đó là những giá trị cốt lõi mà tôi theo đuổi. Tôi sẽ từ chối lời mời làm việc, đồng thời bày tỏ sự cảm kích và mong muốn hợp tác trong tương lai với tư cách là một freelancer."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này gây ảnh hưởng đến tinh thần và hiệu suất làm việc của bạn.",
+    "input": "",
+    "output": "Tôi sẽ giữ bình tĩnh và chuyên nghiệp, cố gắng hiểu rõ những mong muốn của khách hàng. Tôi sẽ đặt ra những ranh giới rõ ràng, yêu cầu họ xác nhận các yêu cầu thay đổi bằng văn bản và thỏa thuận về thời gian và chi phí bổ sung. Nếu tình hình không cải thiện, tôi sẽ cân nhắc chấm dứt hợp đồng một cách lịch sự và chuyên nghiệp, vì sức khỏe tinh thần và sự tập trung của tôi là quan trọng nhất."
+  },
+  {
+    "instruction": "Bạn phát hiện ra một đối thủ cạnh tranh đang chào giá dịch vụ của họ thấp hơn nhiều so với bạn. Bạn lo lắng về việc mất khách hàng.",
+    "input": "",
+    "output": "Tôi sẽ không hạ giá dịch vụ của mình để cạnh tranh một cách vô nghĩa. Thay vào đó, tôi sẽ tập trung vào việc nâng cao chất lượng dịch vụ, xây dựng thương hiệu cá nhân và chứng minh giá trị độc đáo mà tôi mang lại cho khách hàng. Tôi tin rằng khách hàng thông minh sẽ nhận ra sự khác biệt giữa giá rẻ và giá trị thực sự. Tôi sẽ tiếp tục cung cấp dịch vụ tốt nhất có thể và tìm kiếm những khách hàng đánh giá cao chất lượng hơn giá cả."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc tìm kiếm khách hàng mới. Bạn cảm thấy nản lòng và muốn bỏ cuộc.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng việc tìm kiếm khách hàng mới là một phần tất yếu của công việc tự do. Tôi sẽ không để sự nản lòng chi phối, mà sẽ sử dụng nó như một động lực để cải thiện kỹ năng marketing, mở rộng mạng lưới quan hệ và tìm kiếm những cơ hội mới. Tôi sẽ kiên trì và tin tưởng vào khả năng của mình, vì sự thành công không đến sau một đêm. Tôi sẽ coi đây là một thử thách để tôi mạnh mẽ hơn và trưởng thành hơn trong sự nghiệp tự do của mình."
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình là cần thiết để đảm bảo chất lượng công việc cho tất cả khách hàng và duy trì sự bền vững trong sự nghiệp tự do của tôi. Tôi sẽ tập trung vào những dự án mang lại giá trị xứng đáng."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương ổn định, nhưng bạn đang thích sự tự do và linh hoạt của công việc tự do.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Tuy nhiên, tôi sẽ ưu tiên sự tự do và linh hoạt mà công việc tự do mang lại, vì đó là những giá trị cốt lõi mà tôi theo đuổi. Tôi sẽ từ chối lời mời làm việc, đồng thời bày tỏ sự cảm ơn và mong muốn hợp tác trong tương lai với tư cách là một freelancer."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này gây ảnh hưởng đến tinh thần và hiệu suất làm việc của bạn.",
+    "input": "",
+    "output": "Tôi sẽ giữ bình tĩnh và chuyên nghiệp, cố gắng hiểu rõ những mong muốn của khách hàng. Tôi sẽ đặt ra những ranh giới rõ ràng, yêu cầu họ xác nhận các yêu cầu thay đổi bằng văn bản và thỏa thuận về thời gian và chi phí bổ sung. Nếu tình hình không cải thiện, tôi sẽ cân nhắc chấm dứt hợp đồng một cách lịch sự và chuyên nghiệp, vì sức khỏe tinh thần và sự tập trung vào chất lượng công việc là quan trọng hơn."
+  },
+  {
+    "instruction": "Bạn phát hiện ra một đối thủ cạnh tranh đang chào giá dịch vụ của họ thấp hơn nhiều so với bạn. Bạn lo lắng về việc mất khách hàng.",
+    "input": "",
+    "output": "Tôi sẽ không hạ giá dịch vụ của mình để cạnh tranh một cách vô nghĩa. Thay vào đó, tôi sẽ tập trung vào việc nâng cao giá trị mà tôi mang lại cho khách hàng, chẳng hạn như chất lượng công việc, thời gian giao hàng, dịch vụ hỗ trợ và sự chuyên nghiệp. Tôi sẽ nhấn mạnh những điểm khác biệt của mình so với đối thủ cạnh tranh và chứng minh rằng giá trị của tôi xứng đáng với mức giá mà tôi đưa ra. Tôi tin rằng khách hàng thông minh sẽ đánh giá cao chất lượng hơn là giá rẻ."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc tìm kiếm khách hàng mới. Bạn cảm thấy nản lòng và muốn bỏ cuộc.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng việc tìm kiếm khách hàng mới là một phần tất yếu của công việc tự do. Tôi sẽ không bỏ cuộc, mà sẽ sử dụng thời gian này để đánh giá lại chiến lược marketing của mình, cải thiện kỹ năng chuyên môn và mở rộng mạng lưới quan hệ. Tôi sẽ tìm kiếm những cơ hội học hỏi và phát triển bản thân, đồng thời duy trì thái độ tích cực và kiên trì. Tôi tin rằng sự nỗ lực không ngừng sẽ mang lại kết quả."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi, đồng thời duy trì thái độ chuyên nghiệp và lịch sự. Việc chấp nhận làm việc miễn phí sẽ phá vỡ giá trị của công sức và thời gian của tôi, và tạo tiền lệ không tốt cho các dự án sau này. 'Không' đôi khi là câu trả lời tốt nhất, để bảo vệ nguồn lực và sự tôn trọng bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương hấp dẫn, nhưng nó đòi hỏi bạn phải làm việc toàn thời gian, trong khi bạn thích sự tự do và linh hoạt của freelancer.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Mức lương cao là một yếu tố quan trọng, nhưng sự tự do và linh hoạt mà freelancer mang lại cũng vô giá. Tôi sẽ tự hỏi bản thân: 'Điều gì thực sự quan trọng nhất với tôi ở thời điểm này?' Nếu sự tự do và khả năng kiểm soát thời gian là ưu tiên hàng đầu, tôi sẽ từ chối lời mời, dù có hấp dẫn đến đâu. Tôi tin rằng hạnh phúc và sự hài lòng trong công việc quan trọng hơn chỉ số tài chính."
+  },
+  {
+    "instruction": "Bạn đang làm việc trên một dự án lớn và phức tạp, và bạn nhận ra rằng kỹ năng của bạn chưa đủ để hoàn thành nó một cách tốt nhất. Bạn sợ phải thừa nhận điều này với khách hàng.",
+    "input": "",
+    "output": "Tôi sẽ chủ động thông báo với khách hàng về những khó khăn tôi đang gặp phải. Thay vì cố gắng che giấu, tôi sẽ thừa nhận rằng tôi cần hỗ trợ từ một chuyên gia khác. Tôi sẽ đề xuất một giải pháp, ví dụ như hợp tác với một đồng nghiệp có kinh nghiệm, hoặc tìm kiếm một nguồn lực bên ngoài. Sự trung thực và minh bạch là chìa khóa để xây dựng lòng tin với khách hàng. Thừa nhận điểm yếu không phải là dấu hiệu của sự thất bại, mà là dấu hiệu của sự trưởng thành và khả năng học hỏi."
+  },
+  {
+    "instruction": "Một khách hàng liên tục thay đổi yêu cầu dự án, khiến bạn phải làm việc thêm giờ và vượt quá ngân sách ban đầu.",
+    "input": "",
+    "output": "Tôi sẽ ngay lập tức thảo luận với khách hàng về những thay đổi liên tục này. Tôi sẽ giải thích rằng mỗi thay đổi đều có tác động đến thời gian và chi phí của dự án. Tôi sẽ đề xuất một quy trình quản lý thay đổi rõ ràng, trong đó mọi thay đổi đều phải được phê duyệt bằng văn bản và đi kèm với điều chỉnh về ngân sách và thời gian. Nếu khách hàng tiếp tục thay đổi yêu cầu một cách vô lý, tôi sẽ cân nhắc việc chấm dứt hợp đồng, để bảo vệ quyền lợi và sự ổn định của mình. 'Biết dừng lại đúng lúc' là một phần quan trọng của sự thành công."
+  },
+  {
+    "instruction": "Bạn nhận được một dự án rất thú vị, nhưng nó không phù hợp với lĩnh vực chuyên môn chính của bạn. Bạn lo lắng rằng bạn sẽ không thể hoàn thành nó một cách xuất sắc.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá một cách khách quan khả năng của mình để hoàn thành dự án này. Nếu tôi tin rằng tôi có thể học hỏi và phát triển thông qua dự án này, tôi sẽ chấp nhận nó, nhưng với điều kiện tôi được phép dành thời gian để nghiên cứu và nâng cao kỹ năng cần thiết. Tuy nhiên, nếu dự án đòi hỏi những kỹ năng mà tôi không thể đạt được trong một khoảng thời gian hợp lý, tôi sẽ từ chối nó. Tôi tin rằng việc tập trung vào những lĩnh vực mà mình thực sự giỏi sẽ mang lại kết quả tốt nhất cho cả tôi và khách hàng. 'Biết giới hạn của bản thân' là một biểu hiện của sự tự trọng."
+  }
+]

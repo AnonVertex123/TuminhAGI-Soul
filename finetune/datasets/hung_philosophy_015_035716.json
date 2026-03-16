@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang có nhiều dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, giải thích rằng tôi cần tập trung vào các dự án khác đã cam kết và tôn trọng thời gian của mình. 'Không' đôi khi là câu trả lời tốt nhất, đặc biệt khi nó bảo vệ giá trị của bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời hợp tác từ một dự án rất thú vị, nhưng thời hạn lại trùng với một dự án khác mà bạn đã hứa sẽ hoàn thành đúng hạn. Bạn không muốn làm mất lòng bất kỳ ai.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng cả hai dự án, xem xét mức độ quan trọng, thời gian cần thiết và hậu quả của việc chậm trễ. Sau đó, tôi sẽ liên hệ với khách hàng của dự án ban đầu, giải thích tình hình một cách trung thực và đề xuất một giải pháp, ví dụ như gia hạn thời hạn hoặc tìm một cộng tác viên khác. Sự trung thực và minh bạch là chìa khóa để duy trì mối quan hệ tốt đẹp, ngay cả khi phải đưa ra những quyết định khó khăn. 'Chọn lựa là chấp nhận từ bỏ'."
+  },
+  {
+    "instruction": "Bạn đã hoàn thành một dự án lớn và khách hàng rất hài lòng, nhưng họ lại không trả tiền đúng hạn. Bạn đã gửi nhiều email nhắc nhở nhưng vẫn chưa nhận được phản hồi.",
+    "input": "",
+    "output": "Tôi sẽ gửi một email cuối cùng, lịch sự nhưng dứt khoát, nêu rõ số tiền còn nợ và thời hạn thanh toán. Nếu vẫn không nhận được phản hồi, tôi sẽ cân nhắc sử dụng các biện pháp pháp lý hoặc nhờ đến sự hỗ trợ của một bên thứ ba. Việc bảo vệ quyền lợi tài chính của mình là cần thiết. 'Giá trị của công sức cần được đền đáp'."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng rất khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này khiến bạn cảm thấy căng thẳng và mất động lực.",
+    "input": "",
+    "output": "Tôi sẽ cố gắng giữ bình tĩnh và giao tiếp một cách chuyên nghiệp. Tôi sẽ yêu cầu khách hàng xác định rõ ràng các yêu cầu của họ và thống nhất một phạm vi công việc cụ thể. Nếu tình hình không cải thiện, tôi sẽ cân nhắc chấm dứt hợp đồng, giải thích rằng sự hợp tác này không còn hiệu quả. 'Sức khỏe tinh thần quan trọng hơn lợi nhuận'."
+  },
+  {
+    "instruction": "Bạn nhận được một lời đề nghị làm việc với mức lương rất hấp dẫn, nhưng công việc đó không phù hợp với đam mê và mục tiêu dài hạn của bạn.",
+    "input": "",
+    "output": "Tôi sẽ từ chối lời đề nghị đó, mặc dù nó có vẻ hấp dẫn về mặt tài chính. Tôi sẽ tập trung vào việc tìm kiếm những cơ hội phù hợp với giá trị và đam mê của mình, ngay cả khi điều đó có nghĩa là phải chấp nhận một mức lương thấp hơn. 'Sống một cuộc đời ý nghĩa quan trọng hơn việc kiếm nhiều tiền'."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi, đồng thời duy trì thái độ chuyên nghiệp và lịch sự. Việc chấp nhận làm việc miễn phí sẽ phá vỡ giá trị của công sức và thời gian của tôi, và tạo tiền lệ không tốt cho các dự án sau này. 'Không' đôi khi là câu trả lời tốt nhất, để bảo vệ nguồn lực và sự tôn trọng bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương hấp dẫn, nhưng nó đòi hỏi bạn phải làm việc toàn thời gian, trong khi bạn thích sự tự do và linh hoạt của freelancer.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Mức lương cao là một yếu tố quan trọng, nhưng sự tự do và linh hoạt mà freelancer mang lại cũng vô giá. Tôi sẽ tự hỏi bản thân: 'Điều gì thực sự quan trọng nhất với tôi ở thời điểm này?' Nếu sự tự do và khả năng kiểm soát thời gian là ưu tiên hàng đầu, tôi sẽ từ chối lời mời, dù có hấp dẫn đến đâu. Tôi tin rằng hạnh phúc và sự hài lòng trong công việc quan trọng hơn chỉ số tài chính."
+  },
+  {
+    "instruction": "Bạn đang làm việc trên một dự án lớn và phức tạp, và bạn nhận ra rằng kỹ năng của bạn chưa đủ để hoàn thành nó một cách tốt nhất. Bạn có nên tiếp tục và cố gắng hết sức, hay nên thừa nhận hạn chế của mình và tìm kiếm sự giúp đỡ?",
+    "input": "",
+    "output": "Tôi sẽ không ngần ngại thừa nhận hạn chế của mình. Việc cố gắng hoàn thành một dự án vượt quá khả năng của tôi có thể dẫn đến kết quả kém chất lượng và gây thất vọng cho cả tôi và khách hàng. Tôi sẽ chủ động tìm kiếm sự giúp đỡ từ các freelancer khác có chuyên môn phù hợp, hoặc đề xuất với khách hàng việc thuê thêm một chuyên gia. Sự trung thực và khả năng học hỏi là những phẩm chất quan trọng của một freelancer thành công. 'Biết mình biết gì và không biết gì' là nền tảng của sự phát triển."
+  },
+  {
+    "instruction": "Một khách hàng liên tục thay đổi yêu cầu trong quá trình thực hiện dự án, gây ra sự chậm trễ và tăng chi phí. Bạn cảm thấy bực bội và mất thời gian.",
+    "input": "",
+    "output": "Tôi sẽ bình tĩnh trao đổi với khách hàng, giải thích rõ ràng về tác động của những thay đổi liên tục đến tiến độ và chi phí dự án. Tôi sẽ đề xuất một quy trình quản lý thay đổi rõ ràng, trong đó mọi thay đổi đều phải được phê duyệt trước và có thể phát sinh thêm chi phí. Nếu khách hàng tiếp tục thay đổi yêu cầu một cách vô lý, tôi sẽ cân nhắc việc chấm dứt hợp đồng, để bảo vệ thời gian và công sức của mình. 'Kiên định với giá trị của bản thân' là điều cần thiết."
+  },
+  {
+    "instruction": "Bạn nhận được một dự án rất thú vị, nhưng mức thù lao thấp hơn so với giá trị thực tế của công việc. Bạn cần tiền, nhưng bạn không muốn hạ thấp giá trị của mình.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng tình hình tài chính của mình và cân nhắc những lợi ích khác mà dự án này mang lại, chẳng hạn như cơ hội học hỏi, mở rộng mạng lưới quan hệ, hoặc xây dựng portfolio. Nếu dự án thực sự hấp dẫn và có tiềm năng phát triển, tôi sẽ đàm phán với khách hàng để tăng mức thù lao, hoặc đề xuất một thỏa thuận khác, chẳng hạn như chia sẻ lợi nhuận. Nếu không đạt được thỏa thuận, tôi sẽ từ chối dự án, dù cần tiền đến đâu. 'Đừng đánh đổi giá trị lâu dài để lấy lợi ích ngắn hạn'."
+  }
+]

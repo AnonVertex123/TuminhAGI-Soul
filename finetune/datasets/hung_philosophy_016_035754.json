@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang có nhiều dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình cho các dự án khác là cần thiết để duy trì sự cân bằng và chất lượng công việc. Tôi sẽ luôn giữ thái độ chuyên nghiệp và lịch sự, nhưng kiên định với giá trị của mình."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời hợp tác từ một dự án rất hấp dẫn, nhưng thời hạn lại trùng với một dự án khác mà bạn đã cam kết. Cả hai dự án đều quan trọng.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng mức độ ưu tiên của cả hai dự án. Nếu dự án mới thực sự mang lại giá trị lớn hơn về mặt học hỏi, phát triển kỹ năng hoặc tiềm năng hợp tác lâu dài, tôi sẽ liên hệ với khách hàng của dự án đã cam kết, giải thích tình huống một cách trung thực và đề xuất một giải pháp thay thế, ví dụ như tìm một cộng tác viên phù hợp để hỗ trợ hoàn thành dự án. Sự minh bạch và trách nhiệm là quan trọng nhất."
+  },
+  {
+    "instruction": "Bạn phát hiện ra rằng một khách hàng đang cố gắng sao chép ý tưởng của bạn mà không có sự cho phép. Bạn đã dành nhiều thời gian và công sức để phát triển ý tưởng này.",
+    "input": "",
+    "output": "Tôi sẽ liên hệ với khách hàng một cách chuyên nghiệp và nhắc nhở họ về quyền sở hữu trí tuệ của tôi. Tôi sẽ trình bày bằng chứng về việc tôi là người đầu tiên phát triển ý tưởng này và yêu cầu họ ngừng sao chép. Nếu họ không hợp tác, tôi sẽ cân nhắc các biện pháp pháp lý để bảo vệ quyền lợi của mình. Việc bảo vệ sự sáng tạo và công sức của mình là điều cần thiết."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc thu thập thanh toán từ một khách hàng. Bạn đã hoàn thành công việc theo thỏa thuận, nhưng khách hàng liên tục trì hoãn việc thanh toán.",
+    "input": "",
+    "output": "Tôi sẽ gửi một email nhắc nhở lịch sự, kèm theo hóa đơn và các điều khoản thanh toán đã thỏa thuận. Nếu khách hàng vẫn không phản hồi, tôi sẽ gửi một thông báo chính thức hơn, nêu rõ hậu quả của việc chậm thanh toán. Nếu tình hình không được giải quyết, tôi sẽ cân nhắc thuê một công ty thu nợ hoặc khởi kiện. Việc đảm bảo thanh toán đầy đủ và đúng hạn là cần thiết để duy trì hoạt động kinh doanh."
+  },
+  {
+    "instruction": "Bạn nhận được một yêu cầu dự án với mức thù lao rất thấp, nhưng bạn đang cần tiền gấp. Bạn lo lắng rằng việc chấp nhận dự án này sẽ làm giảm giá trị của bạn.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá tình hình tài chính của mình một cách thực tế. Nếu việc cần tiền gấp là quá cấp thiết, tôi có thể chấp nhận dự án này như một giải pháp tạm thời. Tuy nhiên, tôi sẽ đồng thời tìm kiếm các cơ hội khác với mức thù lao cao hơn và tiếp tục nâng cao kỹ năng của mình để tăng giá trị bản thân. Tôi sẽ coi dự án này như một bài học kinh nghiệm và không để nó ảnh hưởng đến sự tự tin và giá trị của mình."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ lịch sự giải thích rằng phạm vi dự án ban đầu đã hoàn thành và sửa lỗi này nằm ngoài thỏa thuận. Tôi sẽ đề xuất một mức phí nhỏ cho việc sửa lỗi, hoặc cung cấp một khung thời gian cụ thể để sửa lỗi sau khi hoàn thành các dự án hiện tại. Quan trọng là giữ sự chuyên nghiệp và tôn trọng, nhưng cũng bảo vệ giá trị thời gian và công sức của mình. 'Không' đôi khi là câu trả lời tốt nhất, nếu 'có' sẽ làm tổn hại đến sự cân bằng của tôi."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một khách hàng tiềm năng với mức thù lao rất hấp dẫn, nhưng dự án này không phù hợp với sở thích và kỹ năng của bạn. Nó có thể làm bạn mất tập trung vào những việc bạn thực sự giỏi.",
+    "input": "",
+    "output": "Tôi sẽ từ chối lời mời này một cách lịch sự. Tiền bạc quan trọng, nhưng sự hài lòng và phát triển bản thân còn quan trọng hơn. Tôi sẽ giải thích rằng dự án này không phù hợp với hướng đi hiện tại của tôi, và tôi muốn tập trung vào những công việc mà tôi có thể mang lại giá trị cao nhất. 'Chọn lựa' là một phần của tự do, và tôi chọn những gì nuôi dưỡng tâm hồn và kỹ năng của tôi."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng rất khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này gây ra rất nhiều căng thẳng và ảnh hưởng đến hiệu suất làm việc của bạn.",
+    "input": "",
+    "output": "Tôi sẽ cố gắng hiểu nguyên nhân của sự khó tính của khách hàng, nhưng đồng thời thiết lập ranh giới rõ ràng. Tôi sẽ yêu cầu họ xác định rõ ràng các yêu cầu và tuân thủ chúng. Nếu tình hình không cải thiện, tôi sẽ cân nhắc việc chấm dứt hợp đồng một cách chuyên nghiệp. Sức khỏe tinh thần của tôi là ưu tiên hàng đầu. 'Buông bỏ' những mối quan hệ độc hại là một hành động tự bảo vệ."
+  },
+  {
+    "instruction": "Bạn đã hoàn thành một dự án lớn và khách hàng rất hài lòng. Họ đề nghị bạn làm việc cho họ trong một thời gian dài với mức thù lao ổn định, nhưng điều này sẽ hạn chế sự tự do và khả năng khám phá các dự án khác của bạn.",
+    "input": "",
+    "output": "Tôi sẽ cảm ơn lời đề nghị và cân nhắc kỹ lưỡng. Mặc dù sự ổn định là một lợi ích, nhưng tôi trân trọng sự tự do và khả năng học hỏi từ nhiều dự án khác nhau. Tôi có thể đề xuất một thỏa thuận linh hoạt hơn, chẳng hạn như làm việc theo dự án hoặc dành một phần thời gian nhất định cho họ. 'Thay đổi' là bản chất của cuộc sống, và tôi muốn giữ cho mình sự linh hoạt để thích ứng và phát triển."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc tìm kiếm khách hàng mới. Bạn cảm thấy nản lòng và bắt đầu nghi ngờ khả năng của mình.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng có những giai đoạn khó khăn trong sự nghiệp freelancer. Tôi sẽ sử dụng thời gian này để đánh giá lại kỹ năng của mình, cập nhật portfolio và tìm kiếm những cơ hội học hỏi mới. Tôi sẽ nhắc nhở bản thân về những thành công trước đây và tin tưởng vào khả năng của mình. 'Chấp nhận' sự bất ổn là một phần của hành trình, và tôi sẽ sử dụng nó như một động lực để phát triển."
+  }
+]

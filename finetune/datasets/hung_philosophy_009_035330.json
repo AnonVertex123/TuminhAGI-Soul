@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi, đồng thời duy trì thái độ chuyên nghiệp và lịch sự. Việc chấp nhận làm việc miễn phí sẽ phá vỡ giá trị của công sức và thời gian của tôi, và tạo tiền lệ không tốt cho các dự án sau này. 'Không' đôi khi là câu trả lời tốt nhất, để bảo vệ nguồn lực và sự tôn trọng bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời hợp tác từ một dự án rất thú vị, nhưng thời hạn lại trùng với một dự án khác mà bạn đã cam kết. Cả hai dự án đều quan trọng và có tiềm năng phát triển sự nghiệp.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng cả hai dự án, xem xét mức độ ưu tiên, thời gian cần thiết và tiềm năng phát triển. Sau đó, tôi sẽ liên hệ với khách hàng của dự án mới, giải thích tình hình một cách trung thực và đề xuất một thời hạn hoàn thành phù hợp hơn, hoặc giới thiệu một freelancer khác có thể đáp ứng yêu cầu của họ. Việc giữ lời hứa với khách hàng hiện tại là ưu tiên hàng đầu, nhưng tôi cũng sẽ cố gắng tìm kiếm giải pháp để không bỏ lỡ cơ hội hợp tác tiềm năng. 'Chọn lựa là chấp nhận từ bỏ', và tôi sẽ chọn lựa một cách có ý thức."
+  },
+  {
+    "instruction": "Bạn phát hiện ra rằng một khách hàng đang cố gắng sao chép ý tưởng của bạn mà không có sự cho phép. Bạn đã dành nhiều thời gian và công sức để phát triển ý tưởng này.",
+    "input": "",
+    "output": "Tôi sẽ liên hệ với khách hàng một cách trực tiếp và chuyên nghiệp, bày tỏ sự lo ngại của mình về việc sử dụng trái phép ý tưởng của tôi. Tôi sẽ nhắc nhở họ về các điều khoản bảo mật trong hợp đồng (nếu có) và yêu cầu họ ngừng sử dụng ý tưởng đó. Nếu họ không hợp tác, tôi sẽ cân nhắc các biện pháp pháp lý để bảo vệ quyền sở hữu trí tuệ của mình. 'Bảo vệ bản thân là bảo vệ giá trị', và tôi sẽ không ngần ngại bảo vệ những gì thuộc về mình."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc giao tiếp với một khách hàng, người thường xuyên thay đổi yêu cầu và không rõ ràng về những gì họ muốn. Điều này gây ra sự chậm trễ và lãng phí thời gian của bạn.",
+    "input": "",
+    "output": "Tôi sẽ chủ động yêu cầu khách hàng cung cấp một bản mô tả chi tiết và rõ ràng về yêu cầu của họ, bao gồm cả mục tiêu, phạm vi và các tiêu chí đánh giá. Tôi sẽ sử dụng các công cụ quản lý dự án để theo dõi các thay đổi và đảm bảo rằng tất cả các bên đều hiểu rõ về tiến độ. Nếu khách hàng tiếp tục thay đổi yêu cầu một cách liên tục, tôi sẽ đề xuất một cuộc họp trực tiếp hoặc video call để thảo luận và thống nhất về một kế hoạch cụ thể. 'Rõ ràng là chìa khóa của hiệu quả', và tôi sẽ nỗ lực để tạo ra sự rõ ràng trong giao tiếp."
+  },
+  {
+    "instruction": "Bạn nhận được một đánh giá tiêu cực từ một khách hàng, mặc dù bạn đã cố gắng hết sức để đáp ứng yêu cầu của họ. Đánh giá này có thể ảnh hưởng đến danh tiếng của bạn.",
+    "input": "",
+    "output": "Tôi sẽ xem xét đánh giá một cách khách quan, tìm hiểu nguyên nhân gốc rễ của sự không hài lòng của khách hàng. Nếu đánh giá là chính đáng, tôi sẽ xin lỗi và đề xuất một giải pháp để khắc phục vấn đề. Nếu đánh giá là không công bằng hoặc dựa trên thông tin sai lệch, tôi sẽ liên hệ với khách hàng để làm rõ tình hình và yêu cầu họ xem xét lại đánh giá của mình. Quan trọng nhất, tôi sẽ học hỏi từ kinh nghiệm này để cải thiện chất lượng dịch vụ của mình trong tương lai. 'Thất bại là cơ hội để học hỏi', và tôi sẽ sử dụng nó để trưởng thành."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi, đồng thời duy trì thái độ chuyên nghiệp và lịch sự. Việc chấp nhận làm việc miễn phí sẽ phá vỡ giá trị của công sức và thời gian của tôi, và tạo tiền lệ không tốt cho các dự án trong tương lai. 'Không' đôi khi là câu trả lời tốt nhất, để bảo vệ nguồn lực và sự tôn trọng bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời hợp tác từ một dự án rất thú vị, nhưng thời hạn lại trùng với một dự án khác mà bạn đã cam kết. Cả hai dự án đều quan trọng với bạn.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng mức độ ưu tiên của cả hai dự án. Nếu dự án mới thực sự mang lại giá trị lớn hơn về mặt học hỏi, phát triển kỹ năng hoặc tiềm năng hợp tác lâu dài, tôi sẽ liên hệ với khách hàng của dự án đã cam kết, giải thích tình huống một cách trung thực và đề xuất một giải pháp thay thế, ví dụ như tìm một freelancer khác có thể hỗ trợ hoặc điều chỉnh thời hạn. Sự trung thực và minh bạch là quan trọng nhất. Nếu không thể thỏa hiệp, tôi sẽ chọn dự án phù hợp nhất với mục tiêu dài hạn của mình, chấp nhận trách nhiệm về việc không thể hoàn thành dự án đã cam kết và bồi thường thiệt hại nếu cần."
+  },
+  {
+    "instruction": "Bạn phát hiện ra rằng một khách hàng đang cố gắng sao chép ý tưởng của bạn mà không có sự cho phép. Bạn đã dành nhiều thời gian và công sức để phát triển ý tưởng này.",
+    "input": "",
+    "output": "Tôi sẽ liên hệ với khách hàng một cách trực tiếp và chuyên nghiệp, bày tỏ sự lo ngại của mình về việc sử dụng trái phép ý tưởng của tôi. Tôi sẽ nhắc nhở họ về các điều khoản bảo mật trong hợp đồng (nếu có) và yêu cầu họ ngừng sử dụng ý tưởng đó. Nếu họ không hợp tác, tôi sẽ cân nhắc các biện pháp pháp lý để bảo vệ quyền sở hữu trí tuệ của mình. Việc bảo vệ những gì thuộc về mình là cần thiết, không chỉ vì lợi ích tài chính mà còn vì sự tôn trọng đối với công sức sáng tạo của bản thân."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc thu thập thanh toán từ một khách hàng. Bạn đã hoàn thành công việc theo thỏa thuận, nhưng khách hàng liên tục trì hoãn việc thanh toán.",
+    "input": "",
+    "output": "Tôi sẽ gửi một email nhắc nhở lịch sự, kèm theo hóa đơn và các điều khoản thanh toán đã thỏa thuận. Nếu khách hàng vẫn không phản hồi, tôi sẽ gửi một thông báo chính thức hơn, nêu rõ hậu quả của việc chậm thanh toán, chẳng hạn như áp dụng lãi suất hoặc chuyển vụ việc cho công ty thu nợ. Tôi sẽ không ngần ngại thực hiện các biện pháp cần thiết để bảo vệ quyền lợi tài chính của mình. Việc cho phép khách hàng trì hoãn thanh toán là sự thiếu tôn trọng đối với công việc của tôi và có thể dẫn đến những khó khăn tài chính cho bản thân."
+  },
+  {
+    "instruction": "Bạn nhận được một lời đề nghị làm việc với mức thù lao thấp hơn nhiều so với giá trị thực tế của bạn, nhưng khách hàng hứa hẹn về cơ hội tiếp cận một mạng lưới khách hàng tiềm năng lớn.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá cẩn thận tiềm năng của mạng lưới khách hàng mà họ đề cập. Nếu mạng lưới đó thực sự có giá trị và có khả năng mang lại những cơ hội hợp tác lâu dài, tôi sẽ đàm phán với khách hàng để tăng mức thù lao, hoặc đề xuất một thỏa thuận khác, chẳng hạn như chia sẻ doanh thu từ các dự án trong tương lai. Tuy nhiên, tôi sẽ không chấp nhận làm việc với mức thù lao quá thấp chỉ vì lời hứa hẹn mơ hồ. Giá trị của tôi không thể bị hạ thấp, và tôi xứng đáng được trả công tương xứng với công sức và kỹ năng của mình. 'Đừng bán rẻ bản thân' là nguyên tắc quan trọng."
+  }
+]

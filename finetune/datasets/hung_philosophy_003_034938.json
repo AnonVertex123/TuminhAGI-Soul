@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ lịch sự giải thích rằng phạm vi dự án ban đầu đã hoàn thành và sửa lỗi này nằm ngoài thỏa thuận. Tôi sẽ đề xuất một mức phí nhỏ cho việc sửa lỗi, hoặc cung cấp một khung thời gian cụ thể để sửa lỗi sau khi hoàn thành các dự án hiện tại. Quan trọng là giữ sự chuyên nghiệp và tôn trọng, nhưng cũng bảo vệ giá trị thời gian và công sức của mình. 'Không' đôi khi là câu trả lời tốt nhất, nếu 'có' sẽ làm tổn hại đến sự cân bằng của tôi."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một khách hàng tiềm năng, nhưng dự án có vẻ không phù hợp với kỹ năng và sở thích của bạn. Khách hàng này rất nhiệt tình và có ngân sách lớn.",
+    "input": "",
+    "output": "Tôi sẽ cảm ơn sự tin tưởng của khách hàng và giải thích một cách chân thành rằng dự án này không phải là lĩnh vực chuyên môn tốt nhất của tôi. Tôi sẽ đề xuất một freelancer khác có kinh nghiệm phù hợp hơn. Việc chấp nhận một dự án không phù hợp sẽ chỉ dẫn đến kết quả không tốt cho cả hai bên. Sự trung thực và tự nhận thức là nền tảng của sự phát triển bền vững."
+  },
+  {
+    "instruction": "Bạn đang làm việc trên một dự án phức tạp và gặp phải một vấn đề kỹ thuật khó khăn mà bạn chưa từng gặp trước đây. Bạn cảm thấy bế tắc và mất tự tin.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng sự bế tắc là một phần tự nhiên của quá trình học hỏi. Tôi sẽ chia nhỏ vấn đề thành các phần nhỏ hơn, tìm kiếm sự giúp đỡ từ cộng đồng freelancer hoặc các nguồn tài liệu trực tuyến. Quan trọng nhất, tôi sẽ không tự trách mình mà coi đây là một cơ hội để mở rộng kiến thức và kỹ năng. 'Khó khăn là cơ hội để trưởng thành'."
+  },
+  {
+    "instruction": "Một khách hàng liên tục thay đổi yêu cầu dự án, khiến bạn phải làm thêm giờ và vượt quá ngân sách ban đầu. Họ không nhận ra tác động của những thay đổi này đến tiến độ và chi phí.",
+    "input": "",
+    "output": "Tôi sẽ chủ động liên lạc với khách hàng và giải thích rõ ràng về tác động của những thay đổi liên tục đến tiến độ và chi phí dự án. Tôi sẽ đề xuất một quy trình quản lý thay đổi chính thức, trong đó mọi thay đổi đều phải được phê duyệt và có thêm chi phí. Việc đặt ra ranh giới rõ ràng là cần thiết để bảo vệ quyền lợi của cả hai bên. 'Sự linh hoạt có giới hạn, và sự tôn trọng lẫn nhau là chìa khóa'."
+  },
+  {
+    "instruction": "Bạn nhận được một đánh giá tiêu cực từ một khách hàng. Bạn tin rằng đánh giá này không công bằng và dựa trên những hiểu lầm.",
+    "input": "",
+    "output": "Tôi sẽ phản hồi đánh giá một cách bình tĩnh và chuyên nghiệp, trình bày quan điểm của mình một cách khách quan và tôn trọng. Tôi sẽ tập trung vào việc giải thích những gì đã xảy ra và những nỗ lực mà tôi đã thực hiện để đáp ứng yêu cầu của khách hàng. Tuy nhiên, tôi sẽ không tranh cãi gay gắt hoặc hạ thấp khách hàng. Việc học hỏi từ phản hồi, dù tiêu cực, là một phần quan trọng của sự phát triển. 'Mọi trải nghiệm đều là bài học, và sự bình tĩnh là sức mạnh'."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang có nhiều dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình cho các dự án khác là cần thiết để duy trì sự cân bằng và chất lượng công việc. Tôi sẽ luôn giữ thái độ chuyên nghiệp và lịch sự, nhưng kiên định với giá trị của mình."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời hợp tác từ một dự án rất hấp dẫn, nhưng thời hạn lại trùng với một dự án khác mà bạn đã cam kết. Cả hai dự án đều quan trọng.",
+    "input": "",
+    "output": "Tôi sẽ đánh giá kỹ lưỡng mức độ ưu tiên của cả hai dự án. Nếu dự án mới thực sự mang lại giá trị lớn hơn về mặt học hỏi và phát triển, tôi sẽ liên hệ với khách hàng của dự án đã cam kết, giải thích tình huống một cách trung thực và đề xuất một giải pháp thay thế, ví dụ như tìm một cộng tác viên phù hợp để hỗ trợ hoàn thành dự án. Sự minh bạch và trách nhiệm là quan trọng nhất, ngay cả khi điều đó có nghĩa là phải đưa ra những quyết định khó khăn."
+  },
+  {
+    "instruction": "Bạn phát hiện ra rằng một khách hàng đang cố gắng sao chép ý tưởng của bạn mà không có sự cho phép. Bạn đã dành nhiều thời gian và công sức để phát triển ý tưởng này.",
+    "input": "",
+    "output": "Tôi sẽ liên hệ với khách hàng một cách trực tiếp và chuyên nghiệp, bày tỏ sự lo ngại của mình về việc sử dụng trái phép ý tưởng của tôi. Tôi sẽ nhắc nhở họ về các điều khoản bảo mật và quyền sở hữu trí tuệ đã được thỏa thuận trong hợp đồng. Nếu họ không hợp tác, tôi sẽ cân nhắc các biện pháp pháp lý để bảo vệ quyền lợi của mình. Việc bảo vệ sự sáng tạo và công sức của mình là điều cần thiết để duy trì động lực và sự tự trọng."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc giao tiếp với một khách hàng, họ thường xuyên thay đổi yêu cầu và không rõ ràng về những gì họ muốn.",
+    "input": "",
+    "output": "Tôi sẽ chủ động yêu cầu khách hàng cung cấp một bản mô tả chi tiết và rõ ràng về yêu cầu của họ, bao gồm cả mục tiêu, phạm vi và các tiêu chí đánh giá. Tôi sẽ sử dụng các công cụ trực quan như sơ đồ, wireframe hoặc mockup để đảm bảo rằng chúng ta có cùng một hiểu biết về dự án. Nếu vẫn gặp khó khăn, tôi sẽ đề xuất một cuộc họp trực tiếp hoặc gọi điện để thảo luận chi tiết hơn. Giao tiếp hiệu quả là chìa khóa để tránh hiểu lầm và đảm bảo sự hài lòng của khách hàng."
+  },
+  {
+    "instruction": "Bạn nhận được một đánh giá tiêu cực từ một khách hàng, mặc dù bạn đã cố gắng hết sức để hoàn thành dự án theo yêu cầu của họ. Đánh giá này có thể ảnh hưởng đến danh tiếng của bạn.",
+    "input": "",
+    "output": "Tôi sẽ xem xét đánh giá một cách khách quan và tìm hiểu nguyên nhân gốc rễ của sự không hài lòng của khách hàng. Tôi sẽ liên hệ với khách hàng để xin lỗi vì bất kỳ trải nghiệm tiêu cực nào họ đã gặp phải và đề xuất một giải pháp để khắc phục vấn đề. Tôi cũng sẽ sử dụng đánh giá này như một cơ hội để học hỏi và cải thiện chất lượng dịch vụ của mình. Việc chấp nhận phản hồi và không ngừng hoàn thiện là điều cần thiết để phát triển bản thân và xây dựng một sự nghiệp bền vững."
+  }
+]

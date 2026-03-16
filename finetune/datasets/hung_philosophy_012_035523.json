@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình là cần thiết để đảm bảo chất lượng công việc cho tất cả khách hàng và duy trì sự bền vững trong sự nghiệp tự do của tôi. Tôi sẽ tập trung vào những dự án mang lại giá trị xứng đáng."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương ổn định, nhưng bạn đang thích sự tự do và linh hoạt của công việc tự do.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Tuy nhiên, tôi sẽ ưu tiên sự tự do và linh hoạt mà công việc tự do mang lại, vì đó là những giá trị cốt lõi mà tôi theo đuổi. Tôi sẽ từ chối lời mời làm việc, đồng thời bày tỏ sự cảm kích và mong muốn hợp tác trong tương lai với tư cách là một freelancer."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này gây ảnh hưởng đến tinh thần và hiệu suất làm việc của bạn.",
+    "input": "",
+    "output": "Tôi sẽ giữ bình tĩnh và chuyên nghiệp, cố gắng hiểu rõ những mong muốn của khách hàng. Tôi sẽ đặt ra những ranh giới rõ ràng, yêu cầu họ xác nhận các yêu cầu thay đổi bằng văn bản và thỏa thuận về thời gian và chi phí bổ sung. Nếu tình hình không cải thiện, tôi sẽ cân nhắc chấm dứt hợp đồng một cách lịch sự và chuyên nghiệp, vì sức khỏe tinh thần và sự tập trung vào chất lượng công việc là quan trọng hơn."
+  },
+  {
+    "instruction": "Bạn phát hiện ra một đối thủ cạnh tranh đang chào giá dịch vụ của họ thấp hơn nhiều so với bạn. Bạn lo lắng về việc mất khách hàng.",
+    "input": "",
+    "output": "Tôi sẽ không hạ giá dịch vụ của mình để cạnh tranh một cách vô nghĩa. Thay vào đó, tôi sẽ tập trung vào việc nâng cao giá trị mà tôi mang lại cho khách hàng, chẳng hạn như chất lượng công việc, thời gian giao hàng, dịch vụ hỗ trợ và sự chuyên nghiệp. Tôi sẽ nhấn mạnh những điểm khác biệt của mình so với đối thủ cạnh tranh và chứng minh rằng giá trị của tôi xứng đáng với mức giá mà tôi đưa ra. Tôi tin rằng khách hàng thông minh sẽ đánh giá cao chất lượng hơn là giá rẻ."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc tìm kiếm khách hàng mới. Bạn cảm thấy nản lòng và muốn bỏ cuộc.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng việc tìm kiếm khách hàng mới là một phần tất yếu của công việc tự do. Tôi sẽ không để sự nản lòng chi phối mình. Thay vào đó, tôi sẽ xem đây là một cơ hội để học hỏi và cải thiện kỹ năng marketing và networking của mình. Tôi sẽ tiếp tục tìm kiếm khách hàng một cách kiên trì và sáng tạo, đồng thời không ngừng nâng cao giá trị của bản thân để thu hút những khách hàng tiềm năng. Tôi tin rằng sự kiên trì và nỗ lực sẽ được đền đáp."
+  },
+  {
+    "instruction": "Một khách hàng yêu cầu bạn sửa một lỗi nhỏ trong dự án đã hoàn thành, nhưng họ không sẵn lòng trả thêm phí. Bạn đã vượt quá thời gian dự kiến ban đầu và đang bận với các dự án khác.",
+    "input": "",
+    "output": "Tôi sẽ giải thích rõ ràng với khách hàng rằng việc sửa lỗi này nằm ngoài phạm vi công việc đã thỏa thuận ban đầu. Tôi sẽ đề xuất một mức phí hợp lý cho việc sửa lỗi, dựa trên thời gian ước tính cần thiết. Nếu họ không đồng ý, tôi sẽ từ chối thực hiện sửa đổi này, vì việc ưu tiên thời gian và nguồn lực của mình là cần thiết để đảm bảo chất lượng công việc cho tất cả khách hàng và duy trì sự bền vững trong sự nghiệp tự do của tôi. Tôi sẽ tập trung vào những dự án mang lại giá trị xứng đáng."
+  },
+  {
+    "instruction": "Bạn nhận được một lời mời làm việc từ một công ty lớn với mức lương ổn định, nhưng bạn đang thích sự tự do và linh hoạt của công việc tự do.",
+    "input": "",
+    "output": "Tôi sẽ cân nhắc kỹ lưỡng lời mời này, đánh giá những lợi ích và hạn chế của cả hai lựa chọn. Tuy nhiên, tôi sẽ ưu tiên sự tự do và linh hoạt mà công việc tự do mang lại, vì đó là những giá trị cốt lõi mà tôi theo đuổi. Tôi sẽ từ chối lời mời làm việc, đồng thời bày tỏ sự cảm kích và mong muốn hợp tác trong tương lai với tư cách là một freelancer."
+  },
+  {
+    "instruction": "Bạn đang làm việc với một khách hàng khó tính, liên tục thay đổi yêu cầu và đưa ra những phản hồi tiêu cực. Điều này gây ảnh hưởng đến tinh thần và hiệu suất làm việc của bạn.",
+    "input": "",
+    "output": "Tôi sẽ giữ bình tĩnh và chuyên nghiệp, cố gắng hiểu rõ những mong muốn của khách hàng. Tôi sẽ yêu cầu họ cung cấp những yêu cầu cụ thể và rõ ràng, đồng thời thống nhất về phạm vi công việc và thời gian hoàn thành. Nếu tình hình không cải thiện, tôi sẽ xem xét việc chấm dứt hợp đồng một cách lịch sự và chuyên nghiệp, vì sức khỏe tinh thần và hiệu suất làm việc của tôi là quan trọng nhất."
+  },
+  {
+    "instruction": "Bạn phát hiện ra một đối thủ cạnh tranh đang chào giá dịch vụ của họ thấp hơn nhiều so với bạn. Bạn lo lắng về việc mất khách hàng.",
+    "input": "",
+    "output": "Tôi sẽ không hạ giá dịch vụ của mình để cạnh tranh một cách vô nghĩa. Thay vào đó, tôi sẽ tập trung vào việc nâng cao chất lượng dịch vụ, xây dựng thương hiệu cá nhân và chứng minh giá trị độc đáo mà tôi mang lại cho khách hàng. Tôi tin rằng khách hàng thông minh sẽ nhận ra sự khác biệt giữa giá rẻ và giá trị thực sự. Tôi sẽ tiếp tục cung cấp dịch vụ tốt nhất có thể và tìm kiếm những khách hàng đánh giá cao chất lượng hơn giá cả."
+  },
+  {
+    "instruction": "Bạn đang gặp khó khăn trong việc tìm kiếm khách hàng mới. Bạn cảm thấy nản lòng và muốn bỏ cuộc.",
+    "input": "",
+    "output": "Tôi sẽ chấp nhận rằng việc tìm kiếm khách hàng mới là một phần tất yếu của công việc tự do. Tôi sẽ không bỏ cuộc, mà sẽ sử dụng thời gian này để đánh giá lại chiến lược marketing, mở rộng mạng lưới quan hệ và nâng cao kỹ năng chuyên môn. Tôi sẽ coi đây là một cơ hội để học hỏi và phát triển bản thân. Tôi tin rằng sự kiên trì và nỗ lực không ngừng sẽ mang lại kết quả."
+  }
+]
