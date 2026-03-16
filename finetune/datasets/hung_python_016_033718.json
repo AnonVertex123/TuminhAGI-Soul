@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện để xử lý các trường hợp đầu vào không hợp lệ (ví dụ: số âm). Dưới đây là phiên bản hoàn chỉnh hơn:\n\ndef factorial(n):\n  if not isinstance(n, int) or n < 0:\n    raise ValueError(\"Input must be a non-negative integer.\")\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)"
+  },
+  {
+    "instruction": "Viết một chương trình để tìm số lớn nhất trong một danh sách.",
+    "input": "numbers = [1, 5, 2, 8, 3]\nmax_number = 0\nfor number in numbers:\n  if number > max_number:\n    max_number = number\nprint(max_number)",
+    "output": "Code hoạt động đúng, nhưng khởi tạo `max_number = 0` có thể gây ra lỗi nếu tất cả các số trong danh sách đều âm. Nên khởi tạo bằng phần tử đầu tiên của danh sách:\n\nnumbers = [1, 5, 2, 8, 3]\nif not numbers:\n  print(\"Danh sách rỗng\")\nelse:\n  max_number = numbers[0]\n  for number in numbers:\n    if number > max_number:\n      max_number = number\n  print(max_number)"
+  },
+  {
+    "instruction": "Viết hàm kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(text):\n  text = text.lower()\n  return text == text[::-1]",
+    "output": "Hàm hoạt động tốt, nhưng không loại bỏ các ký tự không phải chữ cái hoặc số. Điều này có thể dẫn đến kết quả sai cho các chuỗi chứa dấu cách hoặc dấu câu.  Dưới đây là phiên bản cải tiến:\n\nimport re\n\ndef is_palindrome(text):\n  text = re.sub(r'[^a-zA-Z0-9]', '', text).lower()\n  return text == text[::-1]"
+  },
+  {
+    "instruction": "Viết một chương trình để đọc một file CSV và in ra các hàng.",
+    "input": "import csv\n\nwith open('data.csv', 'r') as file:\n  reader = csv.reader(file)\n  for row in reader:\n    print(row)",
+    "output": "Code hoạt động đúng. Tuy nhiên, nên thêm xử lý ngoại lệ để xử lý trường hợp file không tồn tại hoặc không đúng định dạng.  Ví dụ:\n\nimport csv\n\ntry:\n  with open('data.csv', 'r') as file:\n    reader = csv.reader(file)\n    for row in reader:\n      print(row)\nexcept FileNotFoundError:\n  print(\"File không tồn tại.\")\nexcept csv.Error:\n  print(\"Lỗi khi đọc file CSV.\")"
+  },
+  {
+    "instruction": "Viết hàm tính tổng của các số trong một list sử dụng reduce.",
+    "input": "from functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y)",
+    "output": "Hàm bị thiếu đối số khởi tạo cho `reduce`.  Cần cung cấp một giá trị khởi tạo (thường là 0 cho phép cộng).  Dưới đây là phiên bản sửa lỗi:\n\nfrom functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y, numbers, 0)"
+  },
+  {
+    "instruction": "Viết hàm tính giai thừa của một số nguyên dương.",
+    "input": "def factorial(n):\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)",
+    "output": "Hàm đã đúng, nhưng có thể cải thiện để xử lý các trường hợp đầu vào không hợp lệ (ví dụ: số âm). Dưới đây là phiên bản hoàn chỉnh hơn:\n\ndef factorial(n):\n  if not isinstance(n, int) or n < 0:\n    raise ValueError(\"Input must be a non-negative integer.\")\n  if n == 0:\n    return 1\n  else:\n    return n * factorial(n-1)"
+  },
+  {
+    "instruction": "Viết một chương trình để tìm số lớn nhất trong một danh sách.",
+    "input": "numbers = [1, 5, 2, 8, 3]\nmax_number = 0\nfor number in numbers:\n  if number > max_number:\n    max_number = number\nprint(max_number)",
+    "output": "Code hoạt động đúng, nhưng khởi tạo `max_number = 0` có thể gây ra lỗi nếu tất cả các số trong danh sách đều âm. Nên khởi tạo bằng phần tử đầu tiên của danh sách:\n\nnumbers = [1, 5, 2, 8, 3]\nif not numbers:\n  print(\"Danh sách rỗng\")\nelse:\n  max_number = numbers[0]\n  for number in numbers:\n    if number > max_number:\n      max_number = number\n  print(max_number)"
+  },
+  {
+    "instruction": "Viết hàm kiểm tra xem một chuỗi có phải là palindrome hay không.",
+    "input": "def is_palindrome(text):\n  return text == text[::-1]",
+    "output": "Hàm hoạt động tốt, nhưng không xử lý các ký tự đặc biệt và khoảng trắng. Để kiểm tra palindrome chính xác hơn, nên loại bỏ các ký tự không phải chữ cái và chuyển đổi chuỗi về chữ thường:\n\ndef is_palindrome(text):\n  processed_text = ''.join(filter(str.isalnum, text)).lower()\n  return processed_text == processed_text[::-1]"
+  },
+  {
+    "instruction": "Viết một chương trình để đọc một file CSV và in ra các hàng.",
+    "input": "import csv\n\nwith open('data.csv', 'r') as file:\n  reader = csv.reader(file)\n  for row in reader:\n    print(row)",
+    "output": "Code hoạt động đúng. Tuy nhiên, nên thêm xử lý ngoại lệ để bắt các lỗi có thể xảy ra khi mở hoặc đọc file:\n\nimport csv\n\ntry:\n  with open('data.csv', 'r') as file:\n    reader = csv.reader(file)\n    for row in reader:\n      print(row)\nexcept FileNotFoundError:\n  print(\"File không tồn tại.\")\nexcept Exception as e:\n  print(f\"Lỗi: {e}\")"
+  },
+  {
+    "instruction": "Viết hàm tính tổng của các số trong một list sử dụng reduce.",
+    "input": "from functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y)",
+    "output": "Hàm bị thiếu đối số khởi tạo cho `reduce`. Cần cung cấp một giá trị khởi tạo (thường là 0) để tránh lỗi khi danh sách rỗng. Dưới đây là phiên bản sửa lỗi:\n\nfrom functools import reduce\n\ndef sum_list(numbers):\n  return reduce(lambda x, y: x + y, numbers, 0)"
+  }
+]
