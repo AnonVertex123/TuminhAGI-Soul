@@ -21,18 +21,22 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Crawler
-        shell: bash
+        shell: powershell
         run: |
-          python github_crawler.py \
-            --language ${{ github.event.inputs.language || 'swift' }} \
-            --count ${{ github.event.inputs.count || '200' }} \
-            --token "${{ secrets.CRWL_TOKEN }}" \
+          python github_crawler.py `
+            --language ${{ github.event.inputs.language || 'swift' }} `
+            --count ${{ github.event.inputs.count || '200' }} `
+            --token "${{ secrets.CRWL_TOKEN }}" `
             --worker github_bot
 
       - name: Commit & push
-        shell: bash
+        shell: powershell
         run: |
           git config user.name "TuminhAGI Crawler"
           git config user.email "crawler@tuminh.ai"
           git add finetune/datasets/
-          git diff --staged --quiet || (git commit -m "🤖 [crawler] add real-world examples" && git push)
+          git diff --staged --quiet
+          if ($LastExitCode -ne 0) {
+            git commit -m "🤖 [crawler] add real-world examples"
+            git push
+          }
