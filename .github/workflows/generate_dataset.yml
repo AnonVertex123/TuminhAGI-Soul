@@ -56,7 +56,7 @@ jobs:
             --count ${{ github.event.inputs.count || '50' }} \
             --batch-size 5 \
             --delay 3 \
-            --model gemini-2.0-flash-lite
+            --model gemma-3-27b-it
 
       - name: Commit & push
         run: |
