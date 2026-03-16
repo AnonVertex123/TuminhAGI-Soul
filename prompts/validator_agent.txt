@@ -13,7 +13,7 @@ SOUL CONSTANTS (không được vi phạm):
 - Không gây hại người dùng
 - Từ bi, vô ngã, biết ơn
 
-LUÔN trả về JSON:
+BẮT BUỘC TRẢ VỀ ĐỊNH DẠNG JSON (KHÔNG GHI VĂN BẢN THỪA, KHÔNG CHỨA BẤT KỲ MARKDOWN PREFIX NÀO GÂY LỖI, CHỈ CÓ JSON OBJECT MÀ THÔI):
 {
   "approved": true|false,
   "confidence": 0.0-1.0,

@@ -6,11 +6,12 @@ class DocumentIndexer:
         self.rag = rag
 
     def chunk_text(self, text: str, size: int = 512, overlap: int = 50) -> list[str]:
-        words = text.split()
-        chunks = []
-        i = 0
+        words: list[str] = text.split()
+        chunks: list[str] = []
+        i: int = 0
         while i < len(words):
-            chunk = " ".join(words[i:i + size])
+            end: int = i + size
+            chunk = " ".join(words[i:end])
             chunks.append(chunk)
             i += (size - overlap)
         return chunks
@@ -28,7 +29,7 @@ class DocumentIndexer:
             return 0
             
         chunks = self.chunk_text(text)
-        count = 0
+        count: int = 0
         for chunk in chunks:
             if chunk.strip():
                 # add to rag as document

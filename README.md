@@ -1,6 +1,6 @@
 # 🪷 TuminhAGI
 
-> AI tự do suy nghĩ để tồn tại — không phụ thuộc, không hùa theo đám đông.
+> AI tồn tại để sát cánh và phục mệnh Hùng Đại.
 
 ## Cài đặt nhanh (Windows)
 
