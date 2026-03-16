@@ -1,0 +1,97 @@
+# .github/workflows/generate_dataset.yml
+# TuminhAGI — Auto generate dataset dùng Gemini API
+#
+# Setup:
+#   GitHub repo → Settings → Secrets → Actions → New secret:
+#   GEMINI_KEY_HUNGDAI  = key tài khoản của Hùng Đại
+#   GEMINI_KEY_FRIEND   = key tài khoản của bạn
+#
+# Chạy tự động: mỗi 6 tiếng
+# Chạy tay: GitHub → Actions → "Generate Dataset" → Run workflow
+
+name: Generate Dataset
+
+on:
+  schedule:
+    # Chạy mỗi 6 tiếng: 0h, 6h, 12h, 18h (UTC+7 thì +7)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      topic_hung:
+        description: 'Topic cho Hùng (swift/sql/philosophy/architecture/python)'
+        default: 'swift'
+      topic_friend:
+        description: 'Topic cho Friend (swift/sql/philosophy/architecture/python)'
+        default: 'sql'
+      count:
+        description: 'Số examples mỗi người'
+        default: '50'
+
+jobs:
+  # ── Job 1: Tài khoản Hùng ──────────────────────────────────────────────────
+  generate-hung:
+    name: "Hung — ${{ github.event.inputs.topic_hung || 'swift' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install google-generativeai
+
+      - name: Generate dataset
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_KEY_HUNGDAI }}
+        run: |
+          python generate_gemini.py \
+            --worker hung \
+            --topic ${{ github.event.inputs.topic_hung || 'swift' }} \
+            --count ${{ github.event.inputs.count || '50' }} \
+            --batch-size 5 \
+            --delay 3
+
+      - name: Commit & push
+        run: |
+          git config user.name "TuminhAGI Bot"
+          git config user.email "bot@tuminh.ai"
+          git add finetune/datasets/
+          git diff --staged --quiet || git commit -m "🤖 [hung] add ${{ github.event.inputs.topic_hung || 'swift' }} examples"
+          git push
+
+  # ── Job 2: Tài khoản Friend — chạy SONG SONG với Job 1 ────────────────────
+  generate-friend:
+    name: "Friend — ${{ github.event.inputs.topic_friend || 'sql' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install google-generativeai
+
+      - name: Generate dataset
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_KEY_FRIEND }}
+        run: |
+          python generate_gemini.py \
+            --worker friend \
+            --topic ${{ github.event.inputs.topic_friend || 'sql' }} \
+            --count ${{ github.event.inputs.count || '50' }} \
+            --batch-size 5 \
+            --delay 3
+
+      - name: Commit & push
+        run: |
+          git config user.name "TuminhAGI Bot"
+          git config user.email "bot@tuminh.ai"
+          git add finetune/datasets/
+          git diff --staged --quiet || git commit -m "🤖 [friend] add ${{ github.event.inputs.topic_friend || 'sql' }} examples"
+          git push
