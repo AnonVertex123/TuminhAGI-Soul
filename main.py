@@ -54,6 +54,7 @@ def run_sync():
 
 def run_pipeline(question: str, rag: WeightedRAG, vital: VitalMemory, consensus: ConsensusEngine):
     """Quy trình đa Agent tập trung."""
+    global VOICE_ON, MIC_ON
     retrieved = rag.retrieve(question, top_k=CONTEXT_TOP_K)
     context = vital.format_context(retrieved)
     
@@ -77,7 +78,6 @@ def run_pipeline(question: str, rag: WeightedRAG, vital: VitalMemory, consensus:
         user_choice = Prompt.ask("[Duyệt]", choices=["y", "n", "exit", "v", "m"], default="y")
 
         if user_choice == "v":
-            global VOICE_ON
             VOICE_ON = not VOICE_ON
             msg = f"Đã {'BẬT' if VOICE_ON else 'TẮT'} giọng nói."
             console.print(f"[bold magenta]{msg}[/bold magenta]")
@@ -85,7 +85,6 @@ def run_pipeline(question: str, rag: WeightedRAG, vital: VitalMemory, consensus:
             continue
 
         if user_choice == "m":
-            global MIC_ON
             MIC_ON = not MIC_ON
             console.print(f"[bold magenta]Đã {'BẬT' if MIC_ON else 'TẮT'} chế độ Micro lắng nghe.[/bold magenta]")
             continue
