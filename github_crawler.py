@@ -30,16 +30,23 @@ QUALITY_FILTERS = {
     "min_function_lines": 5,
     "max_function_lines": 80,
     "min_docstring_words": 10,
-    "licenses": ["mit", "apache-2.0", "bsd-2-clause", "bsd-3-clause", "unlicense"],
+    "licenses": ["mit", "apache-2.0", "bsd-2-clause", 
+                 "bsd-3-clause", "unlicense", "other", 
+                 "cc-by-4.0", "lgpl-3.0", "gpl-3.0"],
 }
 
 SEARCH_QUERIES = {
     "python": [
-        "language:python stars:>500 license:mit topic:data-science",
-        "language:python stars:>500 license:mit topic:web",
-        "language:python stars:>500 license:mit topic:api",
-        "language:python stars:>500 license:apache-2.0 topic:machine-learning",
-        "language:python stars:>1000 license:mit",
+        "language:python stars:>500 topic:python-library",
+        "language:python stars:>200 topic:flask",
+        "language:python stars:>200 topic:fastapi",
+        "language:python stars:>200 topic:pandas",
+        "language:python stars:>200 topic:scikit-learn",
+        "language:python stars:>100 topic:pytest",
+        "language:python stars:>300 topic:sqlalchemy",
+        "language:python stars:>200 topic:celery",
+        "language:python stars:>100 topic:click",
+        "language:python stars:>200 topic:pydantic",
     ],
     "swift": [
         "language:swift stars:>200 license:mit topic:ios",
