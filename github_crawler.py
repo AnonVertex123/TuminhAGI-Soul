@@ -278,6 +278,8 @@ def main():
     parser.add_argument("--count", type=int, default=100)
     parser.add_argument("--token")
     parser.add_argument("--worker", default="turbo_bot")
+    # THÊM DÒNG NÀY ĐỂ MỞ ỐNG NGẮM SÁT THỦ
+    parser.add_argument("--query", help="Custom search query to override defaults")
     args = parser.parse_args()
 
     token = args.token or os.getenv("GITHUB_TOKEN")
@@ -290,10 +292,15 @@ def main():
             for ex in d: seen_hashes.add(hashlib.md5(ex["input"].encode()).hexdigest())
         except: pass
 
-    print(f"\n🕷️  TuminhAGI Turbo Hunter v2.5 [15 WORKERS]")
+    print(f"\n🕷️  TuminhAGI Turbo Hunter v2.8 [FULL VISION]")
     print(f"   Target: {args.count} | Existing: {len(seen_hashes)}")
 
-    queries = SEARCH_QUERIES.get(args.language, [f"language:{args.language} stars:>100"])
+    # LOGIC CHỌN MỤC TIÊU
+    if args.query:
+        queries = [args.query]
+        print(f"🎯 Sử dụng Query tùy chỉnh: {args.query}")
+    else:
+        queries = SEARCH_QUERIES.get(args.language, [f"language:{args.language} stars:>100"])
     
     with ThreadPoolExecutor(max_workers=15) as executor:
         for q in queries:
