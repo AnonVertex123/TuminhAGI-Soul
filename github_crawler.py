@@ -34,9 +34,9 @@ if sys.platform == "win32":
 
 QUALITY_FILTERS = {
     "min_stars": 30,
-    "min_function_lines": 10,
+    "min_function_lines": 40,   # Tăng tiêu chuẩn để lấy code "nặng đô"
     "max_function_lines": 500,
-    "min_docstring_words": 3,
+    "min_docstring_words": 10,  # Chỉ lấy code có giải thích rõ ràng
 }
 
 SEARCH_QUERIES = {
