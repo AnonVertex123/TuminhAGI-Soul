@@ -1,8 +1,9 @@
 {
   "worker": "hung",
   "topic": "swift",
-  "total": 0,
-  "api_calls": 4,
-  "success_rate": "0.0%",
-  "generated_at": "2026-03-16T04:12:07.446282"
+  "total_unique": 52,
+  "api_calls": 367,
+  "dupes_skipped": 158,
+  "unique_rate": "24.8%",
+  "generated_at": "2026-03-17T00:53:26.053286"
 }
