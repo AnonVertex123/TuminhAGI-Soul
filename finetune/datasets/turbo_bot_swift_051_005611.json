@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `AppDelegate`",
+    "input": "class AppDelegate: NSObject, UIApplicationDelegate {\n    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {\n        FirebaseApp.configure()\n        Messaging.messaging().delegate = self\n        UNUserNotificationCenter.current().delegate = self\n        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in\n            guard error == nil else {\n                return\n            }\n            if granted {\n                DispatchQueue.main.async {\n                    application.registerForRemoteNotifications()\n                }\n            }\n        }\n        Task {\n            await NftGeneratorClient().getSignature()\n        }\n        return true\n    }\n    func application(\n        _ application: UIApplication,\n        didFailToRegisterForRemoteNotificationsWithError error: Error\n    )\n    {}\n    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {\n        Messaging.messaging().apnsToken = deviceToken\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `akihokurino/canvas-ios`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "akihokurino/canvas-ios"
+  }
+]

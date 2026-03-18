@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `PrefirePlaybookPlugin`",
+    "input": "struct PrefirePlaybookPlugin: BuildToolPlugin {\n    func createBuildCommands(context: PluginContext, target: Target) throws -> [Command] {\n        let executable = try context.tool(named: \"PrefireBinary\").url\n        let cachePath = context.pluginWorkDirectoryURL.appending(path: \"Cache\")\n        let outputPath = context.pluginWorkDirectoryURL.appending(path: \"Generated\")\n        let targetPath = String(describing: target.directory)\n        var arguments: [String] = [\n            \"playbook\",\n            \"--output\", outputPath.path,\n            \"--target-path\", targetPath,\n            \"--config\", targetPath,\n            \"--cache-base-path\", cachePath.path,\n            \"--verbose\",\n        ]\n        let sources = (target as? SwiftSourceModuleTarget)?.sourceFiles.filter { $0.type == .source }.map(\\.url.path)\n        arguments.append(contentsOf: sources ?? [targetPath])\n        return [\n            .prebuildCommand(\n                displayName: \"Running Prefire\",\n                executable: executable,\n                arguments: arguments,\n                outputFilesDirectory: outputPath\n            ),\n        ]\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `BarredEwe/Prefire`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "BarredEwe/Prefire"
+  }
+]

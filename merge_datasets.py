@@ -4,25 +4,22 @@ import hashlib
 import random
 
 def get_hash(text):
-    return hashlib.sha256(text.encode('utf-8')).hexdigest()
+    return hashlib.md5(text.encode('utf-8')).hexdigest()
 
 def merge_datasets(directory, output_file):
-    prefixes = ['hung_python', 'github_python', 'hung_sql', 'hung_architecture', 'hung_philosophy']
     all_examples = []
     seen_hashes = set()
-    stats = {p: 0 for p in prefixes}
-    stats['total_raw'] = 0
-    stats['duplicates'] = 0
-    stats['invalid'] = 0
+    stats = {
+        'total_raw': 0,
+        'duplicates': 0,
+        'invalid': 0,
+    }
     
-    print(f"Scanning directory: {directory}")
+    print(f"🚀 Scanning directory: {directory}")
     
     for filename in os.listdir(directory):
-        if not filename.endswith('.json') or filename.endswith('_summary.json'):
-            continue
-            
-        matched_prefix = next((p for p in prefixes if filename.startswith(p)), None)
-        if not matched_prefix:
+        # Chỉ lấy file .json, bỏ qua các file summary
+        if not filename.endswith('.json') or '_summary.json' in filename:
             continue
             
         path = os.path.join(directory, filename)
@@ -44,10 +41,8 @@ def merge_datasets(directory, output_file):
                         stats['invalid'] += 1
                         continue
                         
-                    # Deduplication (using SHA-256 on input field, or instruction+input if input is often empty)
-                    # Requirement says 'input' field, but let's be safe and use both if needed.
-                    # Following literal requirement: input field hash.
-                    input_hash = get_hash(input_text if input_text else instruction)
+                    # Deduplication dựa trên hash của 'input' (code contents)
+                    input_hash = get_hash(input_text)
                     
                     if input_hash in seen_hashes:
                         stats['duplicates'] += 1
@@ -55,32 +50,32 @@ def merge_datasets(directory, output_file):
                     
                     seen_hashes.add(input_hash)
                     all_examples.append(item)
-                    stats[matched_prefix] += 1
                     
         except Exception as e:
             print(f"Error reading {filename}: {e}")
 
-    # Shuffle
-    print(f"Merging {len(all_examples)} unique examples...")
+    # Shuffle để dữ liệu được phân phối đều
+    print(f"🔄 Merging {len(all_examples)} unique examples...")
     random.seed(42)
     random.shuffle(all_examples)
     
-    # Export to JSONL
+    # Export to JSONL (đúng format train finetuning)
     with open(output_file, 'w', encoding='utf-8') as f:
         for item in all_examples:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
             
-    print("\n--- Merge Summary ---")
-    print(f"Total Raw Examples: {stats['total_raw']}")
-    print(f"Duplicates Removed: {stats['duplicates']}")
-    print(f"Invalid Examples Skipped: {stats['invalid']}")
-    print(f"Total Unique Examples: {len(all_examples)}")
-    print("\nBreakdown by Category:")
-    for p in prefixes:
-        print(f"- {p}: {stats[p]}")
-    print(f"Output saved to: {output_file}")
+    print("\n========================================")
+    print("      BÁO CÁO GỘP DATASET TUMINH-AGI    ")
+    print("========================================")
+    print(f" Total Raw Examples:   {stats['total_raw']:,}")
+    print(f" Duplicates Removed:   {stats['duplicates']:,}")
+    print(f" Invalid Skipped:      {stats['invalid']:,}")
+    print(f" FINAL UNIQUE TOTAL:   {len(all_examples):,}")
+    print("----------------------------------------")
+    print(f" Output: {output_file}")
+    print("========================================\n")
 
 if __name__ == "__main__":
     dataset_dir = r"i:\TuminhAgi\finetune\datasets"
-    output_path = os.path.join(dataset_dir, "tuminh_agi_v1_train.jsonl")
+    output_path = os.path.join(dataset_dir, "tuminh_swift_v1_final.jsonl")
     merge_datasets(dataset_dir, output_path)

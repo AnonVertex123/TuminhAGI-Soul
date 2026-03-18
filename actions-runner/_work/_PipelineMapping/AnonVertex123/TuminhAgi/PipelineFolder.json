@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "AnonVertex123/TuminhAgi",
+  "pipelineDirectory": "TuminhAgi",
+  "workspaceDirectory": "TuminhAgi\\TuminhAgi",
+  "repositories": {
+    "AnonVertex123/TuminhAgi": {
+      "repositoryPath": "TuminhAgi\\TuminhAgi",
+      "lastRunOn": "03/16/2026 23:02:42 +07:00"
+    }
+  },
+  "lastRunOn": "03/16/2026 23:57:54 +07:00"
+}

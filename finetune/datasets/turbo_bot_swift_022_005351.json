@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `BlockView`",
+    "input": "struct BlockView: View {\n    init(size: CGSize, text: LocalizedStringKey, opacity: Double, allowDismiss: Bool = true) {\n        self.size = size\n        self.text = text\n        self.opacity = opacity\n        self.allowDismiss = allowDismiss\n    }\n    let backgroundColor: Color = [.red, .orange, .pink, .blue, .green, .brown].randomElement() ?? .yellow\n    let size: CGSize\n    let text: LocalizedStringKey\n    let opacity: Double\n    let allowDismiss: Bool\n    @Environment(\\.overlayContainer) var container\n    var body: some View {\n        Group {\n            RoundedRectangle(cornerRadius: 15)\n                .fill(backgroundColor.opacity(opacity))\n                .frame(width: size.width, height: size.height)\n                .overlay(\n                    Text(text)\n                        .font(.callout)\n                )\n        }\n        .if(allowDismiss) {\n            $0.onTapGesture {\n                container.dismiss()\n            }\n        }\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `fatbobman/SwiftUIOverlayContainer`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "fatbobman/SwiftUIOverlayContainer"
+  }
+]

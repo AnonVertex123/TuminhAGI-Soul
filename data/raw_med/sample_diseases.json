@@ -1,0 +1,20 @@
+[
+  {
+    "Disease_Code": "A90",
+    "Disease_Name": "Sốt xuất huyết Dengue",
+    "Symptoms": "Sốt cao đột ngột 39-40 độ C, đau hốc mắt, đau nhức cơ khớp nghiêm trọng, phát ban sung huyết, có thể chảy máu chân răng hoặc chảy máu cam.",
+    "Basic_Treatment": "Hạ sốt bằng Paracetamol (TUYỆT ĐỐI KHÔNG dùng Ibuprofen/Aspirin vì gây xuất huyết). Bù nước Oresol tích cực. Theo dõi dấu hiệu cảnh báo sốc."
+  },
+  {
+    "Disease_Code": "K35.8",
+    "Disease_Name": "Viêm ruột thừa cấp",
+    "Symptoms": "Bắt đầu đau âm ỉ vùng quanh rốn, sau 6-8 tiếng khu trú thành cơn đau quặn ở hố chậu phải (bụng dưới bên phải). Kèm buồn nôn, chán ăn, sốt nhẹ.",
+    "Basic_Treatment": "CẤP CỨU NGOẠI KHOA. Không tự ý uống thuốc giảm đau vì sẽ làm mất triệu chứng. Nhịn ăn uống, nhập viện ngay lập tức để phẫu thuật."
+  },
+  {
+    "Disease_Code": "A05.9",
+    "Disease_Name": "Ngộ độc thực phẩm do vi khuẩn",
+    "Symptoms": "Đau quặn bụng từng cơn, buồn nôn và nôn mửa nhiều lần, tiêu chảy cấp phân lỏng, có thể kèm sốt nhẹ. Xảy ra sau khi ăn thực phẩm 2-6 tiếng.",
+    "Basic_Treatment": "Bù nước và điện giải (Oresol) là quan trọng nhất. KHÔNG uống thuốc cầm tiêu chảy ngay lập tức để cơ thể đào thải độc tố. Ăn thức ăn lỏng, dễ tiêu."
+  }
+]

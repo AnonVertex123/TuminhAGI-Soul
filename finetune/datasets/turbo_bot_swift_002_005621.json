@@ -1,0 +1,14 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `URL`",
+    "input": "public extension URL {\n    var persistentIdentifier: PersistentIdentifier? {\n        guard scheme == \"x-coredata\",\n              let host = host()\n        else {\n            return nil\n        }\n        let pathComponents = self.pathComponents\n        guard pathComponents.count == 3 else {\n            return nil\n        }\n        let entityName = pathComponents[1]\n        let primaryKey = pathComponents[2]\n        let json = PersistentIdentifierJSON(\n            implementation: .init(primaryKey: primaryKey,\n                                  uriRepresentation: self,\n                                  isTemporary: false,\n                                  storeIdentifier: host,\n                                  entityName: entityName)\n        )\n        let encoder = JSONEncoder()\n        guard let data = try? encoder.encode(json) else {\n            return nil\n        }\n        let decoder = JSONDecoder()\n        return try? decoder.decode(PersistentIdentifier.self, from: data)\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `fatbobman/SwiftDataKit`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "fatbobman/SwiftDataKit"
+  },
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `PersistentIdentifier`",
+    "input": "public extension PersistentIdentifier {\n    private var _implementation: Any? {\n        guard let implementation = getMirrorChildValue(of: self, childName: \"implementation\") else {\n            return nil\n        }\n        return implementation\n    }\n    var objectID: NSManagedObjectID? {\n        guard let _implementation, let objectID = getMirrorChildValue(of: _implementation, childName: \"managedObjectID\") as? NSManagedObjectID else {\n            return nil\n        }\n        return objectID\n    }\n    var uriRepresentation: URL? {\n        objectID?.uriRepresentation()\n    }\n    var isTemporary: Bool? {\n        guard let _implementation, let isTemporary = getMirrorChildValue(of: _implementation, childName: \"isTemporary\") as? Bool else {\n            return nil\n        }\n        return isTemporary\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `fatbobman/SwiftDataKit`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "fatbobman/SwiftDataKit"
+  }
+]

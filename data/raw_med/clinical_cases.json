@@ -1,0 +1,20 @@
+[
+  {
+    "Disease_Code": "C81.9",
+    "Disease_Name": "U lympho Hodgkin (Lymphoma)",
+    "Symptoms": "Sốt nhẹ về đêm kéo dài (sốt B), sụt cân không rõ nguyên nhân (>10% trọng lượng cơ thể), đổ mồ hôi trộm ban đêm. Đặc điểm: Xuất hiện khối hạch lớn (thường ở cổ/thượng đòn), hạch chắc, di động kém, KHÔNG ĐAU khi sờ nắn. Đây là điểm mấu chốt để phân biệt với hạch viêm thông thường.",
+    "Basic_Treatment": "Cần sinh thiết hạch để chẩn đoán xác định. Điều trị bằng hóa trị liệu phối hợp xạ trị theo phác đồ ABVD hoặc BEACOPP."
+  },
+  {
+    "Disease_Code": "A15.0",
+    "Disease_Name": "Lao phổi (Pulmonary Tuberculosis)",
+    "Symptoms": "Ho kéo dài trên 2 tuần (ho khan hoặc ho có đờm, đôi khi ho ra máu). Sốt nhẹ về chiều/đêm, sụt cân, mệt mỏi, đổ mồ hôi đêm. Rất dễ nhầm với Lymphoma nhưng thường có kèm triệu chứng hô hấp và hạch (nếu có) thường là hạch lao (vùng cổ, có thể dò mủ).",
+    "Basic_Treatment": "Điều trị theo phác đồ chống lao quốc gia (DOTS) ít nhất 6 tháng với các thuốc R-H-Z-E."
+  },
+  {
+    "Disease_Code": "L93.0",
+    "Disease_Name": "Lupus ban đỏ hệ thống (SLE)",
+    "Symptoms": "Ban đỏ hình cánh bướm ở mặt (nhạy cảm ánh sáng), đau nhức các khớp nhỏ đối xứng (bàn tay, cổ tay), cứng khớp buổi sáng. Mệt mỏi cực độ, có thể kèm theo tổn thương thận hoặc máu.",
+    "Basic_Treatment": "Sử dụng thuốc kháng viêm không steroid (NSAIDs), Corticosteroids (Prednisone), hoặc các thuốc ức chế miễn dịch (Hydroxychloroquine)."
+  }
+]

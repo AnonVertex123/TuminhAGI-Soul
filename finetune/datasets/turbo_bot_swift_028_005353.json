@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `TabBarVisibility`",
+    "input": "public enum TabBarVisibility: CaseIterable {\n    /**\n     After applying this state to `TabBar` it\n     will be visible for the user.\n     */\n    case visible\n    /**\n     After applying this state to `TabBar` it will\n     be hidden from the user.\n     */\n    case invisible\n    /**\n     A convenience function that is used to quickly switch\n     between the visibility states.\n     Use this function when you need to toggle current\n     state: `visible` will become `invisible` and vice versa.\n     */\n    public mutating func toggle() {\n        switch self {\n        case .visible:\n            self = .invisible\n        case .invisible:\n            self = .visible\n        }\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `onl1ner/TabBar`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "onl1ner/TabBar"
+  }
+]

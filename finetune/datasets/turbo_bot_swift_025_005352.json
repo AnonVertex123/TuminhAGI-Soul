@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `View`",
+    "input": "public extension View {\n\t/**\n\tSets the style for vibrancy effects within this view.\n\tTo set a specific style for all vibrancy effects within a view, use the `vibrancyEffectStyle(_:)` modifier:\n\t```\n\tZStack {\n\t\tbackgroundContent\n\t\t\t.blurEffect()\n\t\tVStack {\n\t\t\ttopContent\n\t\t\t\t.vibrancyEffect()\n\t\t\tbottomContent\n\t\t\t\t.vibrancyEffect()\n\t\t}\n\t\t.vibrancyEffectStyle(.fill)\n\t}\n\t```\n\t*/\n\tfunc vibrancyEffectStyle(_ style: UIVibrancyEffectStyle) -> some View {\n\t\tenvironment(\\.vibrancyEffectStyle, style)\n\t}\n}",
+    "output": "Đây là đoạn code trích từ repository `lucasbrown/swiftui-visual-effects`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "lucasbrown/swiftui-visual-effects"
+  }
+]

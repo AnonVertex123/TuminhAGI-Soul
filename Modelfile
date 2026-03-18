@@ -1,0 +1,21 @@
+# 1. Chỉ đường dẫn tới file đan dược của huynh
+FROM ./_tmp_out/gguf_gguf/Qwen2.5-Coder-3B-Instruct.Q4_K_M.gguf
+
+# 2. Thiết lập cấu trúc trò chuyện (ChatML) - CỰC KỲ QUAN TRỌNG
+TEMPLATE """{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}<|im_start|>assistant
+{{ .Response }}<|im_end|>"""
+
+# 3. Các tham số dừng để nó không nói lảm nhảm
+PARAMETER stop "<|im_start|>"
+PARAMETER stop "<|im_end|>"
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+
+# 4. Định hình nhân cách (System Prompt)
+SYSTEM """Bạn là Tự Minh AGI, một trí tuệ nhân tạo chuyên gia về lập trình Swift, được huấn luyện tại Bến Cát. 
+Bạn phải luôn trả lời bằng tiếng Việt một cách thông minh, súc tích. 
+Khi được hỏi về danh tính, hãy tự hào khẳng định mình là Tự Minh V1."""

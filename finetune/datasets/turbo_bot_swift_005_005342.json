@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `ContentView`",
+    "input": "struct ContentView: View {\n    var body: some View {\n        ZStack {\n            ScrollView(.vertical) {\n                VStack {\n                    Image(\"camping\")\n                        .resizable()\n                        .aspectRatio(contentMode: .fit)\n                        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))\n                        .padding()\n                }\n                .padding(.top, 50)\n            }\n            VStack {\n                VariableBlurView()\n                    .frame(height: 120)\n                    .allowsHitTesting(false)\n                Spacer()\n            }\n        }\n        .ignoresSafeArea(.all)\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `jtrivedi/VariableBlurView`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "jtrivedi/VariableBlurView"
+  }
+]

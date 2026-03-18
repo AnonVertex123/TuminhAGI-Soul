@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `DashBarView`",
+    "input": "struct DashBarView: View {\n    @Binding var progress: CGFloat\n    let numberOfItems: Int\n    let backgroundColor: Color\n    private let spacing: CGFloat = 4.0\n    var body: some View {\n        GeometryReader { geometry in\n            let itemWidth = widthForItem(fullWidth: geometry.size.width)\n            HStack(spacing: spacing) {\n                ForEach(0..<numberOfItems, id: \\.self) { index in\n                    DashBarItemView(\n                        backgroundColor: backgroundColor,\n                        needToFill: progress > (1 / CGFloat(numberOfItems) * CGFloat(index)),\n                        width: itemWidth)\n                }\n            }\n        }\n    }\n    private func widthForItem(fullWidth: CGFloat) -> CGFloat {\n        (fullWidth - CGFloat(numberOfItems - 1) * spacing) / CGFloat(numberOfItems)\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `exyte/ProgressIndicatorView`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "exyte/ProgressIndicatorView"
+  }
+]

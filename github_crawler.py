@@ -9,6 +9,7 @@ Tính năng mới:
   - Raw Access: Tải code từ raw.githubusercontent.com để né rate limit.
 """
 
+import vaccine
 import os
 import sys
 import json

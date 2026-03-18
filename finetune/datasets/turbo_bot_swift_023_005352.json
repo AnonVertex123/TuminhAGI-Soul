@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `CaseStudyIfElse`",
+    "input": "struct CaseStudyIfElse: View {\n    @State private var flag: Bool = true\n    var body: some View {\n        VStack {\n            Toggle(isOn: $flag) {\n                Text(\"if/else toggle\")\n            }\n            if flag {\n                LifecycleMonitor(label: \"on\")\n            } else {\n                LifecycleMonitor(label: \"off\")\n            }\n            Text(\"Toggling the switch toggles between the true and false branches of an `if`/`else` statement. Observe that the view is destroyed on every toggle.\")\n                .font(.callout)\n                .frame(maxWidth: .infinity, alignment: .leading)\n        }\n        .padding()\n        .navigationTitle(\"if/else\")\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `ole/swiftui-view-lifecycle`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "ole/swiftui-view-lifecycle"
+  }
+]

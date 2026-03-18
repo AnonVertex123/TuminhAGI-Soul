@@ -1,0 +1,8 @@
+[
+  {
+    "instruction": "Giải thích và phân tích đoạn code swift sau: `DefaultTabBarStyle`",
+    "input": "public struct DefaultTabBarStyle: TabBarStyle {\n    public func tabBar(with geometry: GeometryProxy, itemsContainer: @escaping () -> AnyView) -> some View {\n        VStack(spacing: 0.0) {\n            Divider()\n            VStack {\n                itemsContainer()\n                    .frame(height: 50.0)\n                    .padding(.bottom, geometry.safeAreaInsets.bottom)\n            }\n            .background(\n                Color(\n                    red:   249 / 255,\n                    green: 249 / 255,\n                    blue:  249 / 255,\n                    opacity: 0.94\n                )\n            )\n            .frame(height: 50.0 + geometry.safeAreaInsets.bottom)\n        }\n    }\n}",
+    "output": "Đây là đoạn code trích từ repository `onl1ner/TabBar`.\n\nChức năng: Swift quality block.\n\nPhân tích: Code chuẩn, xử lý tốt.",
+    "repo": "onl1ner/TabBar"
+  }
+]

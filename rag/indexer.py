@@ -54,3 +54,18 @@ class DocumentIndexer:
                 stats[str(p)] = c
                 
         return stats
+
+if __name__ == "__main__":
+    from nexus_core.weighted_rag import WeightedRAG
+    rag = WeightedRAG()
+    indexer = DocumentIndexer(rag)
+    
+    print("🚀 Bắt đầu index tri thức v2...")
+    for domain_dir in ["docs/genomics", "docs/philosophy", "docs/finance", "docs/logic_math"]:
+        print(f"📂 Đang xử lý: {domain_dir}")
+        results = indexer.index_directory(domain_dir)
+        for path, count in results.items():
+            if count > 0:
+                print(f"  ✅ {path}: {count} chunks")
+    
+    print("✨ Hoàn tất index.")

@@ -7,36 +7,65 @@ STORAGE_DIR = BASE_DIR / "storage"
 RAG_DIR     = STORAGE_DIR / "chroma_db"
 MEM_FILE    = STORAGE_DIR / "memories.json"
 VITAL_FILE  = STORAGE_DIR / "vital_backup.json"
-PROMPTS_DIR = BASE_DIR / "prompts"
+SOUL_VAULT_DIR = BASE_DIR / "soul_vault"
+DOCS_DIR    = BASE_DIR / "docs"
+MISSIONS_HUB_DIR = BASE_DIR / "missions_hub"
+WORKSPACE_DIR = BASE_DIR / "workspace"
+
+# Backward compatibility (use Soul Vault)
+PROMPTS_DIR = SOUL_VAULT_DIR
+
+# Domain-specific knowledge roots
+DOCS_GENOMICS_DIR   = DOCS_DIR / "genomics"
+DOCS_PHILOSOPHY_DIR = DOCS_DIR / "philosophy"
+DOCS_FINANCE_DIR    = DOCS_DIR / "finance"
+DOCS_LOGIC_MATH_DIR = DOCS_DIR / "logic_math"
 
 # === MODELS (Ollama local) ===
-MODEL_TASK      = "TuMinh_Digital:latest"    # model bạn tự train — Task Agent
-MODEL_CRITIC    = "Tuminh-Sovereign:latest"  # model mạnh nhất — Critic
-MODEL_VALIDATOR = "phi3:mini"                # nhẹ — Validator
-MODEL_EMBED     = "nomic-embed-text"         # cần pull: ollama pull nomic-embed-text
+MODEL_TASK      = "qwen2.5-coder:7b"
+MODEL_CRITIC    = "deepseek-r1:7b"
+MODEL_VALIDATOR = "phi4-mini:latest"
+MODEL_EMBED     = "nomic-embed-text:latest"
 OLLAMA_BASE_URL = "http://localhost:11434"
 
-# === WEIGHTED RAG FORMULA ===
+# === WEIGHTED RAG FORMULA (Blueprint v2) ===
 W_BM25    = 0.25   # keyword match
 W_VECTOR  = 0.35   # semantic similarity
-W_HUMAN   = 0.30   # human confirmed score
-W_RECENCY = 0.10   # newer = higher
+W_HUMAN   = 0.30   # human confirmed score (confidence)
+W_RECENCY = 0.10   # newer = higher (time decay)
+# Total = 1.0
+
+# === SOUL CONSTANTS (IMPERATIVE) ===
+# These are used for final validation check
+SOUL_CONSTANTS = {
+    "compassion": "Tâm từ bi: Luôn quan tâm đến nỗi đau và lợi ích của người dùng.",
+    "non_ego": "Vô ngã: Không đặt cái tôi AI lên trên sự thật và lợi ích chung.",
+    "gratitude": "Lòng biết ơn: Trân trọng mọi phản hồi và cơ hội tiến hóa."
+}
 
 # === MEMORY TIERS ===
-TIER_VITAL  = 80   # score >= 80
-TIER_STRONG = 55   # score >= 55
-TIER_NORMAL = 30   # score >= 30
-# score < 30 = faint (không retrieve)
+TIER_VITAL  = 80   # score >= 80 -> Never forgotten, persistent boost
+TIER_STRONG = 55   # score >= 55 -> Highly relevant
+TIER_NORMAL = 30   # score >= 30 -> General knowledge
+TIER_WEAK   = 0    # score < 30 -> Candidate for pruning
 
 # === ORCHESTRATOR ===
 MAX_RETRY      = 3
 MIN_CONFIDENCE = 0.70
 CONTEXT_TOP_K  = 8
-MAX_HISTORY    = 10   # tin nhắn lưu trong context
+MAX_HISTORY    = 10
 
 # === EVOLUTION PHASES ===
-PHASE1_THRESHOLD = 50    # vital memories → bắt đầu semi-supervised
-PHASE2_THRESHOLD = 200   # vital memories → self-supervised
+PHASE1_THRESHOLD = 50
+PHASE2_THRESHOLD = 200
+
+# === DOMAIN FLAGS ===
+DOMAINS = ["code", "data", "med_gen", "philo", "finance", "logic_math"]
+
+SENSITIVE_DOMAINS = {
+    "med_gen": True,
+    "finance": True,
+}
 
 # === SOUL CONSTANTS (READ ONLY) ===
 # Không agent nào được thay đổi — đây là linh hồn của Tự Minh
