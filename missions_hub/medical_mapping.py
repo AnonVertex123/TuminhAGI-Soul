@@ -98,6 +98,18 @@ HARD_MEDICAL_MAPPING: Dict[str, MappingValue] = {
     "phù nề họng": "Throat swelling",
     "giả mạc": "Pseudomembrane",
 
+    # --- Gait / movement disorders (V5.3 — tránh nhầm urinary) ---
+    "đi loạng choạng": "Ataxia (unsteady gait, cerebellar ataxia)",
+    "đi loạng": "Unsteady gait (ataxia, gait disturbance)",
+    "loạng choạng": "Ataxia (unsteady gait)",
+    "mất thăng bằng": "Loss of balance (ataxia, vestibular disorder)",
+    "chân không vững": "Unsteady gait",
+    "run tay chân": "Tremor of hands and feet",
+    "vấp ngã": "Frequent falls (gait instability)",
+    "mùi rượu": "Alcohol intoxication (ethanol odor)",
+    "có mùi rượu": "Alcohol intoxication",
+    "say rượu": "Alcohol intoxication",
+
     # --- Neurology / neuro-ish (V5.1 expanded) ---
     "đau đầu dữ dội": "Severe headache (thunderclap headache)",
     "đau đầu đột ngột dữ dội": "Sudden severe headache (thunderclap headache, SAH)",

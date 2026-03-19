@@ -54,6 +54,65 @@ _RED_FLAG_SYMPTOMS: frozenset = frozenset([
 ])
 
 
+# ── Input sanitizer (V5.3) ───────────────────────────────────────────────────
+# Chạy TRƯỚC mọi bước dịch/embedding để tránh garbage-in → hallucination-out.
+_CORRUPT_PATTERNS: list[tuple[str, str]] = [
+    # Dấu hỏi thay thế ký tự Unicode bị lỗi font (cp1252/latin1 corruption)
+    (r"\?+", " "),
+    # Ký tự lạ không phải chữ/số/dấu cơ bản
+    (r"[^\w\s\u00C0-\u024F\u1E00-\u1EFF\.,;:()/\-+]", " "),
+    # Nhiều khoảng trắng liên tiếp
+    (r"\s{2,}", " "),
+]
+_CORRUPT_RE = [(re.compile(p), r) for p, r in _CORRUPT_PATTERNS]
+
+# Thuật ngữ y khoa bị sai do substring overlap — dùng để chặn hallucination
+_FORBIDDEN_CROSSMAP: dict[str, list[str]] = {
+    # Nếu query chứa "trễ kinh / chậm kinh" → KHÔNG được ra thuật ngữ thần kinh
+    "tre kinh":   ["seizure", "epilepsy", "convulsion", "dong kinh", "co giat"],
+    "trễ kinh":   ["seizure", "epilepsy", "convulsion", "động kinh", "co giật"],
+    "cham kinh":  ["seizure", "epilepsy"],
+    "chậm kinh":  ["seizure", "epilepsy"],
+    # "đi loạng" = ataxia/gait — KHÔNG phải urinary/tiêu hóa
+    "di loang":   ["urinary", "dysuria", "micturition", "diarrhea", "stool"],
+    "đi loạng":   ["urinary urgency", "dysuria", "micturition", "diarrhea"],
+}
+
+def clean_input(text: str) -> str:
+    """
+    V5.3 — Làm sạch input trước khi xử lý:
+    1. Loại bỏ ký tự bị corrupt (dấu ? thay Unicode, ký tự lạ)
+    2. Trim khoảng trắng thừa
+    3. Trả về chuỗi sạch, giữ nguyên dấu tiếng Việt hợp lệ
+    """
+    import re as _re
+    if not text:
+        return ""
+    cleaned = str(text).strip()
+    for pattern, replacement in _CORRUPT_RE:
+        cleaned = pattern.sub(replacement, cleaned)
+    return cleaned.strip()
+
+
+def check_cross_contamination(symptom: str, translated: str) -> str | None:
+    """
+    Phát hiện cross-map hallucination: nếu triệu chứng thuộc nhóm A nhưng
+    bản dịch chứa thuật ngữ nhóm B (không liên quan y khoa) → trả về warning.
+    Trả về None nếu không phát hiện vấn đề.
+    """
+    sym_lower = symptom.lower()
+    trans_lower = translated.lower()
+    for trigger, forbidden in _FORBIDDEN_CROSSMAP.items():
+        if trigger in sym_lower:
+            for bad in forbidden:
+                if bad in trans_lower:
+                    return (
+                        f"CROSS-MAP BLOCK: '{symptom}' dịch ra '{translated}' "
+                        f"chứa thuật ngữ cấm '{bad}' — bỏ qua triệu chứng này."
+                    )
+    return None
+
+
 class MedicalDiagnosticTool:
     def __init__(self):
         # Đường dẫn linh hoạt
@@ -1089,13 +1148,18 @@ YÊU CẦU:
                 print(f"⚠️ Không thể save unit_vault: {exc}")
 
     def tuminh_multi_diagnostic_loop(self, user_query, exclude_codes=None):
-        """Quy trình chẩn đoán đa tầng (Thiết quân luật) (V5 Smart Search)"""
+        """Quy trình chẩn đoán đa tầng (Thiết quân luật) (V5.3 + clean_input)"""
         if exclude_codes is None: exclude_codes = []
         if self.df is None: self.load_vault()
         if self.embeddings is None: return None, None, None, None, None, None, "[NO_MEDICAL_DATA_FOUND]"
 
-        print(f"\n--- 🚔 BẮT ĐẦU MẶT LỆNH THIẾT QUÂN LUẬT (V5) ---")
-        
+        # V5.3 — Sanitize input trước khi bất kỳ bước nào
+        user_query = clean_input(user_query)
+        if not user_query:
+            return None, None, None, None, None, None, "[EMPTY_QUERY_AFTER_CLEANING]"
+
+        print(f"\n--- BẮTĐẦU THIẾT QUÂN LUẬT V5.3 — query: '{user_query[:60]}' ---")
+
         # BƯỚC 1: Tách triệu chứng
         parts = self.split_symptoms(user_query)
         is_emergency = self._is_emergency_case(user_query)
@@ -1132,7 +1196,34 @@ YÊU CẦU:
                     coverage_report[part] = True
                     continue
 
-            query_en = self.translate_query(part)
+            # V5.3 — Clean individual part before translation
+            part_clean = clean_input(part)
+            if not part_clean:
+                print(f"  [SKIP] Part rỗng sau clean_input: '{part}'")
+                continue
+
+            query_en = self.translate_query(part_clean)
+
+            # V5.3 — Cross-contamination guard: chặn hallucination thuật ngữ sai nhóm
+            cross_err = check_cross_contamination(part_clean, query_en)
+            if cross_err:
+                print(f"  ⚠️ {cross_err}")
+                continue
+
+            # V5.3 — OB/GYN chapter guard: nếu triệu chứng phụ khoa mà dịch ra
+            # thuật ngữ thần kinh (seizure/epilepsy) → bắt buộc dùng hard fallback
+            _part_lower_clean = part_clean.lower()
+            _obgyn_kws = frozenset([
+                "trễ kinh", "tre kinh", "chậm kinh", "cham kinh", "mất kinh",
+                "mat kinh", "kinh nguyệt", "kinh nguyet", "đau bụng kinh",
+                "dau bung kinh", "amenorrhea", "dysmenorrhea",
+            ])
+            _neuro_bad = frozenset(["seizure", "epilepsy", "convulsion", "tremor"])
+            if any(kw in _part_lower_clean for kw in _obgyn_kws):
+                if any(bad in query_en.lower() for bad in _neuro_bad):
+                    print(f"  🚨 OB/GYN GUARD: Phát hiện thuật ngữ thần kinh sai: '{query_en}' — dùng fallback phụ khoa")
+                    query_en = "Delayed menstruation; Amenorrhea; Irregular menstruation"
+
             query_vector = self.get_ollama_embedding(query_en)
             if query_vector is None: continue
             
