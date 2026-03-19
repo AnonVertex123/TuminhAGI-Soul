@@ -20,6 +20,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from missions_hub.medical_diagnostic_tool import MedicalDiagnosticTool
 from nexus_core.eternal_memory import EternalMemoryManager
 from nexus_core.professor_reasoning import ProfessorReasoning
+from nexus_core.output_formatter import format_output as _format_output
 
 app = FastAPI(title="Tự Minh AGI API Server")
 
@@ -511,6 +512,38 @@ async def diagnose_stream(
                             },
                         }
                     )
+
+                    # ── Output Layer V2.0: structured 4-section output ────────
+                    # Build a safe, descriptive output from the raw diagnosis data.
+                    # Reconstructs a lightweight diagnoses list from available fields.
+                    try:
+                        _diag_entries: list[dict] = []
+                        for _code_str in (combined_codes or "").split(","):
+                            _code_str = _code_str.strip()
+                            if _code_str and _code_str != "NONE":
+                                _diag_entries.append({
+                                    "code":             _code_str,
+                                    "name":             _code_str,   # description filled below
+                                    "score":            confidence,
+                                    "critic_status":    status_label,
+                                    "critic_confidence": int(confidence * 100) if confidence else None,
+                                    "reasoning":        details,
+                                })
+                        _is_em = status_label in ("EMERGENCY_WARN",)
+                        _structured = _format_output(
+                            query=q0,
+                            diagnoses=_diag_entries,
+                            parts=(q0 or "").replace("，", ",").split(","),
+                            is_emergency=_is_em,
+                            status_label=status_label,
+                        )
+                        yield _sse({
+                            "event":   "structured_output",
+                            "payload": _structured.to_dict(),
+                        })
+                    except Exception as _fmt_err:
+                        yield _sse({"event": "structured_output_error",
+                                    "payload": {"error": str(_fmt_err)}})
                     continue
 
                 if line == "__ERROR__":

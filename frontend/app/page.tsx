@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import MedicalCopilot from "../components/MedicalCopilot";
 import ExpertInsights, { type ExpertInsightPayload } from "../components/ExpertInsights";
+import StructuredOutputPanel, { type StructuredOutputData } from "../components/StructuredOutputPanel";
 
 type ThemeMode = "light" | "dark";
 
@@ -606,6 +607,7 @@ export default function Page() {
   const [diffItems, setDiffItems] = useState<DiffItem[]>([]);
   const [diffQuestions, setDiffQuestions] = useState<DiffQuestion[]>([]);
   const [expertInsights, setExpertInsights] = useState<ExpertInsightPayload | null>(null);
+  const [structuredOutput, setStructuredOutput] = useState<StructuredOutputData | null>(null);
 
   // Critic typewriter: buffer tokens and render at fixed cadence.
   const criticQueueRef = useRef<string[]>([]);
@@ -662,6 +664,7 @@ export default function Page() {
       critic: "",
       final: ""
     });
+    setStructuredOutput(null);
   };
 
   const appendTimeline = (step: TimelineStepId, line: string) => {
@@ -857,6 +860,10 @@ export default function Page() {
             if (p && Array.isArray(p.adjusted_items)) {
               setExpertInsights(p as ExpertInsightPayload);
             }
+          } else if (msg.event === "structured_output") {
+            if (msg.payload) {
+              setStructuredOutput(msg.payload as StructuredOutputData);
+            }
           } else if (msg.event === "error") {
             appendTimeline("final", `Error: ${msg.payload?.error || "unknown"}`);
           }
@@ -950,6 +957,22 @@ export default function Page() {
                     </div>
                   </div>
                 ))}
+
+                {/* ── Structured Output V2.0 ── */}
+                {structuredOutput && (
+                  <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50/40 dark:bg-emerald-950/20 p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm">🤖</span>
+                      <span className="text-[12px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">
+                        Tự Minh AGI — Thông tin hỗ trợ
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-2">
+                      Thông tin dưới đây chỉ mang tính tham khảo, không phải chẩn đoán y tế chính thức.
+                    </p>
+                    <StructuredOutputPanel data={structuredOutput} />
+                  </div>
+                )}
               </div>
             </div>
 
