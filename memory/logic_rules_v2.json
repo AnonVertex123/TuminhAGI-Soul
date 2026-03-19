@@ -1,0 +1,136 @@
+{
+  "_meta": {
+    "version": "V2.0",
+    "distilled": "2026-03-19",
+    "session": "8537317a-bd43-4b6f-94ae-815b7dc41deb",
+    "author": "TuminhAGI Knowledge Distiller",
+    "purpose": "Machine-readable logic rules for any TuminhAGI agent to load and apply immediately"
+  },
+
+  "similarity_thresholds": {
+    "_comment": "Adaptive thresholds — asymmetric cost: false negative in emergency > false positive",
+    "red_flag_symptoms":     0.33,
+    "obgyn_neurology":       0.35,
+    "standard":              0.38,
+    "pathognomonic_boost":   0.85,
+    "critic_suggestion_below": 80,
+    "critic_reject_all_below": 0
+  },
+
+  "gatekeeper_pipeline": {
+    "_comment": "4-layer anti-hallucination. Short-circuit at first failed layer.",
+    "L1_canonical_mapping": {
+      "rule": "Use CANONICAL_MAP hard table (VN → EN + domain + ICD chapters). Override LLM translation if match found.",
+      "file": "nexus_core/strict_validator.py → CANONICAL_MAP",
+      "zero_llm_trust": true
+    },
+    "L2_mesh_whitelist": {
+      "rule": "canonical_en must exist in MESH_WHITELIST frozenset. If not → reject with 'Lỗi thuật ngữ'.",
+      "file": "nexus_core/strict_validator.py → MESH_WHITELIST"
+    },
+    "L3_domain_lock": {
+      "rule": "ICD chapter[0] must be in allowed_chapters for symptom's domain. Universal: R, Z always allowed.",
+      "domain_map": {
+        "OBGYN":       ["N", "O", "R", "Z"],
+        "CARDIOLOGY":  ["I", "R", "Z"],
+        "NEUROLOGY":   ["G", "R", "I", "A", "B", "Z"],
+        "RESPIRATORY": ["J", "R", "I", "A", "B", "Z"],
+        "UROLOGY":     ["N", "R", "Z"],
+        "GI":          ["K", "R", "A", "B", "Z"],
+        "GENERAL":     ["A", "B", "R", "Z"]
+      }
+    },
+    "L4_reverse_similarity": {
+      "rule": "cosine_sim(ICD_desc_embedding, symptom_embedding) >= threshold(domain, is_red_flag)",
+      "fallback": "if gate unavailable → use legacy reverse_description_check()"
+    }
+  },
+
+  "thiết_quân_luật_pipeline": {
+    "_comment": "4-step Martial Law diagnostic pipeline in tuminh_multi_diagnostic_loop",
+    "step_1_split": "split_symptoms() → tokenize user_query into parts[]",
+    "step_2_search": {
+      "a_smart_lookup": "Check success_memory DB for known symptom→ICD with weight>=2",
+      "b_translate":    "translate_query() → phi4-mini LLM, prompt asks 'Standard Medical Term (Common synonyms)'",
+      "c_canonical_override": "Gatekeeper L1: if CANONICAL_MAP has match → override LLM translation",
+      "d_embed":        "get_ollama_embedding(query_en) → mxbai-embed-large",
+      "e_cosine_matrix":"np.dot(unit_vault, unit_query) — vectorized, O(N) via argpartition top-15",
+      "f_chapter_filter":"_allowed_icd_chapter_prefixes(part) → filter S_i to top-3 allowed candidates",
+      "g_pathognomonic_rerank": "if meningeal keywords → boost G-codes to front, remove I10-I15"
+    },
+    "step_2_5_domain_lock": "Gatekeeper L3: filter S_i removing wrong-chapter candidates",
+    "step_3_critic": {
+      "input":    "part (symptom string) + S_i (top-3 candidates)",
+      "llm":      "llama3:8b / phi4-mini via Ollama",
+      "parser":   "safe_critic_parser() — Triple-layer: JSON → Regex → Hard fallback",
+      "output":   "{status: APPROVED|SUGGESTION|REJECTED, confidence_score: 0-100, best_candidate_index: 1-3|REJECT_ALL, reasoning: str}"
+    },
+    "step_3_1_blacklist": "Check success_memory error_log + exclude_codes set",
+    "step_3_2_chapter_lock": "strict_chapter_check(part, ICD_code) — hard chapter consistency",
+    "step_3_5_gate_check": "Gatekeeper L2+L4: MeSH validate + adaptive similarity threshold",
+    "step_4_validate": "coverage_report — all parts must be covered; emergency override if is_emergency and partial coverage"
+  },
+
+  "anti_hallucination_guards": {
+    "clean_input": {
+      "rule": "strip ? marks, non-printable chars, normalize spaces. Call before ANY translation or embedding.",
+      "code": "re.sub(r'[\\?\\ufffd\\x00-\\x1F]', ' ', text)"
+    },
+    "check_cross_contamination": {
+      "rule": "Block semantic mismatches via _FORBIDDEN_CROSSMAP dict",
+      "examples": {
+        "trễ kinh → seizure": "BLOCK — gynecological cannot map to neurological",
+        "đi loạng → urgency": "BLOCK — gait ataxia cannot map to urinary urgency"
+      },
+      "file": "missions_hub/medical_diagnostic_tool.py → _FORBIDDEN_CROSSMAP"
+    },
+    "obgyn_chapter_guard": {
+      "rule": "If part contains OB/GYN keyword AND query_en contains neuro bad term → force fallback to 'Delayed menstruation; Amenorrhea; Irregular menstruation'",
+      "neuro_bad_terms": ["seizure", "epilepsy", "convulsion", "tremor"]
+    },
+    "red_flag_ascii_fallback": {
+      "rule": "_RED_FLAG_SYMPTOMS frozenset must include both diacritic AND ASCII versions",
+      "example": "['đau ngực', 'đau ngực trái', 'dau nguc', 'dau nguc trai']"
+    }
+  },
+
+  "professor_reasoning_rules": {
+    "red_flag_protocol": "Life-threatening diagnoses (MI, PE, meningitis) pushed to top of checklist with 🔴 warning regardless of initial probability",
+    "pathognomonic_boost": "Gold symptom pairs (sốt cao + cứng cổ → meningitis) auto-boost confidence > 85%",
+    "differential_logic": "Top-3 diagnoses each generate 1 exclusion question: 'Nếu là X, tại sao không có triệu chứng Y?'",
+    "bayesian_update": "Doctor Yes/No answers update probabilities: P(D|E) = P(E|D)*P(D) / P(E)",
+    "latency_budget_ms": 2
+  },
+
+  "performance_optimizations": {
+    "softmax": "numpy.exp(x - max(x)) / numpy.sum(...) — numerically stable, SIMD-accelerated",
+    "cosine_similarity": "Matrix: scores = (unit_vault @ unit_query) — O(N) single matmul, no per-element division",
+    "top_k_selection": "np.argpartition(similarities, -k)[-k:] — O(N) vs O(N log N) argsort",
+    "caching": "functools.lru_cache on translate_query() and Phase-1 _suggest_questions()",
+    "warm_up": "Pre-compute unit_vault (normalized embeddings) at server startup",
+    "latency_target_ms": 10
+  },
+
+  "output_layer_rules": {
+    "gate_suppress_threshold": 0.38,
+    "gate_bypass_if_emergency": true,
+    "urgency_levels": {
+      "CẤP CỨU NGAY":       "ICD chapters: I2x, G00, J96, K25, O00 OR explicit RED_FLAG match",
+      "Cần khám trong ngày": "RED_FLAG keywords in query_lower",
+      "Theo dõi tại nhà":   "default — no red flags detected"
+    },
+    "description_phrases_by_similarity": {
+      ">=0.80": "Dấu hiệu này thường gặp trong các tình trạng liên quan đến {name}.",
+      ">=0.60": "Có thể liên quan đến các tình trạng y khoa như {name}.",
+      "<0.60":  "Một trong những hướng cần khảo sát thêm là {name} (mức độ tương đồng thấp)."
+    }
+  },
+
+  "critic_layer_parsing": {
+    "strategy": "Triple-layer parsing in nexus_core/armored_critic.py",
+    "L1_json": "Strip markdown fences, json.loads()",
+    "L2_regex": "Extract APPROVED|SUGGESTION|REJECTED + confidence_score via regex",
+    "L3_fallback": "{status: SUGGESTION, confidence_score: 50, best_candidate_index: 1, reasoning: 'Critic parse failed — human review required'}",
+    "normalize": "Ensure confidence_score is int 0-100, best_candidate_index is int 1-3 or string REJECT_ALL"
+  }
+}
