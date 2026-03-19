@@ -256,6 +256,21 @@ HARD_MEDICAL_MAPPING: Dict[str, MappingValue] = {
     "sưng lợi": "Gingival swelling",
     "chảy máu chân răng": "Gum bleeding",
 
+    # --- Gynecological / obstetric ---
+    "trễ kinh": "Delayed menstruation (amenorrhea)",
+    "chậm kinh": "Delayed menstruation (amenorrhea)",
+    "kinh nguyệt không đều": "Irregular menstruation",
+    "kinh nguyệt trễ": "Delayed menstruation (amenorrhea)",
+    "mất kinh": "Amenorrhea",
+    "đau bụng kinh": "Dysmenorrhea (menstrual cramps)",
+    "đau hạ vị": "Lower abdominal pain (pelvic pain)",
+    "ra máu âm đạo bất thường": "Abnormal uterine bleeding",
+    "khí hư bất thường": "Abnormal vaginal discharge (leukorrhea)",
+    "ngứa âm đạo": "Vaginal pruritus",
+    "đau vùng chậu": "Pelvic pain",
+    "buồn nôn sáng sớm": "Morning nausea (hyperemesis)",
+    "nghén": "Morning sickness (nausea gravidarum)",
+
     # --- Lymph / swelling ---
     "nổi hạch": "Lymphadenopathy",
     "hạch": "Lymph node enlargement",

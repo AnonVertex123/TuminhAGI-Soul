@@ -268,10 +268,15 @@ Output:
             if not any(icd_chap == chap[0] for chap in allowed):
                 return False, f"Triệu chứng Da liễu không khớp chương {icd_chap}."
 
-        if any(kw in symptoms_lower for kw in ["tiểu", "đái", "thận", "niệu", "sinh dục", "kinh nguyệt"]):
-            allowed = ["N", "A", "B", "R", "O"]
+        if any(kw in symptoms_lower for kw in [
+            "tiểu", "đái", "thận", "niệu", "sinh dục", "kinh nguyệt",
+            "trễ kinh", "chậm kinh", "mất kinh", "đau bụng kinh",
+            "âm đạo", "vùng chậu", "pelvic", "dysmenorrhea", "amenorrhea",
+            "menstruation", "delayed menstruation", "uterine", "vaginal",
+        ]):
+            allowed = ["N", "O", "A", "B", "R"]
             if not any(icd_chap == chap[0] for chap in allowed):
-                return False, f"Triệu chứng Tiết niệu không khớp chương {icd_chap}."
+                return False, f"Triệu chứng Tiết niệu/Phụ khoa không khớp chương {icd_chap}."
 
         # V5.1 MENINGEAL LOCK: cứng cổ + sợ ánh sáng → PHẢI thuộc G hoặc A/B (infection)
         # Ngăn ICD chương I (huyết áp) bị trả về khi triệu chứng rõ ràng là màng não.
@@ -327,9 +332,15 @@ Output:
         if any(kw in symptoms_lower for kw in ["tóc", "da", "móng", "ngứa", "ban", "mẩn"]):
             return ["L", "B", "A", "R", "C4"]
 
-        # 5. Tiết niệu/niệu
-        if any(kw in symptoms_lower for kw in ["tiểu", "đái", "thận", "niệu", "sinh dục", "kinh nguyệt"]):
-            return ["N", "A", "B", "R", "O"]
+        # 5. Tiết niệu / phụ khoa
+        if any(kw in symptoms_lower for kw in [
+            "tiểu", "đái", "thận", "niệu", "sinh dục", "kinh nguyệt",
+            "trễ kinh", "chậm kinh", "mất kinh", "đau bụng kinh",
+            "âm đạo", "vùng chậu", "pelvic", "dysmenorrhea",
+            "amenorrhea", "menstruation", "delayed menstruation",
+            "uterine", "ovarian", "vaginal",
+        ]):
+            return ["N", "O", "A", "B", "R"]
 
         return None
 
