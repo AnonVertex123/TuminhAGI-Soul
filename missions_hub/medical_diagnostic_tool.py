@@ -273,6 +273,16 @@ Output:
             if not any(icd_chap == chap[0] for chap in allowed):
                 return False, f"Triệu chứng Tiết niệu không khớp chương {icd_chap}."
 
+        # V5.1 MENINGEAL LOCK: cứng cổ + sợ ánh sáng → PHẢI thuộc G hoặc A/B (infection)
+        # Ngăn ICD chương I (huyết áp) bị trả về khi triệu chứng rõ ràng là màng não.
+        if any(kw in symptoms_lower for kw in [
+            "cứng cổ", "cứng gáy", "neck stiffness", "nuchal rigidity",
+            "sợ ánh sáng", "photophobia", "meningismus",
+        ]):
+            allowed = ["G", "A", "B", "R"]
+            if not any(icd_chap == chap[0] for chap in allowed):
+                return False, f"Dấu hiệu màng não (cứng cổ/sợ ánh sáng) không khớp chương {icd_chap} — kỳ vọng G/A/B."
+
         return True, "PASS"
 
     def _allowed_icd_chapter_prefixes(self, symptoms: str):
@@ -286,6 +296,17 @@ Output:
         # (We still return some restrictions for other symptom types below.)
 
         # 1. Hô hấp
+        # 0. MENINGEAL / NEUROLOGICAL — kiểm tra TRƯỚC hết (pathognomonic priority)
+        # "cứng cổ" + "sợ ánh sáng" là dấu hiệu đặc trưng G00/Meningitis — KHÔNG được nhường I10
+        if any(kw in symptoms_lower for kw in [
+            "cứng cổ", "cứng gáy", "neck stiffness", "nuchal rigidity",
+            "sợ ánh sáng", "photophobia", "meningismus",
+            "đau đầu dữ dội", "severe headache", "thunderclap",
+            "hemiparesis", "liệt nửa người", "đột quỵ", "stroke",
+            "co giật", "seizure", "động kinh", "epilepsy",
+        ]):
+            return ["G", "A", "B", "R"]
+
         if any(kw in symptoms_lower for kw in ["ho", "phổi", "thở", "phế quản", "họng", "mũi", "cough", "shortness of breath", "dyspnea", "wheezing"]):
             return ["A", "B", "J", "R", "C3"]
 
@@ -563,43 +584,15 @@ OUTPUT FORMAT (JSON ONLY):
                 json={"model": self.summary_model, "prompt": prompt, "stream": False, "format": "json"},
                 timeout=60
             )
-            import json
-            critic_res = json.loads(response.json()["response"])
-
-            # Normalize to the new confidence/status contract.
-            best_idx = critic_res.get("best_candidate_index")
-
-            conf = critic_res.get("confidence_score", critic_res.get("coverage_score", None))
-            try:
-                conf_f = float(conf) if conf is not None else 0.0
-            except Exception:
-                conf_f = 0.0
-
-            # If AI accidentally returns 0..1 range, convert to 0..100.
-            if 0.0 <= conf_f <= 1.0:
-                conf_f = conf_f * 100.0
-
-            # Final status override (enforce doctor-assistant rule).
-            if best_idx == "REJECT_ALL":
-                status = "REJECTED"
-            else:
-                status = "SUGGESTION" if conf_f < 80.0 else "APPROVED"
-
-            critic_res["confidence_score"] = max(0.0, min(100.0, conf_f))
-            critic_res["status"] = status
-
-            # Ensure structured reasoning exists.
-            reasoning = critic_res.get("reasoning", "") or ""
-            if "Điểm chưa khớp" not in reasoning:
-                critic_res["reasoning"] = (
-                    "Điểm chưa khớp: (không có dữ liệu chi tiết từ mô hình)\n"
-                    f"Gợi ý hướng đi: {reasoning[:500]}\n"
-                    "Mã ICD thay thế: (khuyến nghị bởi AI)"
-                )
-
-            return critic_res
+            raw_text = response.json().get("response", "")
         except Exception as e:
-            print(f"Error calling Critic Layer: {e}")
+            print(f"⚠️ Critic Layer — Ollama call failed: {e}")
+            raw_text = ""
+
+        # Triple-Layer Parsing: JSON → Regex → Fallback (never None, never crash)
+        from nexus_core.armored_critic import safe_critic_parser
+        return safe_critic_parser(raw_text)
+
     def strict_medical_audit(self, symptoms, codes, summary):
         """Phản biện Chủ nhận (Owner-Override Protection) (V4.1)"""
         print(f"--- 🛡️ Đang chạy Hậu kiểm Y khoa Nghiêm ngặt (Strict Medical Audit)... ---")
@@ -1185,6 +1178,29 @@ YÊU CẦU:
                     })
                     if len(S_i) >= 3:
                         break
+
+            # BƯỚC 2.5: Pathognomonic Re-rank (V5.1)
+            # Nếu triệu chứng có dấu hiệu màng não → boost G00-G09 lên đầu S_i,
+            # loại bỏ I10-I15 (cao huyết áp) khỏi danh sách để tránh nhiễu vector.
+            _part_lower = part.lower()
+            _meningeal_kws = frozenset([
+                "cứng cổ", "cứng gáy", "neck stiffness", "nuchal rigidity",
+                "sợ ánh sáng", "photophobia",
+            ])
+            if any(kw in _part_lower for kw in _meningeal_kws):
+                _g_codes  = [c for c in S_i if str(c.get("code", "")).upper().startswith("G")]
+                _other    = [c for c in S_i
+                             if not str(c.get("code", "")).upper().startswith("G")
+                             and not any(
+                                 str(c.get("code", "")).upper().startswith(pfx)
+                                 for pfx in ("I10", "I11", "I12", "I13", "I14", "I15")
+                             )]
+                S_i = _g_codes + _other
+                if _g_codes:
+                    print(f"⚡ Meningeal boost: G-codes ưu tiên — {[c['code'] for c in _g_codes]}")
+                if len(S_i) < 1 and allowed_prefix_letters is not None:
+                    # Nếu không còn candidate nào sau filter, nới rộng lại
+                    S_i = _g_codes + _other  # đã là kết quả tốt nhất có thể
 
             # BƯỚC 3: Lớp Đao phủ (Skeptic Critic) kiểm tra độ phủ
             critic_res = self.critic_layer(part, S_i)
