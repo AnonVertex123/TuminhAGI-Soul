@@ -17,7 +17,7 @@ from fastapi import Body, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from missions_hub.medical_diagnostic_tool import MedicalDiagnosticTool
+from missions_hub.medical_diagnostic_tool import MedicalDiagnosticTool, diagnose_enhanced
 from nexus_core.eternal_memory import EternalMemoryManager
 from nexus_core.professor_reasoning import ProfessorReasoning
 from nexus_core.output_formatter import format_output as _format_output
@@ -627,6 +627,62 @@ async def diagnose_stream(
             _stream_lock.release()
 
     return StreamingResponse(event_gen(), media_type="text/event-stream")
+
+
+@app.post("/diagnose/v2")
+async def diagnose_v2(payload: Dict[str, Any] = Body(...)) -> JSONResponse:
+    """
+    V9.3 Enhanced Diagnostic — non-streaming JSON endpoint.
+
+    Request body:
+        {
+            "symptoms": ["đau ngực trái", "khó thở"],
+            "context": {
+                "trigger": "gắng sức",
+                "age": 68,
+                "sex": "nam",
+                "duration": "30 phút",
+                "severity": "nặng"
+            }
+        }
+
+    Response:
+        {
+            "is_emergency": true,
+            "emergency_reason": "...",
+            "embed_model": "...",
+            "latency_ms": 45.2,
+            "candidates": [
+                {"disease_id": "I21", "name_vn": "Nhồi máu cơ tim cấp",
+                 "score": 0.87, "urgency": "emergency", ...},
+                ...
+            ]
+        }
+
+    Uses EnhancedDiagnosticPipeline (3-layer: Enricher → Embedder → SeverityScorer).
+    Falls back gracefully if pipeline unavailable.
+    """
+    symptoms: list[str] = payload.get("symptoms") or []
+    context: dict[str, Any] = payload.get("context") or {}
+
+    if not symptoms or not isinstance(symptoms, list):
+        raise HTTPException(
+            status_code=422,
+            detail="Field `symptoms` must be a non-empty list of strings.",
+        )
+
+    symptoms = [str(s).strip() for s in symptoms if str(s).strip()]
+    if not symptoms:
+        raise HTTPException(status_code=422, detail="All symptoms were empty after stripping.")
+
+    try:
+        result = await diagnose_enhanced(symptoms, context)
+        return JSONResponse(content=result)
+    except RuntimeError as e:
+        # EnhancedDiagnosticPipeline unavailable — surface clear error
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Pipeline error: {e}")
 
 
 @app.post("/command")

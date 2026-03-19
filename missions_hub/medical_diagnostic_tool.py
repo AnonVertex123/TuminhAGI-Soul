@@ -1,15 +1,33 @@
+from __future__ import annotations
+
 import pandas as pd
 import numpy as np
 import requests
 import os
+import re
 import argparse
 import sys
 import sqlite3
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 # Thêm project root vào path
 sys.path.append(str(Path(__file__).parent.parent))
+
+# ── V9.3: Enhanced pipeline (lazy import to avoid startup cost) ──────────────
+try:
+    from missions_hub.enhanced_diagnostic_pipeline import (
+        EnhancedDiagnosticPipeline,
+        SymptomContext,
+    )
+    _ENHANCED_AVAILABLE = True
+except Exception as _ep_err:
+    _ENHANCED_AVAILABLE = False
+    import logging as _logging
+    _logging.getLogger("tuminh.mdt").warning(
+        f"EnhancedDiagnosticPipeline unavailable: {_ep_err}"
+    )
 
 # Cấu hình encoding cho terminal Windows để hỗ trợ tiếng Việt
 if sys.platform == "win32":
@@ -111,6 +129,64 @@ def check_cross_contamination(symptom: str, translated: str) -> str | None:
                         f"chứa thuật ngữ cấm '{bad}' — bỏ qua triệu chứng này."
                     )
     return None
+
+
+# ── V9.3: Enhanced pipeline singleton (created on first use, not at import) ─
+_enhanced_pipeline: "EnhancedDiagnosticPipeline | None" = None
+
+
+def _get_enhanced_pipeline() -> "EnhancedDiagnosticPipeline":
+    """Lazy singleton — avoids downloading models at import time."""
+    global _enhanced_pipeline
+    if _enhanced_pipeline is None:
+        if not _ENHANCED_AVAILABLE:
+            raise RuntimeError("EnhancedDiagnosticPipeline not available.")
+        _enhanced_pipeline = EnhancedDiagnosticPipeline(embed_model="minilm")
+    return _enhanced_pipeline
+
+
+async def diagnose_enhanced(
+    symptoms: list[str],
+    context_dict: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    V9.3 async entry point — wraps EnhancedDiagnosticPipeline.
+
+    Parameters
+    ----------
+    symptoms     : list of raw symptom strings (Vietnamese or English)
+    context_dict : optional dict with keys matching SymptomContext fields
+                   e.g. {"trigger": "gắng sức", "age": 68, "sex": "nam"}
+
+    Returns
+    -------
+    Navigator-format dict (compatible with output_formatter.py V2.0):
+    {
+        "is_emergency": bool,
+        "emergency_reason": str,
+        "embed_model": str,
+        "latency_ms": float,
+        "candidates": [
+            {"disease_id", "name_vn", "name_en", "score", "cosine_raw",
+             "urgency", "red_flags"},
+            ...
+        ]
+    }
+    """
+    ctx_kwargs: dict[str, Any] = {"raw_symptoms": symptoms}
+    if context_dict:
+        allowed_fields = {
+            "duration", "trigger", "severity", "location",
+            "associated", "age", "sex", "comorbidities",
+        }
+        for k, v in context_dict.items():
+            if k in allowed_fields:
+                ctx_kwargs[k] = v
+
+    ctx = SymptomContext(**ctx_kwargs)
+    pipeline = _get_enhanced_pipeline()
+    result = await pipeline.diagnose(ctx)
+    return pipeline.to_navigator_output(result)
 
 
 class MedicalDiagnosticTool:
