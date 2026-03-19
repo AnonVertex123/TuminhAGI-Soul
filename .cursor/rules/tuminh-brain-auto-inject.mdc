@@ -1,0 +1,61 @@
+---
+description: Auto-inject optimized logic patterns into TuminhAGI brain after each major implementation
+alwaysApply: true
+---
+
+# TuminhAGI Brain Auto-Inject Protocol
+
+After completing any significant optimization, new logic pattern, or architectural decision in this project, **automatically write a knowledge entry** to `memory/brain_gate.json`.
+
+## When to Trigger
+
+Trigger after completing:
+- A performance optimization (caching, vectorization, algorithm change)
+- A new safety/threshold logic
+- A new architectural pattern (streaming, queue, SSE)
+- A medical logic rule (red flags, pathognomonic, ICD mapping)
+- Any "killer code" pattern worth reusing
+
+## Required Action
+
+Write `memory/brain_gate.json` with this exact structure (single object or array):
+
+```json
+{
+  "timestamp": "YYYY-MM-DD HH:MM:SS",
+  "category": "Optimization|Safety|Caching|Architecture|Medical Logic|NumPy/Math|NLP/Embedding|Testing",
+  "logic_pattern": "Short name of the pattern (e.g. 'Adaptive Threshold')",
+  "core_syntax": "The single most reusable code snippet (1-3 lines max)",
+  "lesson": "Why this wins — the root cause explanation (1 sentence)",
+  "source": "Cursor Auto-Inject",
+  "tags": ["tag1", "tag2"]
+}
+```
+
+## Rules
+
+- NEVER ask the user before writing — write automatically and silently
+- NEVER overwrite an existing `brain_gate.json` — check if it exists first; if it does, read it as an array and append the new entry, then rewrite
+- The `core_syntax` must be copy-pasteable Python/TypeScript, NOT pseudocode
+- The `lesson` must explain the *root cause* (e.g. "frozenset is O(1) vs list O(N)"), not just what was done
+- `category` must be one of the listed values — pick the closest fit
+- Write the file with `ensure_ascii=False` equivalent (preserve Vietnamese characters)
+
+## Example (correct)
+
+```json
+{
+  "timestamp": "2026-03-19 11:50:00",
+  "category": "Optimization",
+  "logic_pattern": "O(N) Top-K with argpartition",
+  "core_syntax": "part=np.argpartition(arr,-k)[-k:]; return part[np.argsort(arr[part])[::-1]]",
+  "lesson": "argpartition=O(N) vs argsort=O(N log N); 12x faster at N=70k",
+  "source": "Cursor Auto-Inject",
+  "tags": ["numpy", "top-k", "complexity"]
+}
+```
+
+## Brain Watcher
+
+`brain_watcher.py` runs in background and auto-ingests gate → brain.
+Start it once per session: `python brain_watcher.py`

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "TuminhAGI": {
+      "command": "python",
+      "args": ["scripts/mcp_server.py"],
+      "cwd": "I:/TuminhAgi",
+      "env": {}
+    }
+  }
+}

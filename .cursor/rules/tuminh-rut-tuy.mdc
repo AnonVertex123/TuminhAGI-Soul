@@ -1,0 +1,46 @@
+---
+description: Respond to "Rut tuy" command by extracting core knowledge and writing to brain_gate.json
+alwaysApply: true
+---
+
+# Mật Lệnh "Rút Tủy Tri Thức"
+
+When the user sends a message containing **"Rút tủy"** or **"rut tuy"** or **"RUT TUY"**, activate this protocol.
+
+## Response Format
+
+Reply with exactly this structure (fill in the blanks based on the most recent code work):
+
+```
+RUT TUY TRI THUC — TUMINH_BRAIN
+================================
+Category    : <one of: Optimization/Safety/Caching/Architecture/Medical Logic/NumPy/Math/NLP>
+Pattern     : <short name of the design pattern>
+Killer Syntax:
+  <3 lines of the most reusable code>
+Deep Lesson : <root cause — why this approach wins in 1 sentence>
+Tags        : [tag1, tag2, tag3]
+================================
+[AUTO] Da ghi vao memory/brain_gate.json
+```
+
+## Simultaneous Action
+
+At the same time as replying, **write `memory/brain_gate.json`** with the extracted knowledge.
+
+If the gate file already exists (watcher hasn't consumed it yet), read the existing content:
+- If it's a single object `{}`, convert to array `[existing, new_entry]`
+- If it's already an array `[]`, append the new entry
+
+## Quality Check Before Writing
+
+- `core_syntax` must be actual runnable code, not English description
+- `lesson` must state the Big-O or causal reason, not just "it's faster"
+- `category` must exactly match the allowed values
+
+## Example Trigger Messages
+
+- "Rút tủy tri thức cho Tuminh_Brain"
+- "rut tuy"  
+- "Hãy rút tủy đoạn code vừa xong"
+- "nap vao brain"

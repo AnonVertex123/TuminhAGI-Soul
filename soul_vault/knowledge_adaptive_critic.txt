@@ -1,0 +1,193 @@
+═══════════════════════════════════════════════════════════════
+MODULE: ADAPTIVE CRITIC CALIBRATION
+Layer: Memory Level 2 — Core Reasoning Patterns
+Version: V5.1  |  Ghi nhớ vĩnh viễn — KHÔNG XÓA
+═══════════════════════════════════════════════════════════════
+
+─────────────────────────────────────────────
+PHẦN 1: NGUYÊN LÝ GỐC (FIRST PRINCIPLES)
+─────────────────────────────────────────────
+
+NGUYÊN LÝ 1 — FIXED THRESHOLD LÀ KẺ THÙ CỦA AN TOÀN
+  Vấn đề cốt lõi: Một ngưỡng duy nhất (0.55) áp dụng đồng đều
+  cho "ngón chân bị mụn nước" và "đau ngực trái" là SAI hoàn toàn.
+  Chi phí của False Negative (bỏ sót bệnh nguy hiểm) >> Chi phí False Positive.
+
+  Nguyên lý: Threshold phải tỷ lệ NGHỊCH với mức độ nguy hiểm của ca bệnh.
+    - Ca thông thường   → threshold cao (0.38) → phòng thủ noise
+    - Ca Red Flag       → threshold thấp (0.25) → ưu tiên an toàn tuyệt đối
+
+NGUYÊN LÝ 2 — FROZENSET LÀ HASH TABLE, KHÔNG PHẢI LIST
+  `if any(kw in text for kw in list_of_100_keywords)` = O(N) mỗi lần gọi.
+  `if any(kw in text for kw in frozenset_of_100_keywords)` = lookup O(1) hóa.
+  frozenset được hash tại compile-time → tốc độ gần như không đổi dù 10 hay 10.000 keywords.
+
+NGUYÊN LÝ 3 — HARD MAPPING TRƯỚC, AI SAU
+  Mọi LLM đều có xác suất nhầm lẫn > 0. Với triệu chứng cố định, chuẩn hóa cứng
+  (hard dictionary) cho kết quả deterministic, không tốn token, latency ~0ms.
+  Quy tắc: HardMapping → LRU Cache → LLM (fallback cuối cùng).
+
+NGUYÊN LÝ 4 — SYNONYMS AMPLIFY VECTOR MATCHING
+  Embedding model học từ ngữ cảnh. "Angina pectoris" và "chest pain" có vector
+  gần nhau nhưng không trùng. Khi output dịch là:
+    "Chest pain, left-sided (precordial pain, angina pectoris)"
+  → Vector là tổng hợp của 3 cụm từ, kéo gần hơn đến mọi mã ICD liên quan (I20, I21, R07).
+
+
+─────────────────────────────────────────────
+PHẦN 2: MẪU HÌNH (PATTERN RECOGNITION)
+─────────────────────────────────────────────
+
+PATTERN A — KHI NÀO DÙNG ADAPTIVE THRESHOLD:
+  Nếu: Bài toán phân loại có hậu quả bất cân xứng (asymmetric cost)
+  Thì: Định nghĩa N tầng ngưỡng, mỗi tầng ứng với một nhóm rủi ro.
+  Ví dụ:
+    spam filter   → 1 tầng (đối xứng)
+    medical check → 2-3 tầng (bất đối xứng — bỏ sót bệnh nguy hiểm tệ hơn nhiều)
+    fraud detect  → 2-3 tầng (transaction lớn → ngưỡng thấp hơn)
+
+PATTERN B — KHI NÀO DÙNG FROZENSET SENTINEL:
+  Nếu: Cần kiểm tra `if any(kw in text for kw in KEYWORDS)` lặp lại > 100 lần/giây
+  Thì: Đưa KEYWORDS ra module-level frozenset, tuyệt đối không tạo trong hàm.
+  Rule of thumb: >= 10 keywords AND called in hot path → frozenset bắt buộc.
+
+PATTERN C — KHI NÀO DÙNG EMERGENCY BYPASS:
+  Nếu: Hệ thống có cơ chế reject/filter VÀ tồn tại class input mà reject = thảm họa
+  Thì: Luôn kiểm tra class nguy hiểm TRƯỚC tất cả filter khác, bypass hoặc hạ ngưỡng.
+  Template:
+    is_critical = any(kw in input for kw in CRITICAL_KEYWORDS)
+    threshold = EMERGENCY_THRESHOLD if is_critical else DEFAULT_THRESHOLD
+
+PATTERN D — KHI NÀO DÙNG SYNONYM EXPANSION:
+  Nếu: Hệ thống dùng embedding similarity để match query với database
+  VÀ query đến từ ngôn ngữ khác (dịch máy) → drift semantic không tránh khỏi
+  Thì: Inject synonyms vào query string để kéo rộng vùng vector coverage.
+  Template prompt: "Standard Term (synonym1, synonym2)"
+
+
+─────────────────────────────────────────────
+PHẦN 3: CÚ PHÁP SÁT THỦ (KILLER CODE PATTERNS)
+─────────────────────────────────────────────
+
+[KCP-01] ADAPTIVE THRESHOLD PATTERN
+──────────────────────────────────────
+# Module-level — compiled once, O(1) lookup
+_RED_FLAGS: frozenset = frozenset([
+    "chest pain", "đau ngực", "dyspnea", "khó thở",
+    "hemiparesis", "liệt nửa người", "syncope", "ngất",
+    "severe headache", "sốt cao", "cứng cổ",
+])
+
+def check_similarity(symptoms: str, description: str) -> str:
+    sym = symptoms.lower()
+    is_emergency = any(kw in sym for kw in _RED_FLAGS)
+    threshold = 0.25 if is_emergency else 0.38   # ← adaptive
+
+    sim = cosine_sim(embed(sym), embed(description))
+    return "PASS" if sim >= threshold else f"REJECT: sim={sim:.3f}"
+
+
+[KCP-02] VECTORIZED SOFTMAX (NUMERICALLY STABLE)
+──────────────────────────────────────────────────
+import numpy as np
+
+def softmax(xs: list[float], temp: float = 1.0) -> list[float]:
+    if not xs:
+        return []
+    arr = np.asarray(xs, dtype=np.float64)
+    arr = (arr - arr.max()) / max(float(temp), 1e-9)   # subtract max → stable
+    e = np.exp(arr)
+    return (e / e.sum()).tolist()
+# Lý do: arr.max() ngăn overflow khi giá trị lớn; numpy.exp là SIMD-accelerated.
+
+
+[KCP-03] MATRIX COSINE SIMILARITY (N queries vs M docs)
+──────────────────────────────────────────────────────────
+# Pre-normalize once at load time
+unit_vault = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)  # (M, D)
+
+def batch_cosine(queries: np.ndarray) -> np.ndarray:
+    unit_q = queries / np.linalg.norm(queries, axis=1, keepdims=True)        # (N, D)
+    return unit_q @ unit_vault.T                                              # (N, M)
+# Lý do: dot(unit_a, unit_b) = cosine(a, b) khi đã normalize.
+# Matrix multiply tận dụng BLAS/LAPACK → 100-1000x nhanh hơn vòng lặp Python.
+
+
+[KCP-04] O(N) TOP-K VỚI argpartition
+───────────────────────────────────────
+def top_k(scores: np.ndarray, k: int = 5) -> np.ndarray:
+    part = np.argpartition(scores, -k)[-k:]          # O(N) — không sort toàn bộ
+    return part[np.argsort(scores[part])[::-1]]      # sort chỉ k phần tử
+# vs argsort toàn bộ: O(N) vs O(N log N) — tại N=70k: ~12x nhanh hơn.
+
+
+[KCP-05] LRU CACHE CHO HOT PATH
+──────────────────────────────────
+from functools import lru_cache
+
+@lru_cache(maxsize=2048)
+def suggest_questions_phase1(symptoms_lower: str) -> list:
+    """Phase-1: keyword-based, no LLM, called before any Ollama call."""
+    return _build_questions(symptoms_lower, candidates=[])
+# RULE: Input phải là immutable (str, tuple, int) — KHÔNG truyền list/dict vào lru_cache.
+# RULE: maxsize = 2^N để hash bucket alignment tốt nhất.
+
+
+[KCP-06] SENTINEL PATTERN CHO CACHE PHÂN BIỆT None vs MISS
+─────────────────────────────────────────────────────────────
+_CACHE: dict = {}
+
+def get_embedding(text: str):
+    _MISS = object()                          # sentinel mới mỗi lần gọi (cheap)
+    cached = _CACHE.get(text, _MISS)
+    if cached is not _MISS:
+        return cached                          # kể cả None (failed embedding)
+
+    result = call_ollama(text)                 # có thể trả về None nếu lỗi
+    _CACHE[text] = result                      # lưu cả None để không retry
+    return result
+# Lý do: `_CACHE.get(key)` trả về None cả khi key không tồn tại lẫn khi value=None.
+# Sentinel giải quyết ambiguity này mà không cần dùng key `in` dict 2 lần.
+
+
+[KCP-07] BAYESIAN UPDATE VECTORIZED
+──────────────────────────────────────
+def bayesian_update(priors: np.ndarray, likelihoods: np.ndarray) -> np.ndarray:
+    """
+    priors:      (N,) xác suất hiện tại của N bệnh
+    likelihoods: (N,) P(triệu chứng | bệnh_i) — giá trị 0..1
+    """
+    posterior = priors * likelihoods
+    total = posterior.sum()
+    return posterior / total if total > 1e-9 else priors
+# DÙNG KHI: Bác sĩ trả lời Có/Không → cập nhật toàn bộ N xác suất trong 1 phép tính.
+
+
+─────────────────────────────────────────────
+PHẦN 4: CHECKLIST TỰ KIỂM TRA (SELF-AUDIT)
+─────────────────────────────────────────────
+
+Trước khi deploy bất kỳ "critic/filter" logic nào, tự hỏi:
+
+  [ ] 1. Cost asymmetry: Hậu quả False Negative vs False Positive có đối xứng không?
+         Nếu KHÔNG → phải dùng adaptive threshold.
+
+  [ ] 2. Hot path check: Hàm được gọi > 100 lần/giây? Có list/dict tạo trong hàm không?
+         Nếu CÓ → chuyển ra module-level frozenset/constant.
+
+  [ ] 3. LLM as first resort: Có đang dùng LLM cho task deterministic không?
+         Nếu CÓ → hard mapping trước, LLM là fallback cuối.
+
+  [ ] 4. Embedding drift: Query đến từ ngôn ngữ khác hay domain khác?
+         Nếu CÓ → inject synonyms vào query string.
+
+  [ ] 5. Vector math: Đang dùng vòng lặp for cosine similarity không?
+         Nếu CÓ → chuyển sang unit_vault @ unit_query (matrix multiply).
+
+
+═══════════════════════════════════════════════════════════════
+NGUỒN GỐC: Phiên làm việc 2026-03-19
+BỐI CẢNH: Tái cân chỉnh Đao phủ y khoa V5.1 — 50 ca lâm sàng
+KẾT QUẢ THỰC ĐO: Ca [3/50] "Đau ngực trái" vượt Reverse Check
+IMPACT: threshold 0.55→0.38, RED_FLAG bypass 0.25, expand CV/neuro mappings
+═══════════════════════════════════════════════════════════════

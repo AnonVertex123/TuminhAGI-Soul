@@ -1,7 +1,10 @@
 # --- Python & Virtual Env ---
 .venv/
 venv/
-Scripts/
+# Note: 'Scripts/' (capital S) is the venv folder on Windows — use exact path to avoid
+# accidentally ignoring project-level 'scripts/' folder (lowercase)
+.venv/Scripts/
+venv/Scripts/
 Lib/
 Include/
 __pycache__/
@@ -22,3 +25,15 @@ finetune/datasets/*.jsonl
 *.log
 storage/
 *.csv
+
+# --- Runtime / Temp ---
+memory/brain_gate.json
+memory/brain_gate.lock
+memory/brain_gate.error.json
+tests/live_test_log.txt
+copilot_body_test2.json
+*.error.json
+
+# --- Frontend Build ---
+frontend/.next/
+frontend/node_modules/

@@ -116,6 +116,7 @@ class TuminhOrchestrator:
         sql_blocks = re.findall(r"EXECUTE: SQL\s+```sql\s*(.*?)\s*```", text, re.DOTALL | re.IGNORECASE)
         py_blocks = re.findall(r"EXECUTE: PYTHON\s+```python\s*(.*?)\s*```", text, re.DOTALL | re.IGNORECASE)
         viz_blocks = re.findall(r"EXECUTE: VIZ\s+```json\s*(.*?)\s*```", text, re.DOTALL | re.IGNORECASE)
+        med_blocks = re.findall(r"EXECUTE: MEDICAL_QUERY\s+```text\s*(.*?)\s*```", text, re.DOTALL | re.IGNORECASE)
         
         results = []
         
@@ -137,6 +138,23 @@ class TuminhOrchestrator:
             console.print(f"[bold blue]📊 Generating Chart via Viz Tool...[/bold blue]")
             res = self.mission_runner.execute_mission("viz_tool", args=["--json", viz])
             results.append(f"[VIZ RESULT]\n{res.get('output', res.get('message'))}\n[/VIZ RESULT]")
+
+        # 4. Handle Medical Query
+        for query in med_blocks:
+            console.print(f"[bold red]🩺 Querying Medical Vault (icd10_core)...[/bold red]")
+            res_obj = self.mission_runner.execute_mission("medical_diagnostic_tool", args=["--query", query])
+            raw_output = res_obj.get('output', res_obj.get('message', ''))
+            
+            if "[NO_MEDICAL_DATA_FOUND]" in raw_output:
+                validation_alert = (
+                    "\n[SYSTEM ERROR: NO DATA FOUND IN MEDICAL VAULT]\n"
+                    "CẢNH BÁO: Không có mã bệnh tương xứng trong icd10_core. \n"
+                    "NGHIÊM CẤM: Bạn không được tự ý bịa đặt mã bệnh hoặc giải thích dựa trên kiến thức cũ.\n"
+                    "HÃY: Thông báo thật thà cho người dùng và yêu cầu họ mô tả triệu chứng chi tiết hơn.\n"
+                )
+                results.append(validation_alert)
+            else:
+                results.append(f"[MEDICAL RESULT]\n{raw_output}\n[/MEDICAL RESULT]")
             
         return "\n".join(results)
 

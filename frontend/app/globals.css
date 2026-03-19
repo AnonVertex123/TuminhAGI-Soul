@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base look close to ClickUp: calm hospital palette */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #f8fafc; /* slate-50 */
+}
+
