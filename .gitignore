@@ -1,17 +1,22 @@
-# --- Python & Virtual Env ---
+# ══════════════════════════════════════════════════════════════
+# TuminhAGI V9.1 — .gitignore
+# Nguyên tắc: Giấu data lớn, secrets, runtime artifacts.
+#             Giữ lại: code, config, rules, brain knowledge.
+# ══════════════════════════════════════════════════════════════
+
+# ── Python & Virtual Env ──────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
 .venv/
 venv/
-# Note: 'Scripts/' (capital S) is the venv folder on Windows — use exact path to avoid
-# accidentally ignoring project-level 'scripts/' folder (lowercase)
+# Chỉ ignore thư mục Scripts bên TRONG venv (Windows), không phải project scripts/
 .venv/Scripts/
 venv/Scripts/
 Lib/
 Include/
-__pycache__/
-*.py[cod]
 
-# --- Model Weights (TUYỆT ĐỐI KHÔNG ĐẨY LÊN) ---
-# Chúng ta giấu những file 6GB này đi vì GitHub không chứa nổi
+# ── Model Weights (TUYỆT ĐỐI KHÔNG ĐẨY LÊN — file 6GB+) ─────
 _tmp_out/
 checkpoint/
 lora_model/
@@ -20,20 +25,52 @@ gguf/
 *.bin
 *.pt
 
-# --- Dataset & Logs ---
+# ── Medical Data & Vault (DỮ LIỆU NHẠY CẢM) ─────────────────
+# Vector embeddings và numpy arrays — quá lớn, tái tạo được qua script
+storage/medical_vault/
+embeddings/
+vector_db/
+*.npy
+*.pkl
+
+# ── Environment & Secrets ─────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ── Dataset & Logs ────────────────────────────────────────────
 finetune/datasets/*.jsonl
 *.log
 storage/
 *.csv
 
-# --- Runtime / Temp ---
+# ── Runtime / Temp ────────────────────────────────────────────
+tmp/
+temp/
 memory/brain_gate.json
 memory/brain_gate.lock
 memory/brain_gate.error.json
+*.error.json
 tests/live_test_log.txt
 copilot_body_test2.json
-*.error.json
+test_meningitis.py
+_commit_msg.txt
 
-# --- Frontend Build ---
+# ── Frontend Build ────────────────────────────────────────────
 frontend/.next/
 frontend/node_modules/
+
+# ── Cursor IDE — User-specific settings ───────────────────────
+# GIỮ LẠI: .cursor/rules/ và .cursor/mcp.json (config teamwork)
+# XÓA: settings cá nhân, chat history, logs nội bộ
+.cursor/settings.json
+.cursor/chat/
+.cursor/logs/
+.cursor/extensions/
+.cursor/User/
+# Nếu muốn ignore TOÀN BỘ .cursor trừ rules + mcp, dùng pattern dưới:
+# .cursor/
+# !.cursor/rules/
+# !.cursor/mcp.json
