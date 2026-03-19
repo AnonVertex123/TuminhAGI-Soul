@@ -409,13 +409,16 @@ Output:
         if "toe" in desc_lower and not any(kw in sym_lower for kw in ["ngón chân", "toe"]):
             return "REJECT: Mã bệnh chứa 'Toe' nhưng triệu chứng không có 'Ngón chân'."
 
-        # ── V5.1: Adaptive semantic threshold ─────────────────────────────
-        # Emergency / Red-Flag presentations → very low threshold (0.25) to
-        # guarantee life-threatening ICD codes are NEVER silently dropped.
+        # ── V5.2: Adaptive semantic threshold ─────────────────────────────
+        # Tier logic (tỷ lệ nghịch mức nguy hiểm):
+        #   RED_FLAG (đau ngực, trễ kinh, cứng cổ...) → 0.33  ← đủ thấp để không trảm nhầm
+        #   Ca thông thường                            → 0.38  ← lọc noise embedding drift
+        # Lý do dùng 0.33 thay 0.25: tránh False Positive (pass mã hoàn toàn sai chương)
+        # nhưng vẫn đủ rộng cho mọi ca cấp cứu vượt qua.
         is_red_flag = any(kw in sym_lower for kw in _RED_FLAG_SYMPTOMS)
-        semantic_threshold = 0.25 if is_red_flag else 0.38
+        semantic_threshold = 0.33 if is_red_flag else 0.38
         if is_red_flag:
-            print("⚡ RED FLAG detected — Reverse Check threshold lowered to 0.25")
+            print(f"⚡ RED FLAG detected — Reverse Check threshold lowered to {semantic_threshold}")
         prompt = f"""Compare the User Symptoms with the ICD Description.
 
 IMPORTANT: ICD-10 descriptions are often short and may NOT list every accompanied symptom the user mentions.
