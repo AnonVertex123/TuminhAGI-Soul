@@ -22,21 +22,34 @@ if sys.platform == "win32":
 # to ensure life-threatening diagnoses are NEVER silently rejected.
 _RED_FLAG_SYMPTOMS: frozenset = frozenset([
     # Cardiovascular
-    "chest pain", "đau ngực", "tức ngực", "đau thắt ngực", "đau ngực trái",
+    "chest pain", "đau ngực", "dau nguc", "tức ngực", "tuc nguc",
+    "đau thắt ngực", "dau that nguc", "đau ngực trái", "dau nguc trai",
     "left-sided chest pain", "precordial pain", "angina",
-    "palpitations", "hồi hộp", "tim đập nhanh",
-    "diaphoresis", "vã mồ hôi", "syncope", "ngất", "mất tri giác",
+    "palpitations", "hồi hộp", "hoi hop", "tim đập nhanh", "tim dap nhanh",
+    "diaphoresis", "vã mồ hôi", "va mo hoi",
+    "syncope", "ngất", "ngat", "mất tri giác", "mat tri giac",
     # Respiratory emergency
-    "dyspnea", "shortness of breath", "khó thở", "thở gấp", "tachypnea",
-    "respiratory distress", "suy hô hấp", "hemoptysis", "ho ra máu",
+    "dyspnea", "shortness of breath", "khó thở", "kho tho",
+    "thở gấp", "tho gap", "tachypnea",
+    "respiratory distress", "suy hô hấp", "hemoptysis", "ho ra máu", "ho ra mau",
     # Neurological emergency
-    "severe headache", "đau đầu dữ dội", "thunderclap headache",
-    "hemiparesis", "liệt nửa người", "facial droop", "méo miệng",
-    "slurred speech", "nói ngọng", "sudden confusion",
+    "severe headache", "đau đầu dữ dội", "dau dau du doi",
+    "thunderclap headache", "hemiparesis",
+    "liệt nửa người", "liet nua nguoi",
+    "facial droop", "méo miệng", "meo mieng",
+    "slurred speech", "nói ngọng", "noi ngong", "sudden confusion",
     # Meningeal
-    "neck stiffness", "cứng cổ", "high fever", "sốt cao",
+    "neck stiffness", "cứng cổ", "cung co", "cứng gáy", "cung gay",
+    "high fever", "sốt cao", "sot cao",
+    "sợ ánh sáng", "so anh sang", "photophobia",
+    # Gynecological emergency (V5.2)
+    "trễ kinh", "tre kinh", "chậm kinh", "cham kinh",
+    "đau bụng kinh", "dau bung kinh",
+    "delayed menstruation", "amenorrhea", "dysmenorrhea",
+    "abnormal uterine bleeding", "pelvic pain",
     # Shock / sepsis
-    "hypotension", "tụt huyết áp", "altered consciousness", "rối loạn ý thức",
+    "hypotension", "tụt huyết áp", "tut huyet ap",
+    "altered consciousness", "rối loạn ý thức",
     "sepsis", "rapid heartbeat",
 ])
 
