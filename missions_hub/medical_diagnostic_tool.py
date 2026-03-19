@@ -1224,6 +1224,18 @@ YÊU CẦU:
                     print(f"  🚨 OB/GYN GUARD: Phát hiện thuật ngữ thần kinh sai: '{query_en}' — dùng fallback phụ khoa")
                     query_en = "Delayed menstruation; Amenorrhea; Irregular menstruation"
 
+            # ── Gatekeeper Layer 1: Canonical override ──────────────────────
+            # Nếu có ánh xạ cứng thì dùng luôn, không tin LLM
+            try:
+                from nexus_core.strict_validator import _gatekeeper as _gk
+                _lookup = _gk.canonical_lookup(_gk.normalize(part_clean))
+                if _lookup:
+                    _canon_en, _domain_hint, _allowed_chaps = _lookup
+                    print(f"  [GATE-L1] Canonical override: '{query_en}' -> '{_canon_en}' (domain={_domain_hint})")
+                    query_en = _canon_en
+            except Exception as _gate_err:
+                print(f"  [GATE-L1 SKIP] {_gate_err}")
+
             query_vector = self.get_ollama_embedding(query_en)
             if query_vector is None: continue
             
@@ -1320,6 +1332,28 @@ YÊU CẦU:
                     # Nếu không còn candidate nào sau filter, nới rộng lại
                     S_i = _g_codes + _other  # đã là kết quả tốt nhất có thể
 
+            # ── Gatekeeper Layer 3: Domain Lock — lọc S_i trước khi vào Đao phủ ──
+            try:
+                from nexus_core.strict_validator import _gatekeeper as _gk
+                _norm_part = _gk.normalize(part_clean)
+                _lookup = _gk.canonical_lookup(_norm_part)
+                if _lookup:
+                    _c_en, _domain, _allowed = _lookup
+                    _filtered = []
+                    for _cand in S_i:
+                        _icd = str(_cand.get("code", ""))
+                        _chap_ok, _chap_msg = _gk.validate_domain(_icd, _allowed, _domain)
+                        if _chap_ok:
+                            _filtered.append(_cand)
+                        else:
+                            print(f"  [GATE-L3] LOẠI {_icd}: {_chap_msg}")
+                    if _filtered:
+                        S_i = _filtered  # chỉ giữ candidates đúng miền
+                    else:
+                        print(f"  [GATE-L3] Không còn ứng viên sau domain-lock — giữ S_i gốc")
+            except Exception as _gate_err:
+                print(f"  [GATE-L3 SKIP] {_gate_err}")
+
             # BƯỚC 3: Lớp Đao phủ (Skeptic Critic) kiểm tra độ phủ
             critic_res = self.critic_layer(part, S_i)
 
@@ -1355,11 +1389,43 @@ YÊU CẦU:
                     print(f"❌ KHÓA CHƯƠNG TRẢM: {chap_reason}")
                     continue
 
-                # BƯỚC 3.5: Khóa Reverse Description Check & Exact String Match
-                rev_check = self.reverse_description_check(part, best_match['description'])
-                if "REJECT" in rev_check:
-                    print(f"❌ REVERSE CHECK TRẢM: {rev_check}")
-                    continue
+                # BƯỚC 3.5: Gatekeeper Layer 2+4 — Validate term + Reverse Sim Check
+                try:
+                    from nexus_core.strict_validator import gate_check as _gc
+                    _gate_res = _gc(
+                        symptom=part,
+                        icd_code=str(best_match.get("code", "")),
+                        icd_description=best_match.get("description", ""),
+                        sim_score=best_match.get("score", 0.0),
+                        is_red_flag=is_emergency,
+                    )
+                    if not _gate_res.passed:
+                        print(f"❌ GATEKEEPER TRẢM (Layer {_gate_res.layer_stopped}): {_gate_res.reject_reason}")
+                        # Thử ứng viên kế tiếp trước khi bỏ hẳn
+                        _spare_idx = (S_i.index(best_match) + 1) if best_match in S_i else -1
+                        if 0 <= _spare_idx < len(S_i):
+                            _spare = S_i[_spare_idx]
+                            _gate2 = _gc(
+                                symptom=part,
+                                icd_code=str(_spare.get("code", "")),
+                                icd_description=_spare.get("description", ""),
+                                sim_score=_spare.get("score", 0.0),
+                                is_red_flag=is_emergency,
+                            )
+                            if _gate2.passed:
+                                print(f"  [GATE] Ứng viên dự phòng {_spare['code']} qua cổng.")
+                                best_match = _spare
+                            else:
+                                continue
+                        else:
+                            continue
+                except Exception as _ge:
+                    # Gatekeeper unavailable — fall back to legacy reverse-check
+                    print(f"  [GATE SKIP] {_ge}")
+                    rev_check = self.reverse_description_check(part, best_match['description'])
+                    if "REJECT" in rev_check:
+                        print(f"❌ REVERSE CHECK TRẢM (fallback): {rev_check}")
+                        continue
 
                 final_diagnoses.append({
                     "part": part,
