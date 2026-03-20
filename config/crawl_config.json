@@ -1,0 +1,18 @@
+{
+  "topics": [
+    "traditional-medicine",
+    "medical-diagnosis",
+    "vietnamese-nlp",
+    "clinical-nlp",
+    "drug-interaction",
+    "symptom-checker"
+  ],
+  "languages": ["Python", "JavaScript"],
+  "min_stars": 50,
+  "max_repos_per_topic": 5,
+  "max_files_per_repo": 20,
+  "file_extensions": [".py", ".md", ".json"],
+  "exclude_paths": ["test", "docs", "example", "node_modules"],
+  "max_file_size_kb": 100
+}
+
