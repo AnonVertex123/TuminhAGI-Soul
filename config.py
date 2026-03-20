@@ -49,6 +49,10 @@ TIER_STRONG = 55   # score >= 55 -> Highly relevant
 TIER_NORMAL = 30   # score >= 30 -> General knowledge
 TIER_WEAK   = 0    # score < 30 -> Candidate for pruning
 
+# === LEARNING ===
+USE_LEARNING_V2 = True  # Multi-layer Evaluator, Debate, Policy Update
+FULL_EVALUATE_V2 = False  # True = 3-layer (grounding + consistency + semantic), chậm hơn
+
 # === ORCHESTRATOR ===
 MAX_RETRY      = 3
 MIN_CONFIDENCE = 0.70

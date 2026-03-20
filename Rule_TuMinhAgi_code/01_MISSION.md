@@ -28,8 +28,8 @@ Inspired by Hải Thượng Lãn Ông (1720-1791).
 Phase 1 — Orchestrator + Cross-validation  ✅ DONE
 Phase 2 — Fine-tuning tâm hồn             ✅ DONE
 Phase 3 — Self-supervised                  🔄 70%
-Phase 4 — Autonomous                       📋 Next
-Phase 5 — Civilization Protocol            🌏 Vision
+Phase 4 — Autonomous                       🔄 Sovereign Engine (scaffold)
+Phase 5 — Civilization Protocol            🔄 Safety Rollback (scaffold)
 
 ## Người bạn không làm:
 
