@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-03-19 19:19:00",
+    "category": "Safety",
+    "logic_pattern": "Emergency Red-Flag Keyword Expansion V9.4",
+    "core_syntax": "_RED_FLAG_SYMPTOMS |= {'co giật','nôn ra máu','phân đen','bụng cứng','đau bụng dữ dội','mất ý thức','môi tím','li bì'}",
+    "lesson": "Keyword-based emergency detection is O(K) per query with frozenset; gaps in keyword coverage cause false-negative triage — 3/10 critical cases missed before fix",
+    "source": "Cursor Auto-Inject",
+    "tags": ["emergency", "red-flag", "safety", "triage", "frozenset"]
+  },
+  {
+    "timestamp": "2026-03-19 19:30:00",
+    "category": "Architecture",
+    "logic_pattern": "V9.4 Treatment Pipeline — Full Architecture Injection",
+    "core_syntax": "diagnose_enhanced(symptoms) → router.decide(icd, urgency, constitution, ctx) → format_treatment_output(decision)",
+    "lesson": "10 bài học mới ghi vào TUMINH_BRAIN: TreatmentRouter 4-track, Constitution 5-question classifier, Herb lookup 3-tier, Gate 1 pregnancy, Gate 2 drug interaction, Emergency ICD codes, Western referral 13 specialties, 60-herb encyclopedia schema, 50-case QA validation. logic_rules_v2.json cũng được cập nhật 5 sections mới.",
+    "source": "Cursor Auto-Inject / V9.4 Clinical QA Session",
+    "tags": ["treatment-router", "constitution", "herb-encyclopedia", "safety-gates", "clinical-qa", "permanent-memory"]
+  },
+  {
+    "timestamp": "2026-03-20 09:30:00",
+    "category": "Safety",
+    "logic_pattern": "Emergency Location Panel + Overpass Hospital Proxy",
+    "core_syntax": "if (isEmergency) <EmergencyResponsePanel />; POST /api/emergency/hospitals {lat,lng} → Google|Overpass; detectEmergencyFromUserText(t) → setIsEmergency",
+    "lesson": "CORS blocks browser→Overpass/Google Places; server-side POST to overpass-api.de avoids leak and enables one hop; GPS→ipapi→manual preserves triage speed when permission denied.",
+    "source": "Cursor Auto-Inject",
+    "tags": ["emergency", "leaflet", "geolocation", "overpass", "triage-ui"]
+  },
+  {
+    "timestamp": "2026-03-19 22:00:00",
+    "category": "Architecture",
+    "logic_pattern": "Federated Knowledge System — Medical Module",
+    "core_syntax": "KnowledgeContribution.create(...) → FederationServer.receive_contribution() → PII scan → validator.validate() → merge if confidence>=0.5; PrivateMemory NEVER calls API",
+    "lesson": "Private data = bất khả xâm phạm; upload = tự nguyện; contribution_id random UUID, không link user; Evidence wins: WHO>Doctor>Community>Self; Safety override: khi nghi ngờ chọn option an toàn hơn.",
+    "source": "Cursor Auto-Inject",
+    "tags": ["federation", "privacy", "PII-scan", "conflict-resolution", "medical"]
+  }
+]

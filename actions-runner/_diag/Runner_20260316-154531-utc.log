@@ -1,0 +1,228 @@
+[2026-03-16 15:45:31Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'Credentials': 'I:\TuminhAgi\actions-runner\.credentials'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'Runner': 'I:\TuminhAgi\actions-runner\.runner'
+[2026-03-16 15:45:31Z INFO Listener] Runner is built for Windows (X64) - win-x64.
+[2026-03-16 15:45:31Z INFO Listener] RuntimeInformation: Microsoft Windows 10.0.19045.
+[2026-03-16 15:45:31Z INFO Listener] Version: 2.314.1
+[2026-03-16 15:45:31Z INFO Listener] Commit: 976290d966e6cc3e748a49bf8fdbe139ff764201
+[2026-03-16 15:45:31Z INFO Listener] Culture: en-US
+[2026-03-16 15:45:31Z INFO Listener] UI Culture: en-US
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO Listener] Validating directory permissions for: 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO CommandLineParser] Parse
+[2026-03-16 15:45:31Z INFO CommandLineParser] Parsing 1 args
+[2026-03-16 15:45:31Z INFO CommandLineParser] parsing argument
+[2026-03-16 15:45:31Z INFO CommandLineParser] HasArgs: False
+[2026-03-16 15:45:31Z INFO CommandLineParser] Adding Command: run
+[2026-03-16 15:45:31Z INFO Listener] Arguments parsed
+[2026-03-16 15:45:31Z INFO Runner] ExecuteCommand
+[2026-03-16 15:45:31Z INFO ConfigurationStore] currentAssemblyLocation: I:\TuminhAgi\actions-runner\bin\Runner.Listener.dll
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] binPath: I:\TuminhAgi\actions-runner\bin
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] RootFolder: I:\TuminhAgi\actions-runner
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'Runner': 'I:\TuminhAgi\actions-runner\.runner'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] ConfigFilePath: I:\TuminhAgi\actions-runner\.runner
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'Credentials': 'I:\TuminhAgi\actions-runner\.credentials'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] CredFilePath: I:\TuminhAgi\actions-runner\.credentials
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'MigratedCredentials': 'I:\TuminhAgi\actions-runner\.credentials_migrated'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] MigratedCredFilePath: I:\TuminhAgi\actions-runner\.credentials_migrated
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'Service': 'I:\TuminhAgi\actions-runner\.service'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] ServiceConfigFilePath: I:\TuminhAgi\actions-runner\.service
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'help': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'version': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'commit': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'check': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Command 'configure': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Command 'remove': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Command 'warmup': 'False'
+[2026-03-16 15:45:31Z INFO ConfigurationManager] LoadSettings
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured()
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured: True
+[2026-03-16 15:45:31Z INFO ConfigurationManager] Is configured: True
+[2026-03-16 15:45:31Z INFO ConfigurationStore] Read setting file: 312 chars
+[2026-03-16 15:45:31Z INFO ConfigurationManager] Settings Loaded
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsServiceConfigured()
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsServiceConfigured: False
+[2026-03-16 15:45:31Z INFO CommandSettings] Command 'run': 'True'
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured()
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured: True
+[2026-03-16 15:45:31Z INFO ConfigurationManager] Is configured: True
+[2026-03-16 15:45:31Z INFO Runner] Could not parse the argument value '' for StartupType. Defaulting to Manual
+[2026-03-16 15:45:31Z INFO Runner] Set runner startup type - Manual
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'once': 'False'
+[2026-03-16 15:45:31Z INFO CommandSettings] Flag 'once': 'False'
+[2026-03-16 15:45:31Z INFO Runner] RunAsync
+[2026-03-16 15:45:31Z INFO ConfigurationManager] LoadSettings
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured()
+[2026-03-16 15:45:31Z INFO ConfigurationStore] IsConfigured: True
+[2026-03-16 15:45:31Z INFO ConfigurationManager] Is configured: True
+[2026-03-16 15:45:31Z INFO ConfigurationManager] Settings Loaded
+[2026-03-16 15:45:31Z INFO MessageListener] {
+  "AgentId": 21,
+  "AgentName": "Tuminh-RTX3060",
+  "PoolId": 1,
+  "PoolName": "Default",
+  "ServerUrl": "https://pipelinesghubeus5.actions.githubusercontent.com/lQuym46z0EV1Uxw8x5vApYoxh3ifmwKI9HbQj9CvrLNGJpao6k/",
+  "GitHubUrl": "https://github.com/AnonVertex123/TuminhAgi",
+  "WorkFolder": "_work"
+}
+[2026-03-16 15:45:31Z INFO MessageListener] Loading Credentials
+[2026-03-16 15:45:31Z INFO ConfigurationStore] HasCredentials()
+[2026-03-16 15:45:31Z INFO ConfigurationStore] stored True
+[2026-03-16 15:45:31Z INFO CredentialManager] GetCredentialProvider
+[2026-03-16 15:45:31Z INFO CredentialManager] Creating type OAuth
+[2026-03-16 15:45:31Z INFO CredentialManager] Creating credential type: OAuth
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:31Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:31Z INFO HostContext] Well known config file 'RSACredentials': 'I:\TuminhAgi\actions-runner\.credentials_rsaparams'
+[2026-03-16 15:45:31Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file I:\TuminhAgi\actions-runner\.credentials_rsaparams
+[2026-03-16 15:45:31Z INFO MessageListener] Attempt to create session.
+[2026-03-16 15:45:31Z INFO MessageListener] Connecting to the Runner Server...
+[2026-03-16 15:45:31Z INFO RunnerServer] EstablishVssConnection
+[2026-03-16 15:45:31Z INFO RunnerServer] Establish connection with 100 seconds timeout.
+[2026-03-16 15:45:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2026-03-16 15:45:31Z INFO RunnerServer] EstablishVssConnection
+[2026-03-16 15:45:31Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2026-03-16 15:45:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2026-03-16 15:45:31Z INFO RunnerServer] EstablishVssConnection
+[2026-03-16 15:45:31Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2026-03-16 15:45:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2026-03-16 15:45:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2026-03-16 15:45:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2026-03-16 15:45:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2026-03-16 15:45:33Z INFO MessageListener] VssConnection created
+[2026-03-16 15:45:33Z INFO Terminal] WRITE LINE: 
+[2026-03-16 15:45:33Z INFO Terminal] WRITE LINE: 
+[2026-03-16 15:45:33Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file I:\TuminhAgi\actions-runner\.credentials_rsaparams
+[2026-03-16 15:45:33Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file I:\TuminhAgi\actions-runner\.credentials_rsaparams
+[2026-03-16 15:45:34Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2026-03-16 15:45:34Z INFO MessageListener] Session created.
+[2026-03-16 15:45:34Z INFO Terminal] WRITE LINE: Current runner version: '2.314.1'
+[2026-03-16 15:45:34Z INFO Terminal] WRITE LINE: 2026-03-16 15:45:34Z: Listening for Jobs
+[2026-03-16 15:45:34Z INFO JobDispatcher] Set runner/worker IPC timeout to 30 seconds.
+[2026-03-16 15:45:35Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file I:\TuminhAgi\actions-runner\.credentials_rsaparams
+[2026-03-16 15:45:35Z INFO MessageListener] Message '1' received from session 'd10154e6-f409-41ec-98f9-1543bba4f43c'.
+[2026-03-16 15:45:35Z INFO Runner] Refresh message received, kick-off selfupdate background process.
+[2026-03-16 15:45:36Z INFO SelfUpdater] Version '2.332.0' of 'agent' package available in server.
+[2026-03-16 15:45:36Z INFO SelfUpdater] Current running runner version is 2.314.1
+[2026-03-16 15:45:36Z INFO SelfUpdater] An update is available.
+[2026-03-16 15:45:36Z INFO Terminal] WRITE LINE: Runner update in progress, do not shutdown runner.
+[2026-03-16 15:45:36Z INFO SelfUpdater] RunnerPlatform: win-x64
+[2026-03-16 15:45:36Z INFO Terminal] WRITE LINE: Downloading 2.332.0 runner
+[2026-03-16 15:45:36Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:36Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:36Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 15:45:36Z INFO SelfUpdater] Attempt 1: save latest runner into I:\TuminhAgi\actions-runner\_work\_update\runner1.zip.
+[2026-03-16 15:45:36Z INFO SelfUpdater] Download runner: begin download
+[2026-03-16 15:45:36Z INFO SelfUpdater] Downloading https://github.com/actions/runner/releases/download/v2.332.0/actions-runner-win-x64-2.332.0.zip
+[2026-03-16 15:45:40Z INFO SelfUpdater] Download runner: finished download
+[2026-03-16 15:45:40Z INFO SelfUpdater] Validated Runner Hash matches I:\TuminhAgi\actions-runner\_work\_update\runner1.zip : 83e56e05b21eb58c9697f82e52c53b30867335ff039cd5d44d1a1a24d2149f4b
+[2026-03-16 15:45:43Z INFO SelfUpdater] Finished getting latest runner package at: I:\TuminhAgi\actions-runner\_work\_update.
+[2026-03-16 15:45:43Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:43Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:43Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\bin to I:\TuminhAgi\actions-runner\bin.2.332.0.
+[2026-03-16 15:45:43Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:43Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:43Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\externals to I:\TuminhAgi\actions-runner\externals.2.332.0.
+[2026-03-16 15:45:44Z INFO SelfUpdater] Copy any remaining .sh/.cmd files into runner root.
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\config.cmd to I:\TuminhAgi\actions-runner\config.cmd
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\run-helper.cmd.template to I:\TuminhAgi\actions-runner\run-helper.cmd.template
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\run-helper.sh.template to I:\TuminhAgi\actions-runner\run-helper.sh.template
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO SelfUpdater] Copy I:\TuminhAgi\actions-runner\_work\_update\run.cmd to I:\TuminhAgi\actions-runner\run.cmd
+[2026-03-16 15:45:44Z INFO SelfUpdater] Download latest runner and unzip into runner root.
+[2026-03-16 15:45:44Z INFO Terminal] WRITE LINE: Waiting for current job finish running.
+[2026-03-16 15:45:44Z INFO SelfUpdater] DownloadUrl: https://github.com/actions/runner/releases/download/v2.332.0/actions-runner-win-x64-2.332.0.zip
+[2026-03-16 15:45:44Z INFO SelfUpdater] PackageDownloadTime: 3870ms
+[2026-03-16 15:45:44Z INFO SelfUpdater] Attempts: 1
+[2026-03-16 15:45:44Z INFO SelfUpdater] PackageSize: 94MB
+[2026-03-16 15:45:44Z INFO SelfUpdater] ValidateHashTime: 153ms
+[2026-03-16 15:45:44Z INFO SelfUpdater] PackageExtractTime: 2369ms
+[2026-03-16 15:45:44Z INFO SelfUpdater] CopyRunnerToRootTime: 1411ms
+[2026-03-16 15:45:44Z INFO SelfUpdater] All running job has exited.
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:44Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:44Z INFO SelfUpdater] Delete old version runner backup.
+[2026-03-16 15:45:44Z INFO Terminal] WRITE LINE: Generate and execute update script.
+[2026-03-16 15:45:44Z INFO SelfUpdater] DeleteRunnerBackupTime: 2ms
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 15:45:45Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 15:45:45Z INFO SelfUpdater] Generate update script into: I:\TuminhAgi\actions-runner\_work\_update.cmd
+[2026-03-16 15:45:45Z INFO SelfUpdater] Which: 'cmd.exe'
+[2026-03-16 15:45:45Z INFO SelfUpdater] Location: 'C:\Windows\system32\cmd.exe'
+[2026-03-16 15:45:45Z INFO SelfUpdater] Update script start running
+[2026-03-16 15:45:45Z INFO Terminal] WRITE LINE: Runner will exit shortly for update, should be back online within 10 seconds.
+[2026-03-16 15:45:45Z INFO SelfUpdater] TotalUpdateTime: 9207ms
+[2026-03-16 15:45:45Z INFO Terminal] WRITE LINE: Runner update process finished.
+[2026-03-16 15:45:45Z INFO Runner] Auto update task finished at backend, an runner update is ready to apply exit the current runner instance.
+[2026-03-16 15:45:45Z INFO Runner] Stop message queue looping.
+[2026-03-16 15:45:45Z WARN GitHubActionsService] GET request to https://pipelinesghubeus5.actions.githubusercontent.com/lQuym46z0EV1Uxw8x5vApYoxh3ifmwKI9HbQj9CvrLNGJpao6k/_apis/distributedtask/pools/1/messages?sessionId=d10154e6-f409-41ec-98f9-1543bba4f43c&lastMessageId=1&status=Online&runnerVersion=2.314.1&os=Windows&architecture=X64&disableUpdate=false has been cancelled.
+[2026-03-16 15:45:45Z INFO MessageListener] Get next message has been cancelled.
+[2026-03-16 15:45:45Z INFO Runner] Ignore any exception after cancel message loop. System.Threading.Tasks.TaskCanceledException: The operation was canceled.
+ ---> System.IO.IOException: Unable to read data from the transport connection: The I/O operation has been aborted because of either a thread exit or an application request..
+ ---> System.Net.Sockets.SocketException (995): The I/O operation has been aborted because of either a thread exit or an application request.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](TIOAdapter adapter, Memory`1 buffer)
+   at System.Net.Http.HttpConnection.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync[T](HttpRequestMessage message, Object userState, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync[T](HttpMethod method, IEnumerable`1 additionalHeaders, Guid locationId, Object routeValues, ApiResourceVersion version, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at GitHub.Runner.Listener.MessageListener.GetNextMessageAsync(CancellationToken token)
+   at GitHub.Runner.Listener.Runner.RunAsync(RunnerSettings settings, Boolean runOnce)
+[2026-03-16 15:45:45Z INFO JobDispatcher] Shutting down JobDispatcher. Make sure all WorkerDispatcher has finished.
+[2026-03-16 15:45:45Z INFO Runner] Deleting Runner Session...
+[2026-03-16 15:45:46Z INFO Listener] Runner execution has finished with return code 3

@@ -1,0 +1,44 @@
+Loading EnhancedDiagnosticPipeline (minilm)...
+Pipeline loaded. Model: ollama:mxbai-embed-large
+Corpus size: 10 diseases
+
+============================================================
+TEST 1: Cardiac emergency (đau ngực trái + khó thở, age=68)
+  is_emergency : True
+  top candidate: Nhồi máu cơ tim cấp [emergency] score=0.8644
+    [emergency ] I21 Nhồi máu cơ tim cấp score=0.8644
+    [emergency ] I63 Đột quỵ thiếu máu não score=0.732
+    [emergency ] O00 Thai ngoài tử cung score=0.6115
+    [urgent    ] I20 Đau thắt ngực không ổn định score=0.8374
+    [urgent    ] J45 Hen phế quản score=0.6903
+  RESULT: PASS
+
+============================================================
+TEST 2: OBGYN guard (trễ kinh + đau bụng dưới, sex=nữ)
+  Candidate IDs: ['O00', 'I21', 'I63', 'K25', 'I20']
+    [emergency ] O00 Thai ngoài tử cung score=0.7985
+    [emergency ] I21 Nhồi máu cơ tim cấp score=0.515
+    [emergency ] I63 Đột quỵ thiếu máu não score=0.472
+    [urgent    ] K25 Loét dạ dày tá tràng score=0.6167
+    [urgent    ] I20 Đau thắt ngực không ổn định score=0.5007
+  RESULT: PASS (G40 not in candidates)
+
+============================================================
+TEST 3: Gait ataxia not emergency (đi loạng choạng + chóng mặt)
+  is_emergency: False
+  reason      : 
+    [emergency ] I63 Đột quỵ thiếu máu não score=0.684
+    [emergency ] I21 Nhồi máu cơ tim cấp score=0.5716
+    [emergency ] O00 Thai ngoài tử cung score=0.431
+    [urgent    ] G40 Động kinh score=0.6542
+    [urgent    ] I20 Đau thắt ngực không ổn định score=0.5349
+  RESULT: PASS
+
+============================================================
+TEST 4: diagnose_enhanced() wrapper (sốt cao + cứng cổ)
+  is_emergency : False
+  candidates   : 5
+  RESULT: PASS
+
+============================================================
+SUMMARY: 4 passed, 0 failed

@@ -1,0 +1,135 @@
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969369839,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969369839,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969369840,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969369841,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969369841,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969369531,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969369842,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969387268,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969387514,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969387514,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969387514,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969387516,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969387516,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969387516,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"hoc_tap"},"timestamp":1773969402085,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969403701,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"hoc_tap"},"timestamp":1773969405375,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"du_lieu"},"timestamp":1773969407010,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"cong_dong"},"timestamp":1773969408711,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969415392,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969422760,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"code"},"timestamp":1773969424984,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969435442,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969443632,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969443863,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969443864,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969443864,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969443865,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969443865,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969443865,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969448250,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969448487,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969448487,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969448487,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969448489,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969448489,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969448489,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969461793,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969462017,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969462017,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969462018,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969462021,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969462021,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969462021,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969469078,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969469350,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969469350,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969469351,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969469352,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969469352,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969469352,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969477539,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969477765,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969477766,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969477766,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969477767,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969477767,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969477767,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969511048,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969511326,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969511327,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969511328,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969511330,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969511330,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969511330,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969524816,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969525164,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969525166,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969525166,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969525171,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969525171,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969525172,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969546814,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969547017,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969547017,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969547017,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969547019,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969547019,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969547019,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969547766,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969547973,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969547973,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969547973,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969547974,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969547974,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969547974,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969548394,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969548588,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969548589,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969548589,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969548590,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969548590,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969548590,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969549717,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969549912,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969549913,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969549913,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969549915,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969549915,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969549915,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969581940,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969582375,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969582376,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969582376,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969582378,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969582378,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969582378,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969589108,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"code"},"timestamp":1773969590540,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"hoc_tap"},"timestamp":1773969592391,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"du_lieu"},"timestamp":1773969593944,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"cong_dong"},"timestamp":1773969595119,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969598257,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"code"},"timestamp":1773969601841,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"nghien_cuu"},"timestamp":1773969604048,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"muc_tieu"},"timestamp":1773969606767,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"minh_bien"},"timestamp":1773969609343,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969636440,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"layout:inline","message":"HTML loaded","data":{},"timestamp":1773969887906,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969888275,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969888276,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969888276,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"DebugMount.tsx","message":"Layout client hydration done","data":{"url":"http://localhost:3010/"},"timestamp":1773969888277,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969888277,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"page.tsx:mount","message":"Page mounted","data":{"apiBase":"http://localhost:8000","hasWindow":true},"timestamp":1773969888278,"hypothesisId":"B"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969909473,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"code"},"timestamp":1773969911712,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"hoc_tap"},"timestamp":1773969914708,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"du_lieu"},"timestamp":1773969916300,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"cong_dong"},"timestamp":1773969917259,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"du_lieu"},"timestamp":1773969928171,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"hoc_tap"},"timestamp":1773969929195,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"code"},"timestamp":1773969931267,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"y_hoc"},"timestamp":1773969932453,"hypothesisId":"D"}
+{"sessionId":"f32bed","location":"ClickUpShell.tsx:mount","message":"ClickUpShell mounted","data":{"activeModule":"home"},"timestamp":1773969933195,"hypothesisId":"D"}

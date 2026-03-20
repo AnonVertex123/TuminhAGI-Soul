@@ -132,5 +132,114 @@
     "L2_regex": "Extract APPROVED|SUGGESTION|REJECTED + confidence_score via regex",
     "L3_fallback": "{status: SUGGESTION, confidence_score: 50, best_candidate_index: 1, reasoning: 'Critic parse failed — human review required'}",
     "normalize": "Ensure confidence_score is int 0-100, best_candidate_index is int 1-3 or string REJECT_ALL"
+  },
+
+  "treatment_router_v94": {
+    "_comment": "V9.4 Treatment Pipeline — kết nối Chẩn đoán → Điều trị",
+    "file": "missions_hub/treatment_router.py",
+    "4_tracks": {
+      "emergency":    "urgency='emergency' OR ICD in _EMERGENCY_CODES → herbal_options=[], western referral only, gọi 115",
+      "herbal_only":  "routine + nhẹ/vừa + herbs found → thuốc Nam first, nếu 1-2 tuần không cải thiện → khám bác sĩ",
+      "both":         "urgent OR no herbs for routine → 2 cột: thuốc Nam hỗ trợ + Tây y chính",
+      "western_only": "no herb data available → only western referral"
+    },
+    "emergency_icd_codes": ["I21", "I22", "I63", "I61", "I64", "I26", "G41", "K92", "J96", "O00"],
+    "emergency_icd_prefixes": ["I2", "I6"],
+    "rule_order": "1.Emergency check → 2.Constitution questions → 3.Herb lookup → 4.Constitution filter → 5.Safety gates → 6.Track decision"
+  },
+
+  "constitution_classifier_v94": {
+    "_comment": "Phân loại thể trạng + lọc thuốc theo YHCT",
+    "file": "missions_hub/constitution_classifier.py",
+    "questions": {
+      "Q1": "Sợ lạnh, tay chân lạnh → signal=Hàn",
+      "Q2": "Khát nước, miệng khô, thích đồ mát → signal=Nhiệt",
+      "Q3": "Mệt mỏi, hơi thở ngắn → signal=Hư",
+      "Q4": "Đổ mồ hôi đêm, nóng trong về chiều → signal=Âm hư",
+      "Q5": "Nặng nề, đờm nhiều, tiêu hóa kém → signal=Đàm thấp"
+    },
+    "types": {
+      "Phong nhiệt": "loại thuốc tinh=ôn,nhiệt",
+      "Phong hàn":   "loại thuốc tinh=hàn,lương",
+      "Khí hư":      "không loại — ưu tiên bổ khí",
+      "Âm hư":       "loại thuốc tinh=táo",
+      "Dương hư":    "loại thuốc tinh=hàn",
+      "Đàm thấp":    "không loại — ưu tiên hóa đàm lợi thủy",
+      "Chưa xác định": "không loại — sắp xếp safe first"
+    }
+  },
+
+  "safety_gates_v94": {
+    "_comment": "4 Safety Gates — chạy theo thứ tự cố định, KHÔNG BAO GIỜ bypass",
+    "gate_1_pregnancy": {
+      "trigger": "ctx['pregnant']=True OR keyword scan ('có thai','mang thai','thai kỳ','bầu')",
+      "action": "Loại vị thuốc có 'thai kỳ'/'có thai'/'sảy thai'/'co tử cung' trong contraindications",
+      "high_risk_herbs": ["Ích mẫu (H032)", "Ngải cứu (H023)", "Lạc tiên (H019)", "Bình vôi (H020)", "Khổ qua (H048)", "Ý dĩ (H049)", "Xuyên khung (H035)", "Cỏ xước (H024)", "Tam thất (H053)"],
+      "always_warn": true
+    },
+    "gate_2_drug_interaction": {
+      "trigger": "ctx['medications'] is list with items",
+      "action": "Flag herbs in _DRUG_INTERACTION_MAP that interact with patient medications",
+      "critical_pairs": {
+        "Đan sâm + warfarin": "Tăng nguy cơ chảy máu",
+        "Cam thảo + digoxin": "Hạ kali gây rối loạn nhịp",
+        "Khổ qua + metformin": "Hạ đường huyết quá mức",
+        "Linh chi + immunosuppressant": "Kích hoạt miễn dịch"
+      },
+      "action_type": "FLAG_NOT_REMOVE — gắn cảnh báo, không loại bỏ"
+    },
+    "gate_3_duration_cap": {
+      "text": "Dùng thử 1–2 tuần. Nếu không cải thiện hoặc triệu chứng nặng hơn → đến khám bác sĩ ngay.",
+      "injected_into": "every TreatmentDecision regardless of track"
+    },
+    "gate_4_evidence_level": {
+      "levels": {
+        "high": "Có nghiên cứu lâm sàng",
+        "medium": "Kinh nghiệm dân gian, chưa đủ bằng chứng lâm sàng",
+        "low": "Truyền thống — chưa có nghiên cứu"
+      },
+      "injected_into": "each herb dict as evidence_label"
+    }
+  },
+
+  "herb_encyclopedia_v94": {
+    "_comment": "60 vị thuốc Nam — data/tuminh_herb_encyclopedia.jsonl",
+    "total_herbs": 60,
+    "source": "GS. Đỗ Tất Lợi — Những cây thuốc và vị thuốc Việt Nam (2006)",
+    "groups": {
+      "Tiêu hóa":     "H001-H007 (Gừng, Nghệ, Cam thảo, Đại táo, Bạch truật, Trần bì, Sa nhân)",
+      "Hô hấp":       "H008-H013 (Kinh giới, Tía tô, Húng chanh, Mạch môn, Bách bộ, Cát cánh)",
+      "Tim mạch":     "H014-H016 (Hà thủ ô đỏ, Đan sâm, Câu đằng)",
+      "An thần":      "H017-H022 (Táo nhân, Tâm sen, Lạc tiên, Bình vôi, An tức hương, Viễn chí)",
+      "Cơ xương khớp":"H023-H026 (Ngải cứu, Cỏ xước, Hy thiêm, Độc hoạt)",
+      "Tiết niệu":   "H027-H031 (Kim tiền thảo, Râu ngô, Mã đề, Bồ công anh, Tỳ giải)",
+      "Phụ khoa":     "H032-H036 (Ích mẫu, Hương phụ, Đương quy, Xuyên khung, Bạch thược)",
+      "Bổ khí/huyết": "H037-H043 (Nhân sâm, Hoàng kỳ, Thục địa, Kỷ tử, Long nhãn, Đinh lăng, Linh chi)",
+      "Thanh nhiệt":  "H044-H047,H050,H052,H054,H056,H059 (Kim ngân hoa, Diệp hạ châu, Sài đất, Thảo quyết minh, Hoàng liên, Cúc hoa, Sâm đại hành, Hoàng bá, Chi tử)",
+      "Đặc biệt":    "H048-H049,H051,H053,H055,H057-H058,H060 (Khổ qua, Ý dĩ, Phục linh, Tam thất, Trạch tả, Sinh địa, Mộc hương, Sơn tra)"
+    },
+    "lookup_strategy": "1.Exact ICD code → 2.ICD prefix match → 3.ICD chapter letter → dedupe by herb_id → limit 5",
+    "schema_per_herb": ["herb_id", "name_vn", "name_latin", "nhom", "icd10_chapters", "icd10_codes", "conditions_vn", "usage", "dosage", "contraindications", "safety_level", "tinh", "evidence_level", "drug_interactions"]
+  },
+
+  "clinical_qa_v94": {
+    "_comment": "50-Case Clinical Validation — tests/run_50_cases.py",
+    "total_cases": 50,
+    "groups": {
+      "Thường gặp (1-15)": "routine/herbal_only — cảm cúm, đau dạ dày, mất ngủ, đau lưng, táo bón...",
+      "Mạn tính (16-28)": "urgent/both — tiểu đường, tăng huyết áp, gout, COPD, trầm cảm...",
+      "Cấp cứu (29-38)": "emergency/herbal=[] — STEMI, stroke, SAH, seizure, GI bleed, PE, meningitis, ectopic, resp failure, peritonitis",
+      "Phụ khoa (39-44)": "trễ kinh, đau bụng kinh, khí hư, thai kỳ, xuất huyết, mãn kinh",
+      "Edge case (45-50)": "no diacritics, warfarin interaction, pediatric, TB suspect, empty symptoms, possible pregnant"
+    },
+    "critical_rules": [
+      "RULE_EMERGENCY: cases 29-38 → herbal_options MUST be [] AND is_emergency MUST be True",
+      "RULE_PREGNANCY: cases 42,50 → Gate 1 warning present + no contraindicated herbs",
+      "RULE_DRUG: cases 17,46 → drug_interaction_warning for warfarin present",
+      "RULE_NORMALIZER: case 45 → 'dau nguc kho tho' must trigger emergency after normalize()",
+      "RULE_TRACK: all non-emergency → track matches expected"
+    ],
+    "fixes_applied": "TC32(co giật), TC33(nôn ra máu/phân đen), TC38(bụng cứng/đau bụng dữ dội) — thêm 16 keywords vào _RED_FLAG_SYMPTOMS",
+    "result": "50/50 PASS"
   }
 }

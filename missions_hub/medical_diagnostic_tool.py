@@ -29,6 +29,20 @@ except Exception as _ep_err:
         f"EnhancedDiagnosticPipeline unavailable: {_ep_err}"
     )
 
+# ── V9.4: Treatment Router (lazy import) ─────────────────────────────────────
+try:
+    from missions_hub.treatment_router import TreatmentRouter as _TreatmentRouter
+    from nexus_core.output_formatter import format_treatment_output as _fmt_treatment
+    _TREATMENT_AVAILABLE = True
+    _treatment_router = _TreatmentRouter()
+except Exception as _tr_err:
+    _TREATMENT_AVAILABLE = False
+    _treatment_router = None  # type: ignore
+    import logging as _logging2
+    _logging2.getLogger("tuminh.mdt").warning(
+        f"TreatmentRouter unavailable: {_tr_err}"
+    )
+
 # Cấu hình encoding cho terminal Windows để hỗ trợ tiếng Việt
 if sys.platform == "win32":
     import io
@@ -65,6 +79,18 @@ _RED_FLAG_SYMPTOMS: frozenset = frozenset([
     "đau bụng kinh", "dau bung kinh",
     "delayed menstruation", "amenorrhea", "dysmenorrhea",
     "abnormal uterine bleeding", "pelvic pain",
+    # Seizure / convulsion (V9.4)
+    "seizure", "convulsion", "co giật", "co giat",
+    "mất ý thức", "mat y thuc", "loss of consciousness",
+    # GI hemorrhage (V9.4)
+    "hematemesis", "nôn ra máu", "non ra mau",
+    "melena", "phân đen", "phan den",
+    # Acute abdomen (V9.4)
+    "bụng cứng", "bung cung", "rigid abdomen",
+    "đau bụng dữ dội", "dau bung du doi",
+    # Cyanosis / severe signs (V9.4)
+    "môi tím", "moi tim", "cyanosis",
+    "li bì", "li bi", "lethargy",
     # Shock / sepsis
     "hypotension", "tụt huyết áp", "tut huyet ap",
     "altered consciousness", "rối loạn ý thức",
@@ -186,7 +212,26 @@ async def diagnose_enhanced(
     ctx = SymptomContext(**ctx_kwargs)
     pipeline = _get_enhanced_pipeline()
     result = await pipeline.diagnose(ctx)
-    return pipeline.to_navigator_output(result)
+    nav_output = pipeline.to_navigator_output(result)
+
+    # ── V9.4: Attach treatment recommendation ─────────────────────────────
+    if _TREATMENT_AVAILABLE and nav_output.get("candidates"):
+        top = nav_output["candidates"][0]
+        disease_id  = top.get("disease_id", "R53")
+        urgency_raw = top.get("urgency", "routine")
+        # Map enhanced urgency labels → router labels
+        urgency_map = {"emergency": "emergency", "urgent": "urgent",
+                       "routine": "routine", "low": "routine"}
+        urgency = urgency_map.get(urgency_raw, "routine")
+        severity_raw = (context_dict or {}).get("severity", "")
+        decision = _treatment_router.decide(  # type: ignore[union-attr]
+            disease_id=disease_id,
+            urgency=urgency,
+            symptom_severity=severity_raw,
+        )
+        nav_output["treatment"] = _fmt_treatment(decision)
+
+    return nav_output
 
 
 class MedicalDiagnosticTool:
@@ -536,7 +581,28 @@ Output:
         if any(kw in text for kw in ["suy hô hấp", "respiratory distress", "ho ra máu", "hemoptysis"]):
             return True
 
-        # 5. Any single keyword from the global red-flag set
+        # 5. Seizure / loss of consciousness (V9.4)
+        if any(kw in text for kw in [
+            "co giật", "co giat", "seizure", "convulsion",
+            "mất ý thức", "mat y thuc", "loss of consciousness",
+        ]):
+            return True
+
+        # 6. GI hemorrhage (V9.4)
+        if any(kw in text for kw in [
+            "nôn ra máu", "non ra mau", "hematemesis",
+            "phân đen", "phan den", "melena",
+        ]):
+            return True
+
+        # 7. Acute abdomen (V9.4)
+        if any(kw in text for kw in [
+            "bụng cứng", "bung cung", "rigid abdomen",
+            "đau bụng dữ dội", "dau bung du doi",
+        ]):
+            return True
+
+        # 8. Any single keyword from the global red-flag set
         return any(kw in text for kw in _RED_FLAG_SYMPTOMS)
 
 

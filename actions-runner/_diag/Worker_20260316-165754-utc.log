@@ -1,0 +1,3226 @@
+[2026-03-16 16:57:54Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Credentials': 'I:\TuminhAgi\actions-runner\.credentials'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Runner': 'I:\TuminhAgi\actions-runner\.runner'
+[2026-03-16 16:57:54Z INFO Worker] Version: 2.332.0
+[2026-03-16 16:57:54Z INFO Worker] Commit: a153d802ff96c51ac1b8d72dd8a38ebe830398fc
+[2026-03-16 16:57:54Z INFO Worker] Culture: en-US
+[2026-03-16 16:57:54Z INFO Worker] UI Culture: en-US
+[2026-03-16 16:57:54Z INFO Worker] Waiting to receive the job message from the channel.
+[2026-03-16 16:57:54Z INFO ProcessChannel] Receiving message of length 19474, with hash '264ea75ff3973efb7fc75be7a5e5be5ece2ec6d62b12fe1c48223298c6da515e'
+[2026-03-16 16:57:54Z INFO Worker] Message received.
+[2026-03-16 16:57:54Z INFO Worker] Job message:
+ {
+  "fileTable": [
+    ".github/workflows/crawl_code.yml"
+  ],
+  "mask": [
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "actions/checkout",
+        "ref": "v4",
+        "repositoryType": "GitHub"
+      },
+      "contextName": "__actions_checkout",
+      "condition": "success()",
+      "id": "db437e16-f3bd-4f19-8430-12ac698ef081",
+      "name": "__actions_checkout"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 19,
+        "col": 15,
+        "lit": "Run Crawler"
+      },
+      "contextName": "__run",
+      "environment": {
+        "type": 2,
+        "file": 1,
+        "line": 21,
+        "col": 11,
+        "map": [
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 21,
+              "col": 11,
+              "lit": "GITHUB_TOKEN"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 21,
+              "col": 25,
+              "expr": "secrets.CRWL_TOKEN"
+            }
+          }
+        ]
+      },
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 23,
+              "col": 14,
+              "expr": "format('python github_crawler.py `\n  --language {0} `\n  --count {1} `\n  --token \"{2}\" `\n  --worker github_bot\n', github.event.inputs.language || 'swift', github.event.inputs.count || '200', secrets.CRWL_TOKEN)"
+            }
+          },
+          {
+            "key": "shell",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 22,
+              "col": 16,
+              "lit": "powershell"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "5b113814-6fa4-4c9b-b244-54224c989ab8",
+      "name": "__run"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 30,
+        "col": 15,
+        "lit": "Commit & push"
+      },
+      "contextName": "__run_2",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 32,
+              "col": 14,
+              "lit": "git config user.name \"TuminhAGI Crawler\"\ngit config user.email \"crawler@tuminh.ai\"\ngit add finetune/datasets/\ngit diff --staged --quiet\nif ($LastExitCode -ne 0) {\n  git commit -m \"🤖 [crawler] add real-world examples\"\n  git push\n}"
+            }
+          },
+          {
+            "key": "shell",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 31,
+              "col": 16,
+              "lit": "powershell"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "75413492-d361-4095-9c71-bf8c675fcc8a",
+      "name": "__run_2"
+    }
+  ],
+  "variables": {
+    "Actions.EnableHttpRedirects": {
+      "value": "true"
+    },
+    "CRWL_TOKEN": {
+      "value": "***",
+      "isSecret": true
+    },
+    "DistributedTask.AddWarningToNode12Action": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode16Action": {
+      "value": "true"
+    },
+    "DistributedTask.AllowRunnerContainerHooks": {
+      "value": "true"
+    },
+    "DistributedTask.DeprecateStepOutputCommands": {
+      "value": "true"
+    },
+    "DistributedTask.DetailUntarFailure": {
+      "value": "true"
+    },
+    "DistributedTask.EnableCompositeActions": {
+      "value": "true"
+    },
+    "DistributedTask.EnableJobServerQueueTelemetry": {
+      "value": "true"
+    },
+    "DistributedTask.EnhancedAnnotations": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode16": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode20": {
+      "value": "true"
+    },
+    "DistributedTask.LogTemplateErrorsAsDebugMessages": {
+      "value": "true"
+    },
+    "DistributedTask.MarkJobAsFailedOnWorkerCrash": {
+      "value": "true"
+    },
+    "DistributedTask.NewActionMetadata": {
+      "value": "true"
+    },
+    "DistributedTask.UploadStepSummary": {
+      "value": "true"
+    },
+    "DistributedTask.UseActionArchiveCache": {
+      "value": "true"
+    },
+    "DistributedTask.UseWhich2": {
+      "value": "true"
+    },
+    "RunService.FixEmbeddedIssues": {
+      "value": "true"
+    },
+    "actions.runner.requirenode24": {
+      "value": "false"
+    },
+    "actions.runner.usenode24bydefault": {
+      "value": "false"
+    },
+    "actions.runner.warnonnode20": {
+      "value": "true"
+    },
+    "actions_add_check_run_id_to_job_context": {
+      "value": "true"
+    },
+    "actions_container_action_runner_temp": {
+      "value": "true"
+    },
+    "actions_display_helpful_actions_download_errors": {
+      "value": "true"
+    },
+    "actions_runner_compare_workflow_parser": {
+      "value": "false"
+    },
+    "actions_runner_emit_composite_markers": {
+      "value": "false"
+    },
+    "actions_service_container_command": {
+      "value": "false"
+    },
+    "actions_set_orchestration_id_env_for_actions": {
+      "value": "true"
+    },
+    "actions_skip_retry_complete_job_upon_known_errors": {
+      "value": "true"
+    },
+    "actions_snapshot_preflight_hosted_runner_check": {
+      "value": "false"
+    },
+    "actions_snapshot_preflight_image_gen_pool_check": {
+      "value": "false"
+    },
+    "actions_uses_cache_service_v2": {
+      "value": "true"
+    },
+    "github_token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.from_run_service": {
+      "value": "true"
+    },
+    "system.github.job": {
+      "value": "crawl"
+    },
+    "system.github.launch_endpoint": {
+      "value": "https://launch.actions.githubusercontent.com"
+    },
+    "system.github.results_endpoint": {
+      "value": "https://results-receiver.actions.githubusercontent.com/"
+    },
+    "system.github.results_upload_with_sdk": {
+      "value": "true"
+    },
+    "system.github.token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.github.token.permissions": {
+      "value": "{\"Actions\":\"write\",\"ArtifactMetadata\":\"write\",\"Attestations\":\"write\",\"Checks\":\"write\",\"Contents\":\"write\",\"Deployments\":\"write\",\"Discussions\":\"write\",\"Issues\":\"write\",\"Metadata\":\"read\",\"Models\":\"read\",\"Packages\":\"write\",\"Pages\":\"write\",\"PullRequests\":\"write\",\"RepositoryProjects\":\"write\",\"SecurityEvents\":\"write\",\"Statuses\":\"write\"}"
+    },
+    "system.orchestrationId": {
+      "value": "a06ed43d-b6cf-4503-8b1b-cbb16a213c9e.crawl.__default"
+    },
+    "system.phaseDisplayName": {
+      "value": "Crawl swift"
+    },
+    "system.runner.lowdiskspacethreshold": {
+      "value": "100"
+    },
+    "system.runnerEnvironment": {
+      "value": "self-hosted"
+    },
+    "system.runnerGroupName": {
+      "value": "Default"
+    }
+  },
+  "messageType": "RunnerJobRequest",
+  "plan": {
+    "scopeIdentifier": "00000000-0000-0000-0000-000000000000",
+    "planType": "actions",
+    "version": 0,
+    "planId": "a06ed43d-b6cf-4503-8b1b-cbb16a213c9e",
+    "planGroup": null,
+    "artifactUri": null,
+    "artifactLocation": null,
+    "definition": null,
+    "owner": null
+  },
+  "timeline": {
+    "id": "a06ed43d-b6cf-4503-8b1b-cbb16a213c9e",
+    "changeId": 0,
+    "location": null
+  },
+  "jobId": "01f4091f-20d9-59b0-83fa-5925cf1e07eb",
+  "jobDisplayName": "Crawl swift",
+  "jobName": "__default",
+  "requestId": 0,
+  "lockedUntil": "0001-01-01T00:00:00",
+  "resources": {
+    "endpoints": [
+      {
+        "data": {
+          "ServerId": "",
+          "ServerName": "",
+          "CacheServerUrl": "https://artifactcache.actions.githubusercontent.com/lQuym46z0EV1Uxw8x5vApYoxh3ifmwKI9HbQj9CvrLNGJpao6k/",
+          "FeedStreamUrl": "wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock",
+          "ResultsServiceUrl": "https://results-receiver.actions.githubusercontent.com/",
+          "PipelinesServiceUrl": "https://pipelinesghubeus5.actions.githubusercontent.com/lQuym46z0EV1Uxw8x5vApYoxh3ifmwKI9HbQj9CvrLNGJpao6k/",
+          "GenerateIdTokenUrl": "",
+          "ConnectivityChecks": "[\"https://broker.actions.githubusercontent.com/health\",\"https://token.actions.githubusercontent.com/ready\",\"https://run.actions.githubusercontent.com/health\"]"
+        },
+        "name": "SystemVssConnection",
+        "url": "https://run-actions-1-azure-eastus.actions.githubusercontent.com/76/",
+        "authorization": {
+          "parameters": {
+            "AccessToken": "***"
+          },
+          "scheme": "OAuth"
+        },
+        "isShared": false,
+        "isReady": true
+      }
+    ]
+  },
+  "contextData": {
+    "github": {
+      "t": 2,
+      "d": [
+        {
+          "k": "ref",
+          "v": "refs/heads/main"
+        },
+        {
+          "k": "sha",
+          "v": "60342678774a3d81055adcd5dcd56cb7b7767c08"
+        },
+        {
+          "k": "repository",
+          "v": "AnonVertex123/TuminhAgi"
+        },
+        {
+          "k": "repository_owner",
+          "v": "AnonVertex123"
+        },
+        {
+          "k": "repository_owner_id",
+          "v": "262777151"
+        },
+        {
+          "k": "repositoryUrl",
+          "v": "git://github.com/AnonVertex123/TuminhAgi.git"
+        },
+        {
+          "k": "run_id",
+          "v": "23155343973"
+        },
+        {
+          "k": "run_number",
+          "v": "3"
+        },
+        {
+          "k": "retention_days",
+          "v": "90"
+        },
+        {
+          "k": "run_attempt",
+          "v": "3"
+        },
+        {
+          "k": "artifact_cache_size_limit",
+          "v": "10"
+        },
+        {
+          "k": "repository_visibility",
+          "v": "private"
+        },
+        {
+          "k": "actor_id",
+          "v": "262777151"
+        },
+        {
+          "k": "actor",
+          "v": "AnonVertex123"
+        },
+        {
+          "k": "workflow",
+          "v": "Crawl Production Code"
+        },
+        {
+          "k": "head_ref",
+          "v": ""
+        },
+        {
+          "k": "base_ref",
+          "v": ""
+        },
+        {
+          "k": "event_name",
+          "v": "workflow_dispatch"
+        },
+        {
+          "k": "server_url",
+          "v": "https://github.com"
+        },
+        {
+          "k": "api_url",
+          "v": "https://api.github.com"
+        },
+        {
+          "k": "graphql_url",
+          "v": "https://api.github.com/graphql"
+        },
+        {
+          "k": "ref_name",
+          "v": "main"
+        },
+        {
+          "k": "ref_protected",
+          "v": false
+        },
+        {
+          "k": "ref_type",
+          "v": "branch"
+        },
+        {
+          "k": "secret_source",
+          "v": "Actions"
+        },
+        {
+          "k": "event",
+          "v": {
+            "t": 2,
+            "d": [
+              {
+                "k": "ref",
+                "v": "refs/heads/main"
+              },
+              {
+                "k": "workflow",
+                "v": ".github/workflows/crawl_code.yml"
+              },
+              {
+                "k": "inputs",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "language",
+                      "v": "swift"
+                    },
+                    {
+                      "k": "count",
+                      "v": "200"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "repository",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "id",
+                      "v": 1181667238.0
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "R_kgDORm7Ppg"
+                    },
+                    {
+                      "k": "name",
+                      "v": "TuminhAgi"
+                    },
+                    {
+                      "k": "full_name",
+                      "v": "AnonVertex123/TuminhAgi"
+                    },
+                    {
+                      "k": "private",
+                      "v": true
+                    },
+                    {
+                      "k": "owner",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "login",
+                            "v": "AnonVertex123"
+                          },
+                          {
+                            "k": "id",
+                            "v": 262777151.0
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "U_kgDOD6mpPw"
+                          },
+                          {
+                            "k": "avatar_url",
+                            "v": "https://avatars.githubusercontent.com/u/262777151?v=4"
+                          },
+                          {
+                            "k": "gravatar_id",
+                            "v": ""
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/users/AnonVertex123"
+                          },
+                          {
+                            "k": "html_url",
+                            "v": "https://github.com/AnonVertex123"
+                          },
+                          {
+                            "k": "followers_url",
+                            "v": "https://api.github.com/users/AnonVertex123/followers"
+                          },
+                          {
+                            "k": "following_url",
+                            "v": "https://api.github.com/users/AnonVertex123/following{/other_user}"
+                          },
+                          {
+                            "k": "gists_url",
+                            "v": "https://api.github.com/users/AnonVertex123/gists{/gist_id}"
+                          },
+                          {
+                            "k": "starred_url",
+                            "v": "https://api.github.com/users/AnonVertex123/starred{/owner}{/repo}"
+                          },
+                          {
+                            "k": "subscriptions_url",
+                            "v": "https://api.github.com/users/AnonVertex123/subscriptions"
+                          },
+                          {
+                            "k": "organizations_url",
+                            "v": "https://api.github.com/users/AnonVertex123/orgs"
+                          },
+                          {
+                            "k": "repos_url",
+                            "v": "https://api.github.com/users/AnonVertex123/repos"
+                          },
+                          {
+                            "k": "events_url",
+                            "v": "https://api.github.com/users/AnonVertex123/events{/privacy}"
+                          },
+                          {
+                            "k": "received_events_url",
+                            "v": "https://api.github.com/users/AnonVertex123/received_events"
+                          },
+                          {
+                            "k": "type",
+                            "v": "User"
+                          },
+                          {
+                            "k": "user_view_type",
+                            "v": "public"
+                          },
+                          {
+                            "k": "site_admin",
+                            "v": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/AnonVertex123/TuminhAgi"
+                    },
+                    {
+                      "k": "description",
+                      "v": null
+                    },
+                    {
+                      "k": "fork",
+                      "v": false
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi"
+                    },
+                    {
+                      "k": "forks_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/forks"
+                    },
+                    {
+                      "k": "keys_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/keys{/key_id}"
+                    },
+                    {
+                      "k": "collaborators_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/collaborators{/collaborator}"
+                    },
+                    {
+                      "k": "teams_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/teams"
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/hooks"
+                    },
+                    {
+                      "k": "issue_events_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/issues/events{/number}"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/events"
+                    },
+                    {
+                      "k": "assignees_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/assignees{/user}"
+                    },
+                    {
+                      "k": "branches_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/branches{/branch}"
+                    },
+                    {
+                      "k": "tags_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/tags"
+                    },
+                    {
+                      "k": "blobs_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/git/blobs{/sha}"
+                    },
+                    {
+                      "k": "git_tags_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/git/tags{/sha}"
+                    },
+                    {
+                      "k": "git_refs_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/git/refs{/sha}"
+                    },
+                    {
+                      "k": "trees_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/git/trees{/sha}"
+                    },
+                    {
+                      "k": "statuses_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/statuses/{sha}"
+                    },
+                    {
+                      "k": "languages_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/languages"
+                    },
+                    {
+                      "k": "stargazers_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/stargazers"
+                    },
+                    {
+                      "k": "contributors_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/contributors"
+                    },
+                    {
+                      "k": "subscribers_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/subscribers"
+                    },
+                    {
+                      "k": "subscription_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/subscription"
+                    },
+                    {
+                      "k": "commits_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/commits{/sha}"
+                    },
+                    {
+                      "k": "git_commits_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/git/commits{/sha}"
+                    },
+                    {
+                      "k": "comments_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/comments{/number}"
+                    },
+                    {
+                      "k": "issue_comment_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/issues/comments{/number}"
+                    },
+                    {
+                      "k": "contents_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/contents/{+path}"
+                    },
+                    {
+                      "k": "compare_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/compare/{base}...{head}"
+                    },
+                    {
+                      "k": "merges_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/merges"
+                    },
+                    {
+                      "k": "archive_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/{archive_format}{/ref}"
+                    },
+                    {
+                      "k": "downloads_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/downloads"
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/issues{/number}"
+                    },
+                    {
+                      "k": "pulls_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/pulls{/number}"
+                    },
+                    {
+                      "k": "milestones_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/milestones{/number}"
+                    },
+                    {
+                      "k": "notifications_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/notifications{?since,all,participating}"
+                    },
+                    {
+                      "k": "labels_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/labels{/name}"
+                    },
+                    {
+                      "k": "releases_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/releases{/id}"
+                    },
+                    {
+                      "k": "deployments_url",
+                      "v": "https://api.github.com/repos/AnonVertex123/TuminhAgi/deployments"
+                    },
+                    {
+                      "k": "created_at",
+                      "v": "2026-03-14T13:10:16Z"
+                    },
+                    {
+                      "k": "updated_at",
+                      "v": "2026-03-16T16:49:08Z"
+                    },
+                    {
+                      "k": "pushed_at",
+                      "v": "2026-03-16T16:49:04Z"
+                    },
+                    {
+                      "k": "git_url",
+                      "v": "git://github.com/AnonVertex123/TuminhAgi.git"
+                    },
+                    {
+                      "k": "ssh_url",
+                      "v": "git@github.com:AnonVertex123/TuminhAgi.git"
+                    },
+                    {
+                      "k": "clone_url",
+                      "v": "https://github.com/AnonVertex123/TuminhAgi.git"
+                    },
+                    {
+                      "k": "svn_url",
+                      "v": "https://github.com/AnonVertex123/TuminhAgi"
+                    },
+                    {
+                      "k": "homepage",
+                      "v": null
+                    },
+                    {
+                      "k": "size",
+                      "v": 282145.0
+                    },
+                    {
+                      "k": "stargazers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "watchers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "language",
+                      "v": "JavaScript"
+                    },
+                    {
+                      "k": "has_issues",
+                      "v": true
+                    },
+                    {
+                      "k": "has_projects",
+                      "v": true
+                    },
+                    {
+                      "k": "has_downloads",
+                      "v": true
+                    },
+                    {
+                      "k": "has_wiki",
+                      "v": false
+                    },
+                    {
+                      "k": "has_pages",
+                      "v": false
+                    },
+                    {
+                      "k": "has_discussions",
+                      "v": false
+                    },
+                    {
+                      "k": "forks_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "mirror_url",
+                      "v": null
+                    },
+                    {
+                      "k": "archived",
+                      "v": false
+                    },
+                    {
+                      "k": "disabled",
+                      "v": false
+                    },
+                    {
+                      "k": "open_issues_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "license",
+                      "v": null
+                    },
+                    {
+                      "k": "allow_forking",
+                      "v": true
+                    },
+                    {
+                      "k": "is_template",
+                      "v": false
+                    },
+                    {
+                      "k": "web_commit_signoff_required",
+                      "v": false
+                    },
+                    {
+                      "k": "has_pull_requests",
+                      "v": true
+                    },
+                    {
+                      "k": "pull_request_creation_policy",
+                      "v": "all"
+                    },
+                    {
+                      "k": "topics",
+                      "v": {
+                        "t": 1
+                      }
+                    },
+                    {
+                      "k": "visibility",
+                      "v": "private"
+                    },
+                    {
+                      "k": "forks",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "open_issues",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "watchers",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "default_branch",
+                      "v": "main"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "sender",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "login",
+                      "v": "AnonVertex123"
+                    },
+                    {
+                      "k": "id",
+                      "v": 262777151.0
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "U_kgDOD6mpPw"
+                    },
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/262777151?v=4"
+                    },
+                    {
+                      "k": "gravatar_id",
+                      "v": ""
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/users/AnonVertex123"
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/AnonVertex123"
+                    },
+                    {
+                      "k": "followers_url",
+                      "v": "https://api.github.com/users/AnonVertex123/followers"
+                    },
+                    {
+                      "k": "following_url",
+                      "v": "https://api.github.com/users/AnonVertex123/following{/other_user}"
+                    },
+                    {
+                      "k": "gists_url",
+                      "v": "https://api.github.com/users/AnonVertex123/gists{/gist_id}"
+                    },
+                    {
+                      "k": "starred_url",
+                      "v": "https://api.github.com/users/AnonVertex123/starred{/owner}{/repo}"
+                    },
+                    {
+                      "k": "subscriptions_url",
+                      "v": "https://api.github.com/users/AnonVertex123/subscriptions"
+                    },
+                    {
+                      "k": "organizations_url",
+                      "v": "https://api.github.com/users/AnonVertex123/orgs"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/users/AnonVertex123/repos"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/users/AnonVertex123/events{/privacy}"
+                    },
+                    {
+                      "k": "received_events_url",
+                      "v": "https://api.github.com/users/AnonVertex123/received_events"
+                    },
+                    {
+                      "k": "type",
+                      "v": "User"
+                    },
+                    {
+                      "k": "user_view_type",
+                      "v": "public"
+                    },
+                    {
+                      "k": "site_admin",
+                      "v": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "k": "workflow_ref",
+          "v": "AnonVertex123/TuminhAgi/.github/workflows/crawl_code.yml@refs/heads/main"
+        },
+        {
+          "k": "workflow_sha",
+          "v": "60342678774a3d81055adcd5dcd56cb7b7767c08"
+        },
+        {
+          "k": "repository_id",
+          "v": "1181667238"
+        },
+        {
+          "k": "triggering_actor",
+          "v": "AnonVertex123"
+        }
+      ]
+    },
+    "inputs": {
+      "t": 2,
+      "d": [
+        {
+          "k": "language",
+          "v": "swift"
+        },
+        {
+          "k": "count",
+          "v": "200"
+        }
+      ]
+    },
+    "job": {
+      "t": 2,
+      "d": [
+        {
+          "k": "check_run_id",
+          "v": 67269661966.0
+        }
+      ]
+    },
+    "matrix": null,
+    "needs": {
+      "t": 2
+    },
+    "strategy": {
+      "t": 2,
+      "d": [
+        {
+          "k": "fail-fast",
+          "v": true
+        },
+        {
+          "k": "job-index",
+          "v": 0.0
+        },
+        {
+          "k": "job-total",
+          "v": 1.0
+        },
+        {
+          "k": "max-parallel",
+          "v": 1.0
+        }
+      ]
+    },
+    "vars": {
+      "t": 2
+    }
+  },
+  "billingOwnerId": "U_kgDOD6mpPw"
+}
+[2026-03-16 16:57:54Z INFO JobRunner] Job ID 01f4091f-20d9-59b0-83fa-5925cf1e07eb
+[2026-03-16 16:57:54Z INFO ConfigurationStore] currentAssemblyLocation: I:\TuminhAgi\actions-runner\bin\Runner.Worker.dll
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] binPath: I:\TuminhAgi\actions-runner\bin
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] RootFolder: I:\TuminhAgi\actions-runner
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Runner': 'I:\TuminhAgi\actions-runner\.runner'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] ConfigFilePath: I:\TuminhAgi\actions-runner\.runner
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'MigratedRunner': 'I:\TuminhAgi\actions-runner\.runner_migrated'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] MigratedConfigFilePath: I:\TuminhAgi\actions-runner\.runner_migrated
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Credentials': 'I:\TuminhAgi\actions-runner\.credentials'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] CredFilePath: I:\TuminhAgi\actions-runner\.credentials
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'MigratedCredentials': 'I:\TuminhAgi\actions-runner\.credentials_migrated'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] MigratedCredFilePath: I:\TuminhAgi\actions-runner\.credentials_migrated
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Service': 'I:\TuminhAgi\actions-runner\.service'
+[2026-03-16 16:57:54Z INFO ConfigurationStore] ServiceConfigFilePath: I:\TuminhAgi\actions-runner\.service
+[2026-03-16 16:57:54Z INFO ConfigurationStore] Read setting file: 312 chars
+[2026-03-16 16:57:54Z INFO JobRunner] Initializing launch client
+[2026-03-16 16:57:54Z INFO JobServerQueue] Initializing results client
+[2026-03-16 16:57:54Z INFO ResultServer] Creating websocket client ...wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock
+[2026-03-16 16:57:54Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2026-03-16 16:57:54Z INFO JobServerQueue] Start process web console line queue.
+[2026-03-16 16:57:54Z INFO JobServerQueue] Start process file upload queue.
+[2026-03-16 16:57:54Z INFO JobServerQueue] Start results file upload queue.
+[2026-03-16 16:57:54Z INFO JobServerQueue] Starting results-based upload queue...
+[2026-03-16 16:57:54Z INFO JobServerQueue] Start process timeline update queue.
+[2026-03-16 16:57:54Z INFO ExecutionContext] Initializing Job context
+[2026-03-16 16:57:54Z INFO ExecutionContext] Initialize GitHub context
+[2026-03-16 16:57:54Z INFO ExecutionContext] Initialize Env context
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:54Z INFO JobRunner] Starting the job execution context.
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO JobRunner] Validating directory permissions for: 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Tools': 'I:\TuminhAgi\actions-runner\_work\_tool'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:57:54Z INFO JobRunner] Getting job extension.
+[2026-03-16 16:57:54Z INFO JobRunner] Initialize job. Getting all job steps.
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'Credentials': 'I:\TuminhAgi\actions-runner\.credentials'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known config file 'SetupInfo': 'I:\TuminhAgi\actions-runner\.setup_info'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO PipelineDirectoryManager] Loading tracking config if exists: I:\TuminhAgi\actions-runner\_work\_PipelineMapping\AnonVertex123/TuminhAgi\PipelineFolder.json
+[2026-03-16 16:57:54Z INFO PipelineDirectoryManager] Updating job run properties.
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO JobExtension] Downloading actions
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:54Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:55Z INFO Worker] Listening for cancel message from the channel.
+[2026-03-16 16:57:55Z INFO Worker] Waiting for the job to complete or for a cancel message from the channel.
+[2026-03-16 16:57:56Z INFO ResultServer] Successfully started websocket client.
+[2026-03-16 16:57:56Z INFO JobServerQueue] Try to append 1 batches web console lines for record '86d52cf3-6481-4746-a3c9-f2fdbe3fa8a5', success rate: 1/1.
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:56Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:56Z INFO ActionManager] Save archive 'https://api.github.com/repos/actions/checkout/zipball/34e114876b0b11c390a56381ad16ebd13914f8d5' into I:\TuminhAgi\actions-runner\_work\_actions\_temp_1794ceae-a92f-45d4-b731-60329033cf59\f853bd6d-18f4-4f7c-8a51-2002673ec93d.zip.
+[2026-03-16 16:57:56Z INFO JobServerQueue] Job timeline record has been updated for the first time.
+[2026-03-16 16:57:56Z INFO JobServerQueue] Try to append 1 batches web console lines for record '86d52cf3-6481-4746-a3c9-f2fdbe3fa8a5', success rate: 1/1.
+[2026-03-16 16:57:57Z INFO ActionManager] Request URL: https://api.github.com/repos/actions/checkout/zipball/34e114876b0b11c390a56381ad16ebd13914f8d5 X-GitHub-Request-Id: D3B7:31F5EE:185F1:4ABCF:69B8367B Http Status: OK
+[2026-03-16 16:57:57Z INFO ActionManager] Finished getting action repository.
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Load schema file with definitions: [
+  "null",
+  "boolean",
+  "number",
+  "string",
+  "sequence",
+  "mapping",
+  "any",
+  "action-root",
+  "inputs",
+  "input",
+  "outputs",
+  "output-definition",
+  "runs",
+  "container-runs",
+  "container-runs-args",
+  "container-runs-env",
+  "node-runs",
+  "plugin-runs",
+  "composite-runs",
+  "composite-steps",
+  "composite-step",
+  "run-step",
+  "uses-step",
+  "container-runs-context",
+  "output-value",
+  "input-default-context",
+  "non-empty-string",
+  "string-steps-context",
+  "boolean-steps-context",
+  "step-env",
+  "step-if",
+  "step-with"
+]
+[2026-03-16 16:57:57Z INFO ActionManifestManager] Load schema file with definitions: [
+  "null",
+  "boolean",
+  "number",
+  "string",
+  "sequence",
+  "mapping",
+  "any",
+  "action-root",
+  "inputs",
+  "input",
+  "outputs",
+  "output-definition",
+  "runs",
+  "container-runs",
+  "container-runs-args",
+  "container-runs-env",
+  "node-runs",
+  "plugin-runs",
+  "composite-runs",
+  "composite-steps",
+  "composite-step",
+  "run-step",
+  "uses-step",
+  "container-runs-context",
+  "output-value",
+  "input-default-context",
+  "non-empty-string",
+  "string-steps-context",
+  "boolean-steps-context",
+  "step-env",
+  "step-if",
+  "step-with"
+]
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2026-03-16 16:57:57Z INFO ActionManager] Action node.js file: dist/index.js, no more preparation.
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManager] Load action that reference repository from 'I:\TuminhAgi\actions-runner\_work\_actions\actions\checkout\v4'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2026-03-16 16:57:57Z INFO ActionManager] Action pre node.js file: N/A.
+[2026-03-16 16:57:57Z INFO ActionManager] Action node.js file: dist/index.js.
+[2026-03-16 16:57:57Z INFO ActionManager] Action post node.js file: dist/index.js.
+[2026-03-16 16:57:57Z INFO JobExtension] Adding .
+[2026-03-16 16:57:57Z INFO JobExtension] Adding .
+[2026-03-16 16:57:57Z INFO JobExtension] Adding .
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO JobExtension] Total accessible running process: 295.
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO JobExtension] Start checking server connectivity.
+[2026-03-16 16:57:57Z INFO JobExtension] Check server connectivity for https://broker.actions.githubusercontent.com/health.
+[2026-03-16 16:57:57Z INFO JobExtension] Check server connectivity for https://token.actions.githubusercontent.com/ready.
+[2026-03-16 16:57:57Z INFO JobExtension] Check server connectivity for https://run.actions.githubusercontent.com/health.
+[2026-03-16 16:57:57Z INFO JobExtension] Start checking service connectivity in background.
+[2026-03-16 16:57:57Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "setup_job",
+  "type": "runner",
+  "stage": "Pre",
+  "stepId": "86d52cf3-6481-4746-a3c9-f2fdbe3fa8a5",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 3,
+  "startTime": "2026-03-16T16:57:54.9339686Z",
+  "finishTime": "2026-03-16T16:57:57.665404Z"
+}.
+[2026-03-16 16:57:57Z INFO JobRunner] Total job steps: 3.
+[2026-03-16 16:57:57Z INFO JobRunner] Run all job steps.
+[2026-03-16 16:57:57Z INFO StepsRunner] Processing step: DisplayName='Run actions/checkout@v4'
+[2026-03-16 16:57:57Z INFO StepsRunner] Evaluating: success()
+[2026-03-16 16:57:57Z INFO StepsRunner] Result: true
+[2026-03-16 16:57:57Z INFO StepsRunner] Starting the step.
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO StepsRunner] Which2: 'chcp'
+[2026-03-16 16:57:57Z INFO StepsRunner] Location: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   File name: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Arguments: '65001'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] Process started with process id 2992, waiting for process exit.
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] Finished process 2992 with exit code 0, and elapsed time 00:00:00.0062512.
+[2026-03-16 16:57:57Z INFO StepsRunner] Successfully returned to code page 65001 (UTF8)
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManager] Load action that reference repository from 'I:\TuminhAgi\actions-runner\_work\_actions\actions\checkout\v4'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2026-03-16 16:57:57Z INFO ActionManager] Action pre node.js file: N/A.
+[2026-03-16 16:57:57Z INFO ActionManager] Action node.js file: dist/index.js.
+[2026-03-16 16:57:57Z INFO ActionManager] Action post node.js file: dist/index.js.
+[2026-03-16 16:57:57Z INFO ExecutionContext] Reserve record order 5 to 8 for post job actions.
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:57:57Z INFO ExecutionContext] Write event payload to I:\TuminhAgi\actions-runner\_work\_temp\_github_workflow\event.json
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:57:57Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathFileCommand, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvFileCommand, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.CreateStepSummaryCommand, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateFileCommand, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputFileCommand, Runner.Worker
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'repository': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 6,
+  "col": 14,
+  "lit": "AnonVertex123/TuminhAgi"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'ref': default value evaluate result: ""
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'token': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 24,
+  "col": 14,
+  "lit": "***"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'ssh-key': default value evaluate result: ""
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'ssh-known-hosts': default value evaluate result: ""
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'ssh-strict': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 47,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'ssh-user': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 51,
+  "col": 14,
+  "lit": "git"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'persist-credentials': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 54,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'path': default value evaluate result: ""
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'clean': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 59,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'filter': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 64,
+  "col": 14,
+  "lit": ""
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'sparse-checkout': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 69,
+  "col": 14,
+  "lit": ""
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'sparse-checkout-cone-mode': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 73,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'fetch-depth': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 76,
+  "col": 14,
+  "lit": "1"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'fetch-tags': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 79,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'show-progress': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 82,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'lfs': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 85,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'submodules': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 94,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'set-safe-directory': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 97,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:57:57Z INFO ActionManifestManagerLegacy] Input 'github-server-url': default value evaluate result: ""
+[2026-03-16 16:57:57Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.InternalPluginSetRepoPathCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMaskCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMatcherCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.RemoveMatcherCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.WarningCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.ErrorCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.NoticeCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.DebugCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.GroupCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EndGroupCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EchoCommandExtension, Runner.Worker
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command set-env
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command set-output
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command save-state
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command add-path
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command warning
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command error
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command notice
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command debug
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command group
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2026-03-16 16:57:57Z INFO ActionCommandManager] Register action command extension for command echo
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:57:57Z INFO HostContext] Well known directory 'Externals': 'I:\TuminhAgi\actions-runner\externals'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   File name: 'I:\TuminhAgi\actions-runner\externals\node20\bin\node.exe'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Arguments: '"I:\TuminhAgi\actions-runner\_work\_actions\actions\checkout\v4\dist/index.js"'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work\TuminhAgi\TuminhAgi'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Encoding web name: utf-8 ; code page: '65001'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:57:57Z INFO ProcessInvokerWrapper] Process started with process id 23544, waiting for process exit.
+[2026-03-16 16:57:57Z INFO JobServerQueue] Try to append 1 batches web console lines for record '86d52cf3-6481-4746-a3c9-f2fdbe3fa8a5', success rate: 1/1.
+[2026-03-16 16:57:57Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:57Z INFO JobServerQueue] Got a step log file to send to results service.
+[2026-03-16 16:57:57Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_86d52cf3-6481-4746-a3c9-f2fdbe3fa8a5.1
+[2026-03-16 16:57:57Z INFO JobServerQueue] Try to upload 1 log files or attachments, success rate: 1/1.
+[2026-03-16 16:57:57Z INFO AddMaskCommandExtension] Add new secret mask with length of 76
+[2026-03-16 16:57:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:58Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:59Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:57:59Z INFO JobServerQueue] Tried to upload 1 file(s) to results, success rate: 1/1.
+[2026-03-16 16:57:59Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:58:00Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Finished process 23544 with exit code 0, and elapsed time 00:00:03.5539824.
+[2026-03-16 16:58:01Z INFO CreateStepSummaryCommand] Step Summary file (I:\TuminhAgi\actions-runner\_work\_temp\_runner_file_commands\step_summary_0fe2ccd2-7a5f-442f-b067-51f057fdf0ca) is empty; skipping attachment upload
+[2026-03-16 16:58:01Z INFO StepsRunner] Step result: 
+[2026-03-16 16:58:01Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "actions/checkout",
+  "ref": "v4",
+  "type": "node20",
+  "stage": "Main",
+  "stepId": "db437e16-f3bd-4f19-8430-12ac698ef081",
+  "stepContextName": "__actions_checkout",
+  "hasPreStep": false,
+  "hasPostStep": true,
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 4,
+  "startTime": "2026-03-16T16:57:57.6727474Z",
+  "finishTime": "2026-03-16T16:58:01.2680887Z"
+}.
+[2026-03-16 16:58:01Z INFO StepsRunner] No need for updating job result with current step result 'Succeeded'.
+[2026-03-16 16:58:01Z INFO StepsRunner] Current state: job state = ''
+[2026-03-16 16:58:01Z INFO StepsRunner] Processing step: DisplayName='Run Crawler'
+[2026-03-16 16:58:01Z INFO StepsRunner] Evaluating: success()
+[2026-03-16 16:58:01Z INFO StepsRunner] Result: true
+[2026-03-16 16:58:01Z INFO StepsRunner] Starting the step.
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO StepsRunner] Which2: 'chcp'
+[2026-03-16 16:58:01Z INFO StepsRunner] Location: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   File name: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Arguments: '65001'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Process started with process id 27592, waiting for process exit.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Finished process 27592 with exit code 0, and elapsed time 00:00:00.0063301.
+[2026-03-16 16:58:01Z INFO StepsRunner] Successfully returned to code page 65001 (UTF8)
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:58:01Z INFO ExecutionContext] Write event payload to I:\TuminhAgi\actions-runner\_work\_temp\_github_workflow\event.json
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:58:01Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2026-03-16 16:58:01Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command set-env
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command set-output
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command save-state
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-path
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command warning
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command error
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command notice
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command debug
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command group
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command echo
+[2026-03-16 16:58:01Z INFO ScriptHandler] Which2: 'powershell'
+[2026-03-16 16:58:01Z INFO ScriptHandler] Location: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.EXE'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:58:01Z INFO ScriptHandler] Which2: 'powershell'
+[2026-03-16 16:58:01Z INFO ScriptHandler] Location: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.EXE'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   File name: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.EXE'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Arguments: '-command ". 'I:\TuminhAgi\actions-runner\_work\_temp\e5138c72-1bfa-4c3b-b3b6-a4e4e082a1d8.ps1'"'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work\TuminhAgi\TuminhAgi'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Process started with process id 22612, waiting for process exit.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'db437e16-f3bd-4f19-8430-12ac698ef081', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record '5b113814-6fa4-4c9b-b244-54224c989ab8', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Finished process 22612 with exit code 1, and elapsed time 00:00:00.3214545.
+[2026-03-16 16:58:01Z INFO CreateStepSummaryCommand] Step Summary file (I:\TuminhAgi\actions-runner\_work\_temp\_runner_file_commands\step_summary_d68a0d40-59c7-40f3-ae91-9ca5df9c3869) is empty; skipping attachment upload
+[2026-03-16 16:58:01Z INFO StepsRunner] Step result: Failed
+[2026-03-16 16:58:01Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "powershell",
+  "type": "run",
+  "stage": "Main",
+  "stepId": "5b113814-6fa4-4c9b-b244-54224c989ab8",
+  "stepContextName": "__run",
+  "result": "failed",
+  "errorMessages": [
+    "Process completed with exit code 1."
+  ],
+  "executionTimeInSeconds": 1,
+  "startTime": "2026-03-16T16:58:01.2704798Z",
+  "finishTime": "2026-03-16T16:58:01.6166791Z"
+}.
+[2026-03-16 16:58:01Z INFO StepsRunner] Update job result with current step result 'Failed'.
+[2026-03-16 16:58:01Z INFO StepsRunner] Current state: job state = 'Failed'
+[2026-03-16 16:58:01Z INFO StepsRunner] Processing step: DisplayName='Commit & push'
+[2026-03-16 16:58:01Z INFO StepsRunner] Evaluating: success()
+[2026-03-16 16:58:01Z INFO StepsRunner] Result: false
+[2026-03-16 16:58:01Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2026-03-16 16:58:01Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2026-03-16 16:58:01Z INFO StepsRunner] Current state: job state = 'Failed'
+[2026-03-16 16:58:01Z INFO StepsRunner] Processing step: DisplayName='Post Run actions/checkout@v4'
+[2026-03-16 16:58:01Z INFO StepsRunner] Evaluating: always()
+[2026-03-16 16:58:01Z INFO StepsRunner] Result: true
+[2026-03-16 16:58:01Z INFO StepsRunner] Starting the step.
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO StepsRunner] Which2: 'chcp'
+[2026-03-16 16:58:01Z INFO StepsRunner] Location: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   File name: 'C:\Windows\system32\chcp.COM'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Arguments: '65001'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Process started with process id 24064, waiting for process exit.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Finished process 24064 with exit code 0, and elapsed time 00:00:00.0083183.
+[2026-03-16 16:58:01Z INFO StepsRunner] Successfully returned to code page 65001 (UTF8)
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:58:01Z INFO ActionManager] Load action that reference repository from 'I:\TuminhAgi\actions-runner\_work\_actions\actions\checkout\v4'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Actions': 'I:\TuminhAgi\actions-runner\_work\_actions'
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2026-03-16 16:58:01Z INFO ActionManager] Action pre node.js file: N/A.
+[2026-03-16 16:58:01Z INFO ActionManager] Action node.js file: dist/index.js.
+[2026-03-16 16:58:01Z INFO ActionManager] Action post node.js file: dist/index.js.
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:58:01Z INFO ExecutionContext] Write event payload to I:\TuminhAgi\actions-runner\_work\_temp\_github_workflow\event.json
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Work': 'I:\TuminhAgi\actions-runner\_work'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Temp': 'I:\TuminhAgi\actions-runner\_work\_temp'
+[2026-03-16 16:58:01Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'repository': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 6,
+  "col": 14,
+  "lit": "AnonVertex123/TuminhAgi"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'ref': default value evaluate result: ""
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'token': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 24,
+  "col": 14,
+  "lit": "***"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'ssh-key': default value evaluate result: ""
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'ssh-known-hosts': default value evaluate result: ""
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'ssh-strict': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 47,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'ssh-user': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 51,
+  "col": 14,
+  "lit": "git"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'persist-credentials': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 54,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'path': default value evaluate result: ""
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'clean': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 59,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'filter': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 64,
+  "col": 14,
+  "lit": ""
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'sparse-checkout': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 69,
+  "col": 14,
+  "lit": ""
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'sparse-checkout-cone-mode': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 73,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'fetch-depth': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 76,
+  "col": 14,
+  "lit": "1"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'fetch-tags': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 79,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'show-progress': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 82,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'lfs': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 85,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'submodules': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 94,
+  "col": 14,
+  "lit": "false"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'set-safe-directory': default value evaluate result: {
+  "type": 0,
+  "file": 2,
+  "line": 97,
+  "col": 14,
+  "lit": "true"
+}
+[2026-03-16 16:58:01Z INFO ActionManifestManagerLegacy] Input 'github-server-url': default value evaluate result: ""
+[2026-03-16 16:58:01Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command set-env
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command set-output
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command save-state
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-path
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command warning
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command error
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command notice
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command debug
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command group
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2026-03-16 16:58:01Z INFO ActionCommandManager] Register action command extension for command echo
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:01Z INFO HostContext] Well known directory 'Externals': 'I:\TuminhAgi\actions-runner\externals'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Starting process:
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   File name: 'I:\TuminhAgi\actions-runner\externals\node20\bin\node.exe'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Arguments: '"I:\TuminhAgi\actions-runner\_work\_actions\actions\checkout\v4\dist/index.js"'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Working directory: 'I:\TuminhAgi\actions-runner\_work\TuminhAgi\TuminhAgi'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Encoding web name: utf-8 ; code page: '65001'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2026-03-16 16:58:01Z INFO ProcessInvokerWrapper] Process started with process id 22720, waiting for process exit.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Got a step log file to send to results service.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_db437e16-f3bd-4f19-8430-12ac698ef081.1
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record '5b113814-6fa4-4c9b-b244-54224c989ab8', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record '9df752ef-3c4c-4c79-9121-1896e9e053c2', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO AddMaskCommandExtension] Add new secret mask with length of 32
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to append 1 batches web console lines for record '9df752ef-3c4c-4c79-9121-1896e9e053c2', success rate: 1/1.
+[2026-03-16 16:58:01Z INFO JobServerQueue] Try to upload 2 log files or attachments, success rate: 2/2.
+[2026-03-16 16:58:02Z INFO JobServerQueue] Try to append 1 batches web console lines for record '9df752ef-3c4c-4c79-9121-1896e9e053c2', success rate: 1/1.
+[2026-03-16 16:58:02Z INFO JobServerQueue] Got a step log file to send to results service.
+[2026-03-16 16:58:02Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_5b113814-6fa4-4c9b-b244-54224c989ab8.1
+[2026-03-16 16:58:03Z INFO JobServerQueue] Try to append 1 batches web console lines for record '9df752ef-3c4c-4c79-9121-1896e9e053c2', success rate: 1/1.
+[2026-03-16 16:58:03Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:03Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2026-03-16 16:58:03Z INFO ProcessInvokerWrapper] Finished process 22720 with exit code 0, and elapsed time 00:00:01.5600660.
+[2026-03-16 16:58:03Z INFO CreateStepSummaryCommand] Step Summary file (I:\TuminhAgi\actions-runner\_work\_temp\_runner_file_commands\step_summary_4abec2e2-d1b8-4060-9ac0-a9efa823c679) is empty; skipping attachment upload
+[2026-03-16 16:58:03Z INFO StepsRunner] Step result: 
+[2026-03-16 16:58:03Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "actions/checkout",
+  "ref": "v4",
+  "type": "node20",
+  "stage": "Post",
+  "stepId": "9df752ef-3c4c-4c79-9121-1896e9e053c2",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 2,
+  "startTime": "2026-03-16T16:58:01.6216667Z",
+  "finishTime": "2026-03-16T16:58:03.2059686Z"
+}.
+[2026-03-16 16:58:03Z INFO StepsRunner] No need for updating job result with current step result 'Succeeded'.
+[2026-03-16 16:58:03Z INFO StepsRunner] Current state: job state = 'Failed'
+[2026-03-16 16:58:03Z INFO JobRunner] Finalize job.
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:03Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:58:03Z INFO JobExtension] Initialize Env context
+[2026-03-16 16:58:03Z INFO JobExtension] Initialize steps context
+[2026-03-16 16:58:03Z INFO JobExtension] Total accessible running process: 295.
+[2026-03-16 16:58:03Z INFO JobExtension] Wait for all connectivity checks to finish.
+[2026-03-16 16:58:03Z INFO JobExtension] Connectivity check result: GitHub.Runner.Worker.JobExtension+CheckResult
+[2026-03-16 16:58:03Z INFO JobExtension] Connectivity check result: GitHub.Runner.Worker.JobExtension+CheckResult
+[2026-03-16 16:58:03Z INFO JobExtension] Connectivity check result: GitHub.Runner.Worker.JobExtension+CheckResult
+[2026-03-16 16:58:03Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "complete_job",
+  "type": "runner",
+  "stage": "Post",
+  "stepId": "38a7ce1e-fc5b-4244-9a63-4389ba32e7f1",
+  "result": "succeeded",
+  "errorMessages": [
+    "Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Please check if updated versions of thes"
+  ],
+  "executionTimeInSeconds": 1,
+  "startTime": "2026-03-16T16:58:03.2097362Z",
+  "finishTime": "2026-03-16T16:58:03.215579Z"
+}.
+[2026-03-16 16:58:03Z INFO JobRunner] Job result after all job steps finish: Failed
+[2026-03-16 16:58:03Z INFO JobRunner] Completing the job execution context.
+[2026-03-16 16:58:03Z INFO JobRunner] Shutting down the job server queue.
+[2026-03-16 16:58:03Z INFO JobServerQueue] Fire signal to shutdown all queues.
+[2026-03-16 16:58:03Z INFO JobServerQueue] Tried to upload 2 file(s) to results, success rate: 2/2.
+[2026-03-16 16:58:04Z INFO JobServerQueue] All queue process task stopped.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Try to append 1 batches web console lines for record '38a7ce1e-fc5b-4244-9a63-4389ba32e7f1', success rate: 1/1.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Web console line queue drained.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Uploading 3 files in one shot.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Try to upload 3 log files or attachments, success rate: 3/3.
+[2026-03-16 16:58:04Z INFO JobServerQueue] File upload queue drained.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Starting results-based upload queue...
+[2026-03-16 16:58:04Z INFO JobServerQueue] Uploading 3 file(s) in one shot through results service.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Got a step log file to send to results service.
+[2026-03-16 16:58:04Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_9df752ef-3c4c-4c79-9121-1896e9e053c2.1
+[2026-03-16 16:58:05Z INFO JobServerQueue] Got a step log file to send to results service.
+[2026-03-16 16:58:05Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_38a7ce1e-fc5b-4244-9a63-4389ba32e7f1.1
+[2026-03-16 16:58:06Z INFO JobServerQueue] Got a job log file to send to results service.
+[2026-03-16 16:58:06Z INFO JobServerQueue] Starting upload of job log file to results service ResultsLog, I:\TuminhAgi\actions-runner\_diag\blocks\a06ed43d-b6cf-4503-8b1b-cbb16a213c9e_01f4091f-20d9-59b0-83fa-5925cf1e07eb.1
+[2026-03-16 16:58:07Z INFO JobServerQueue] Tried to upload 3 file(s) to results, success rate: 3/3.
+[2026-03-16 16:58:07Z INFO JobServerQueue] Results upload queue drained.
+[2026-03-16 16:58:07Z INFO JobServerQueue] Timeline update queue drained.
+[2026-03-16 16:58:07Z INFO JobServerQueue] Disposing job server ...
+[2026-03-16 16:58:07Z INFO JobServerQueue] Disposing results server ...
+[2026-03-16 16:58:07Z INFO JobServerQueue] All queue process tasks have been stopped, and all queues are drained.
+[2026-03-16 16:58:07Z INFO TempDirectoryManager] Cleaning runner temp folder: I:\TuminhAgi\actions-runner\_work\_temp
+[2026-03-16 16:58:07Z INFO HostContext] Well known directory 'Bin': 'I:\TuminhAgi\actions-runner\bin'
+[2026-03-16 16:58:07Z INFO HostContext] Well known directory 'Root': 'I:\TuminhAgi\actions-runner'
+[2026-03-16 16:58:07Z INFO HostContext] Well known directory 'Diag': 'I:\TuminhAgi\actions-runner\_diag'
+[2026-03-16 16:58:07Z INFO HostContext] Well known config file 'Telemetry': 'I:\TuminhAgi\actions-runner\_diag\.telemetry'
+[2026-03-16 16:58:07Z INFO JobRunner] Raising job completed against run service
+[2026-03-16 16:58:08Z INFO Worker] Job completed.

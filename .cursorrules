@@ -1,0 +1,33 @@
+# TuminhAGI Cursor Rules
+# Auto-loaded before every task
+
+READ FIRST: Rule_TuMinhAgi_code/ folder
+
+PROTECTED (never modify):
+- frontend/app/globals.css
+- frontend/tailwind.config.ts  
+- frontend/components/clickup/
+- nexus_core/armored_critic.py
+- nexus_core/strict_validator.py
+- nexus_core/professor_reasoning.py
+- soul_vault/
+- memory/
+
+BEFORE EVERY TASK:
+1. List files to CHANGE
+2. List files to CREATE
+3. Confirm no PROTECTED files touched
+4. Only proceed after confirmation
+
+AFTER EVERY TASK:
+□ git diff globals.css → must be empty
+□ git diff tailwind.config.ts → must be empty
+□ npm run build → must pass
+
+MEDICAL SAFETY:
+- Gate 0: herbal=[] when emergency, ALWAYS
+- Disclaimer: appears in EVERY medical output
+- Language: "có thể", never "bạn bị"
+
+See Rule_TuMinhAgi_code/ for full rules.
+

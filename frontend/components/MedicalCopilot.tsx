@@ -10,7 +10,8 @@ type CopilotProps = {
   criticReasoning: string;
 };
 
-const API_BASE = "http://localhost:8000";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
 
 function sseParseStream(stream: ReadableStream<Uint8Array>, onEvent: (msg: any) => void) {
   const decoder = new TextDecoder("utf-8");

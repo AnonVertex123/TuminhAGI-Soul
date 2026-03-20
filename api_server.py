@@ -28,7 +28,14 @@ app.add_middleware(
     CORSMiddleware,
     # Chỉ cho phép frontend Next.js chạy ở localhost:3000
     # (Nếu allow_credentials=True thì không thể dùng wildcard "*".)
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3010",
+        "http://127.0.0.1:3010",
+        "http://localhost:3020",
+        "http://127.0.0.1:3020",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -872,6 +879,140 @@ Critic reasoning (Đao phủ):
             pass
 
     return StreamingResponse(event_gen(), media_type="text/event-stream")
+
+
+# ---------------------------------------------------------------------------
+# Federated Knowledge API (Medical module ONLY)
+# ---------------------------------------------------------------------------
+
+_federation_server = None
+
+
+def _get_federation():
+    global _federation_server
+    if _federation_server is None:
+        from pathlib import Path
+        from missions_hub.knowledge_federation import FederationServer, KnowledgeContribution, ContributionType
+        _federation_server = FederationServer(Path("data/knowledge_base.jsonl"))
+    return _federation_server
+
+
+@app.post("/api/knowledge/contribute")
+async def knowledge_contribute(payload: Dict[str, Any] = Body(...)) -> JSONResponse:
+    """
+    Receive voluntary knowledge contribution. Auth: user token required (placeholder).
+    """
+    import uuid
+    from missions_hub.knowledge_federation import (
+        KnowledgeContribution,
+        ContributionType,
+    )
+    try:
+        ctype = payload.get("type", "treatment_outcome")
+        try:
+            ct = ContributionType(ctype)
+        except ValueError:
+            ct = ContributionType.TREATMENT_OUTCOME
+        content = payload.get("content") or {}
+        metadata = payload.get("metadata") or {}
+        privacy = payload.get("privacy") or {}
+        validation = payload.get("validation") or {}
+        c = KnowledgeContribution(
+            contribution_id=str(uuid.uuid4()),
+            type=ct,
+            content=content,
+            metadata=metadata,
+            privacy={
+                "is_anonymous": True,
+                "no_personal_info": True,
+                "consent_given": bool(privacy.get("consent_given")),
+            },
+            validation={
+                "evidence_level": validation.get("evidence_level", "self_reported"),
+                "source": validation.get("source", "tự báo cáo"),
+                "verified_by_md": bool(validation.get("verified_by_md", False)),
+            },
+        )
+        server = _get_federation()
+        result = await server.receive_contribution(c)
+        return JSONResponse({
+            "accepted": result.accepted,
+            "contribution_id": c.contribution_id,
+            "reason": result.reason,
+        })
+    except Exception as e:
+        return JSONResponse(
+            {"accepted": False, "reason": str(e), "contribution_id": ""},
+            status_code=500,
+        )
+
+
+@app.get("/api/knowledge/stats")
+def knowledge_stats() -> JSONResponse:
+    """Public stats — no auth."""
+    from pathlib import Path
+    from datetime import datetime
+    kb = Path("data/knowledge_base.jsonl")
+    total = 0
+    verified = 0
+    regions: set[str] = set()
+    last_updated = None
+    if kb.exists():
+        try:
+            for line in kb.open(encoding="utf-8"):
+                line = line.strip()
+                if not line:
+                    continue
+                total += 1
+                try:
+                    obj = json.loads(line)
+                    m = obj.get("metadata") or {}
+                    if m.get("region"):
+                        regions.add(str(m["region"]))
+                    if obj.get("confidence", 0) >= 0.8:
+                        verified += 1
+                    ts = obj.get("updated_at") or obj.get("created_at")
+                    if ts:
+                        last_updated = ts
+                except Exception:
+                    pass
+        except Exception:
+            pass
+    return JSONResponse({
+        "total_contributions": total,
+        "verified_entries": verified,
+        "regions_covered": len(regions),
+        "last_updated": last_updated,
+    })
+
+
+@app.get("/api/knowledge/changelog")
+def knowledge_changelog(limit: int = Query(20, ge=1, le=100)) -> JSONResponse:
+    """Recent knowledge updates (community changelog)."""
+    from pathlib import Path
+    kb = Path("data/knowledge_base.jsonl")
+    entries: list[dict] = []
+    if kb.exists():
+        try:
+            lines = kb.open(encoding="utf-8").readlines()
+            for line in reversed(lines[-limit * 2:]):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                    entries.append({
+                        "type": obj.get("type", ""),
+                        "updated_at": obj.get("updated_at", obj.get("created_at", "")),
+                        "metadata": obj.get("metadata", {}),
+                    })
+                    if len(entries) >= limit:
+                        break
+                except Exception:
+                    pass
+        except Exception:
+            pass
+    return JSONResponse(entries)
 
 
 if __name__ == "__main__":

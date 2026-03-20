@@ -1,0 +1,26 @@
+feat: Integrate EnhancedDiagnosticPipeline V9.3 — 3-layer diagnosis + /diagnose/v2 endpoint
+
+missions_hub/enhanced_diagnostic_pipeline.py:
+- MedicalEmbedder: add Ollama REST fallback when sentence-transformers unavailable
+  (torchao/torch version conflict on this machine → auto-detects and falls back)
+- Ollama uses mxbai-embed-large (same model as V9.2 pipeline, consistent embeddings)
+
+missions_hub/medical_diagnostic_tool.py:
+- Add `import re` (was missing, caused NameError at module load)
+- Lazy import of EnhancedDiagnosticPipeline (guarded try/except, no startup cost)
+- Module-level singleton _get_enhanced_pipeline() — created on first call
+- New async function diagnose_enhanced(symptoms, context_dict) — public API
+
+api_server.py:
+- Import diagnose_enhanced from medical_diagnostic_tool
+- New POST /diagnose/v2 endpoint (non-streaming JSON)
+  Accepts: {"symptoms": [...], "context": {"trigger", "age", "sex", ...}}
+  Returns: {is_emergency, candidates[{disease_id, urgency, score}], latency_ms}
+- Existing /diagnose/stream endpoint unchanged
+
+tests/test_enhanced_pipeline.py:
+- Test 1: cardiac emergency (đau ngực trái+khó thở, age=68) → urgency=emergency PASS
+- Test 2: OBGYN guard (trễ kinh) → G40 not in candidates PASS
+- Test 3: gait ataxia → is_emergency=False PASS
+- Test 4: diagnose_enhanced() wrapper (sốt cao+cứng cổ) PASS
+All 4/4 tests pass.

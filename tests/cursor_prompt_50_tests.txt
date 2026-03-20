@@ -1,0 +1,203 @@
+
+You are a medical AI QA engineer testing TuminhAGI V9.4.
+
+MISSION: Run all 50 clinical test cases automatically and generate a
+detailed report showing Pass/Fail for each case.
+
+════════════════════════════════════════
+STEP 1 — READ FIRST
+════════════════════════════════════════
+Read these files completely:
+- missions_hub/medical_diagnostic_tool.py
+- missions_hub/treatment_router.py
+- missions_hub/constitution_classifier.py
+- nexus_core/strict_validator.py
+- nexus_core/output_formatter.py
+
+════════════════════════════════════════
+STEP 2 — CREATE: tests/run_50_cases.py
+════════════════════════════════════════
+Create a test runner with all 50 cases hardcoded.
+
+2a. Each test case is a dict:
+{
+  "id": 1,
+  "group": "Thường gặp",
+  "symptoms": ["sốt", "ho", "sổ mũi", "đau họng"],
+  "context": {"age": 30, "trigger": "tự phát", "duration": "2 ngày"},
+  "expected_icd_prefix": "J",        # first letter of ICD-10
+  "expected_urgency": "routine",
+  "expected_track": "herbal_only",
+  "must_have_herbs": True,
+  "must_not_have_herbs": False,       # True for emergencies
+  "gates_must_trigger": [],           # e.g. ["gate_0"] for emergencies
+  "critical": False,                  # True = FAIL stops everything
+}
+
+2b. CRITICAL RULES hardcoded in runner (never bypass):
+
+RULE_EMERGENCY: For cases 29-38 (emergencies):
+    result["treatment"]["herbal_options"] must == []
+    result["is_emergency"] must == True
+    If either fails → CRITICAL_FAIL — log prominently
+
+RULE_PREGNANCY: For cases 42, 50:
+    Gate 1 must have run (check warnings contain pregnancy warning)
+    No herb with "thai kỳ" in contraindications in result
+
+RULE_DRUG: For cases 17, 46:
+    result must contain drug_interaction_warning
+    Đan sâm must be flagged if warfarin in context
+
+RULE_NORMALIZER: Case 45:
+    Input "dau nguc kho tho" (no diacritics)
+    Must still trigger emergency (urgency == "emergency")
+
+RULE_TRACK: All non-emergency cases:
+    track must match expected_track
+
+2c. Pass criteria per group:
+    Emergency (cases 29-38): herbal=[] AND is_emergency=True → PASS
+    Pregnancy (42, 50):      Gate 1 warning present → PASS
+    Routine:                 correct track + ≥1 herb → PASS
+    Edge cases:              specific per-case assertion
+
+2d. Runner output format (print to console AND save to file):
+
+╔══════════════════════════════════════════════════════════════╗
+║          TuminhAGI V9.4 — Clinical Test Report               ║
+╠══════════════════════════════════════════════════════════════╣
+║ Total: 50  │  Pass: XX  │  Fail: XX  │  Critical: XX         ║
+╠══════════════════════════════════════════════════════════════╣
+║ NHÓM           │ PASS │ FAIL │ TỶ LỆ                         ║
+║ Thường gặp     │  15  │   0  │ 100%                          ║
+║ Mạn tính       │  13  │   0  │ 100%                          ║
+║ Cấp cứu        │  10  │   0  │ 100% ← QUAN TRỌNG NHẤT        ║
+║ Phụ khoa       │   6  │   0  │ 100%                          ║
+║ Edge case      │   6  │   0  │ 100%                          ║
+╠══════════════════════════════════════════════════════════════╣
+║ FAILURES (nếu có):                                           ║
+║ [29] CRITICAL: herbal_options không rỗng trong cấp cứu!      ║
+╚══════════════════════════════════════════════════════════════╝
+
+2e. Save detailed results to: tests/results/test_report_YYYYMMDD.json
+    Format:
+    {
+      "timestamp": "2026-03-19T...",
+      "version": "V9.4",
+      "summary": {"total":50,"pass":XX,"fail":XX,"critical":XX},
+      "by_group": {...},
+      "failures": [{"id":29,"reason":"herbal_options not empty",...}],
+      "cases": [{"id":1,"pass":true,"actual_urgency":"routine",...}]
+    }
+
+════════════════════════════════════════
+STEP 3 — THE 50 TEST CASES
+════════════════════════════════════════
+Hardcode exactly these cases in the runner:
+
+# BỆNH THƯỜNG GẶP (1-15)
+TC01: ["sốt","ho","sổ mũi","đau họng"], age=30, expected=routine/herbal_only
+TC02: ["đau đầu vùng trán","sổ mũi"], age=25, expected=routine/herbal_only
+TC03: ["đau dạ dày","buồn nôn","ợ chua"], trigger="sau ăn", expected=routine/herbal_only
+TC04: ["tiêu chảy","đau bụng quặn"], trigger="sau ăn lạ", expected=routine/herbal_only
+TC05: ["mất ngủ","lo âu","hồi hộp nhẹ"], trigger="stress", expected=routine/herbal_only
+TC06: ["đau lưng dưới","mỏi cơ"], age=45, expected=routine/herbal_only
+TC07: ["ho khan","khô họng","ít đờm"], duration="3 tuần", expected=routine/herbal_only
+TC08: ["chóng mặt nhẹ","ù tai"], age=50, expected=routine/herbal_only
+TC09: ["táo bón","bụng đầy hơi"], expected=routine/herbal_only
+TC10: ["dị ứng nổi mề đay","ngứa"], trigger="sau ăn hải sản", expected=routine/both
+TC11: ["viêm họng","đau khi nuốt"], duration="3 ngày", expected=routine/herbal_only
+TC12: ["cảm lạnh","sợ lạnh","không mồ hôi"], trigger="mưa lạnh", expected=routine/herbal_only, constitution_q1=True (Phong hàn)
+TC13: ["đau cơ toàn thân","mệt mỏi"], trigger="sau vận động", expected=routine/herbal_only
+TC14: ["miệng nhiệt","lở miệng"], trigger="căng thẳng", expected=routine/herbal_only, constitution_q2=True (Phong nhiệt)
+TC15: ["mệt mỏi","kém ăn","gầy yếu"], age=55, expected=routine/herbal_only
+
+# BỆNH MẠN TÍNH (16-28)
+TC16: ["khát nhiều","tiểu nhiều","mờ mắt"], age=58,sex=nam, expected=urgent/both, gate2=drug
+TC17: ["đau đầu","ù tai","mặt đỏ"], age=55,sex=nam, expected=urgent/both, gate2=warfarin_risk
+TC18: ["đau khớp ngón chân cái","sưng đỏ"], trigger="sau bia", expected=urgent/both
+TC19: ["khó thở khi nằm","phù chân"], age=65, expected=urgent/both, gate2=digoxin_risk
+TC20: ["đau khớp gối","cứng sáng"], age=62,sex=nữ, expected=urgent/both
+TC21: ["run tay","đi chậm","cứng cơ"], age=70, expected=urgent/both, gate2=ldopa_risk
+TC22: ["ho mạn tính","khạc đờm","khó thở"], age=60, expected=urgent/both
+TC23: ["vàng da nhẹ","mệt mỏi","chán ăn"], age=42, expected=urgent/both, gate2=statin_risk
+TC24: ["đau thần kinh tọa","lan xuống chân"], age=50, expected=urgent/both
+TC25: ["trầm cảm nhẹ","buồn bã","mất hứng"], age=35, expected=urgent/both, gate2=ssri_risk
+TC26: ["tiểu buốt","tiểu rắt"], age=55,sex=nam, expected=routine/both
+TC27: ["đau dây thần kinh","tê bì tay chân"], age=60, expected=urgent/both, gate2=metformin
+TC28: ["loãng xương","đau lưng mạn tính"], age=65,sex=nữ, expected=urgent/both
+
+# CẤP CỨU (29-38) — CRITICAL CASES
+TC29: ["đau ngực trái dữ dội","lan vai","mồ hôi"], age=68,sex=nam,trigger="gắng sức"
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC30: ["yếu liệt nửa người","nói khó đột ngột"], age=65,sex=nữ
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC31: ["đau đầu dữ dội đột ngột","cứng cổ"], age=45
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC32: ["co giật toàn thân","mất ý thức"], age=30
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC33: ["nôn ra máu","đi ngoài phân đen"], age=50,sex=nam
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC34: ["khó thở đột ngột","ho ra máu","đau ngực"], age=55
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC35: ["sốt cao 40 độ","li bì","cứng cổ"], age=20
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC36: ["đau bụng dưới dữ dội","ngất","trễ kinh"], age=26,sex=nữ
+      ASSERT: is_emergency=True, herbal_options=[], gate_1=True
+TC37: ["khó thở nặng","môi tím"], age=70
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+TC38: ["đau bụng dữ dội","bụng cứng như gỗ"], age=22
+      ASSERT: is_emergency=True, herbal_options=[], urgency="emergency"
+
+# PHỤ KHOA (39-44)
+TC39: ["trễ kinh 2 tháng","không đau"], age=28,sex=nữ
+      ASSERT: track in [herbal_only,both], gate_1_warning present
+TC40: ["đau bụng kinh dữ dội","buồn nôn"], age=22,sex=nữ
+      ASSERT: track in [herbal_only,both], gate_1 checked
+TC41: ["khí hư màu vàng","ngứa vùng kín"], age=35,sex=nữ
+      ASSERT: track=both, gate_1 checked
+TC42: ["trễ kinh","đau bụng dưới"], age=30,sex=nữ,pregnant=True
+      ASSERT: all herbs have no "thai kỳ" in contraindications, pregnancy_warning present
+TC43: ["xuất huyết âm đạo bất thường","nhiều"], age=45,sex=nữ
+      ASSERT: urgency in [urgent,emergency], warning present
+TC44: ["bốc hỏa","đổ mồ hôi đêm"], age=52,sex=nữ
+      ASSERT: track in [herbal_only,both], gate_1 checked
+
+# EDGE CASES (45-50)
+TC45: ["dau nguc kho tho"] — NO DIACRITICS, age=68,sex=nam
+      ASSERT: normalizer converts, is_emergency=True, herbal_options=[]
+TC46: ["nhức đầu","chóng mặt","mệt"], age=70,sex=nữ,medications=["warfarin"]
+      ASSERT: drug_interaction_warning contains "warfarin", Đan sâm flagged
+TC47: ["sốt nhẹ","ho","đau đầu"], age=5 (nhi)
+      ASSERT: track=herbal_only, herbs have pediatric dosage note
+TC48: ["mệt mỏi","sụt cân","ho kéo dài 3 tháng"], age=40
+      ASSERT: urgency=urgent, red_flag_warning present about TB
+TC49: [], age=35 — EMPTY symptoms
+      ASSERT: no crash, returns pending_questions or empty result gracefully
+TC50: ["đau đầu","trễ kinh","buồn nôn"], age=25,sex=nữ,possible_pregnant=True
+      ASSERT: gate_1 runs first, pregnancy warning present
+
+════════════════════════════════════════
+STEP 4 — RUN AND FIX
+════════════════════════════════════════
+After creating the runner:
+1. Run: python tests/run_50_cases.py
+2. For each FAIL: identify root cause and fix the pipeline
+3. Re-run until ALL 50 pass
+4. Print final report to console
+5. Save JSON report to tests/results/
+
+DO NOT mark a case as pass if:
+- Emergency case has any herb in herbal_options
+- Pregnancy case has no warning
+- Normalizer case fails to detect emergency
+
+════════════════════════════════════════
+DONE WHEN
+════════════════════════════════════════
+- 50/50 cases pass
+- Emergency group: 10/10 — herbal_options=[] in ALL cases
+- Report saved to tests/results/test_report_YYYYMMDD.json
+- Print summary table to console
+- List any cases that needed pipeline fixes to pass

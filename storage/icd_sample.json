@@ -1,0 +1,14 @@
+[
+    {
+        "Disease_Code": "J01.0",
+        "Disease_Name": "Acute maxillary sinusitis",
+        "Symptoms": "Pain in the cheek, headache, nasal congestion, fever.",
+        "Basic_Treatment": "Antibiotics (if bacterial), decongestants, saline nasal spray."
+    },
+    {
+        "Disease_Code": "G43.0",
+        "Disease_Name": "Migraine without aura",
+        "Symptoms": "Pulsating headache, nausea, sensitivity to light/sound.",
+        "Basic_Treatment": "Pain relief (NSAIDs), triptans, resting in a dark room."
+    }
+]

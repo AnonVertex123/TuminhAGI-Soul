@@ -266,3 +266,194 @@ def format_output(
     out.doctor_note = _doctor_note(query, diagnoses, urgency)
 
     return out
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Language Safety Guard
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Forbidden assertive phrases (from soul_vault/navigator_v2.txt)
+_FORBIDDEN_PHRASES: list[tuple[str, str]] = [
+    ("chắc chắn",       "có thể"),
+    ("chẩn đoán là",    "gợi ý hướng"),
+    ("bạn bị ",         "dấu hiệu có thể liên quan đến "),
+    ("điều trị bằng",   "gợi ý hỗ trợ bằng"),
+    ("kết luận rằng",   "có thể xem xét"),
+    ("bạn mắc bệnh",    "dấu hiệu có thể gợi ý"),
+]
+
+# Required supportive phrases
+_REQUIRED_PHRASES: frozenset[str] = frozenset([
+    "có thể", "gợi ý", "tham khảo", "nên hỏi bác sĩ",
+])
+
+
+def _language_guard(text: str) -> str:
+    """
+    Enforce navigator language rules on a text string.
+
+    - Replaces all forbidden phrases with safe equivalents (case-insensitive).
+    - Never raises — always returns a safe string.
+    - Logs when correction is made.
+    """
+    import logging
+    _log = logging.getLogger("tuminh.formatter")
+    result = text
+    for forbidden, replacement in _FORBIDDEN_PHRASES:
+        lower = result.lower()
+        idx = lower.find(forbidden.lower())
+        if idx != -1:
+            original_slice = result[idx: idx + len(forbidden)]
+            result = result[:idx] + replacement + result[idx + len(forbidden):]
+            _log.warning(
+                f"[LANGUAGE_GUARD] Replaced forbidden phrase "
+                f"'{original_slice}' → '{replacement}'"
+            )
+    return result
+
+
+def _guard_dict(d: dict) -> dict:
+    """Recursively apply _language_guard to all string values in a dict."""
+    out: dict = {}
+    for k, v in d.items():
+        if isinstance(v, str):
+            out[k] = _language_guard(v)
+        elif isinstance(v, dict):
+            out[k] = _guard_dict(v)
+        elif isinstance(v, list):
+            out[k] = [
+                _guard_dict(i) if isinstance(i, dict)
+                else (_language_guard(i) if isinstance(i, str) else i)
+                for i in v
+            ]
+        else:
+            out[k] = v
+    return out
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Treatment Output Formatter (V9.4 — with constitution section)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+_DURATION_CAP = (
+    "Dùng thử 1–2 tuần. Nếu không cải thiện hoặc triệu chứng nặng hơn "
+    "→ đến khám bác sĩ ngay."
+)
+
+_TINH_LABELS: dict[str, str] = {
+    "ôn":    "Ôn — tính ấm, phù hợp thể hàn",
+    "nhiệt": "Nhiệt — tính nóng, tránh thể nhiệt",
+    "hàn":   "Hàn — tính lạnh, phù hợp thể nhiệt",
+    "lương": "Lương — tính mát, phù hợp thể nhiệt",
+    "bình":  "Bình — tính trung tính, phù hợp mọi thể",
+    "táo":   "Táo — tính khô, tránh thể âm hư",
+}
+
+
+def format_treatment_output(decision: Any) -> dict:
+    """
+    Transform a TreatmentDecision (V9.4) into a frontend-ready dict.
+
+    Always includes:
+      - constitution section
+      - duration_cap (1-2 week warning)
+      - evidence label per herb
+      - disclaimer
+      - language guard on all text fields
+
+    Returns
+    -------
+    {
+      "track": str,
+      "sections": [...],
+      "constitution": {...},
+      "safety_warnings": [...],
+      "duration_cap": str,
+      "warning": str,
+      "disclaimer": str,
+      "emergency_banner": bool,
+      "pending_questions": [...] | null
+    }
+    """
+    track: str      = getattr(decision, "track", "western_only")
+    urgency: str    = getattr(decision, "urgency", "routine")
+    herbal: list    = getattr(decision, "herbal_options", []) or []
+    western: list   = getattr(decision, "western_options", []) or []
+    warning: str    = getattr(decision, "warning", "")
+    disclaimer: str = getattr(decision, "disclaimer",
+                               "Thông tin chỉ mang tính tham khảo — không thay thế bác sĩ.")
+    constitution_type = getattr(decision, "constitution_type", None)
+    constitution_note_str = getattr(decision, "constitution_note", "")
+    pending_qs = getattr(decision, "pending_questions", []) or []
+    safety_warnings = getattr(decision, "safety_warnings", []) or []
+    duration_cap = getattr(decision, "duration_cap", _DURATION_CAP)
+
+    is_emergency  = track == "emergency"
+    has_pending   = bool(pending_qs)
+
+    # ── Format each herb with evidence label and tinh label ─────────────────
+    def _enrich_herb(h: dict) -> dict:
+        ev    = h.get("evidence_level", "low")
+        tinh  = h.get("tinh", "bình")
+        return {
+            **h,
+            "evidence":  h.get("evidence_label") or (
+                "Có nghiên cứu lâm sàng"          if ev == "high"
+                else "Kinh nghiệm dân gian, chưa đủ bằng chứng" if ev == "medium"
+                else "Truyền thống — chưa có nghiên cứu"
+            ),
+            "tinh_label": _TINH_LABELS.get(tinh, f"Tính {tinh}"),
+        }
+
+    enriched_herbal = [_enrich_herb(h) for h in herbal]
+
+    # ── Sections ─────────────────────────────────────────────────────────────
+    herbal_section = {
+        "type":     "herbal",
+        "title":    "Thuốc Nam gợi ý",
+        "subtitle": "Theo GS. Đỗ Tất Lợi — ưu tiên lành tính, phù hợp thể trạng",
+        "items":    enriched_herbal,
+        "visible":  bool(enriched_herbal) and not is_emergency and not has_pending,
+        "badge":    "Nam Y",
+        "badge_color": "emerald",
+    }
+
+    western_section = {
+        "type":     "western",
+        "title":    "Tây y tham khảo",
+        "subtitle": "Cần tư vấn bác sĩ trước khi dùng — đây là thông tin tham khảo",
+        "items":    western,
+        "visible":  bool(western) and (is_emergency or track in ("both", "western_only")),
+        "badge":    "Tây Y",
+        "badge_color": "blue",
+    }
+
+    # ── Constitution section ──────────────────────────────────────────────────
+    if constitution_type is not None:
+        c_value = getattr(constitution_type, "value", str(constitution_type))
+    else:
+        c_value = "Chưa xác định"
+
+    constitution_section = {
+        "type":              c_value,
+        "note":              constitution_note_str or f"Thể trạng: {c_value}",
+        "questions_pending": has_pending,
+        "questions":         pending_qs,
+    }
+
+    # ── Build raw output ──────────────────────────────────────────────────────
+    raw = {
+        "track":            track,
+        "urgency":          urgency,
+        "sections":         [herbal_section, western_section],
+        "constitution":     constitution_section,
+        "safety_warnings":  safety_warnings,
+        "duration_cap":     duration_cap,
+        "warning":          warning,
+        "disclaimer":       disclaimer,
+        "emergency_banner": is_emergency,
+        "pending_questions": pending_qs if has_pending else None,
+    }
+
+    # ── Apply language guard to all text values ───────────────────────────────
+    return _guard_dict(raw)

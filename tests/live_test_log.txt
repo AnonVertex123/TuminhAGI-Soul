@@ -1,0 +1,11 @@
+--- TỰ MINH AGI: BÁO CÁO TIẾN ĐỘ STRESS TEST V9+ ---
+[4/50] Tiểu buốt, tiểu giắt, nước tiểu đục -> ERROR: unhashable type: 'list'
+[7/50] Vàng da, vàng mắt, mệt mỏi, chán ăn -> ERROR: unhashable type: 'list'
+[11/50] Sốt cao, đau đầu, cứng cổ -> ERROR: unhashable type: 'list'
+[18/50] Trễ kinh, buồn nôn, ngực căng -> R110 | [FAIL - DUAL_PATH] | Thiếu định hướng Nam Y hoặc Tây Y
+[19/50] Đi ngoài phân lỏng, đau bụng quặn, nhiều lần trong ngày -> ERROR: unhashable type: 'list'
+[21/50] Đau lưng lan xuống chân, tê bì ngón chân -> ERROR: unhashable type: 'list'
+[23/50] Rụng tóc, đau khớp, ban hình cánh bướm ở mặt -> ERROR: unhashable type: 'list'
+[25/50] Co giật, trợn mắt, sùi bọt mép -> ERROR: unhashable type: 'list'
+[26/50] Đau răng, sưng lợi, chảy máu chân răng -> ERROR: unhashable type: 'list'
+[29/50] Đau vùng thắt lưng, tiểu ra sỏi -> ERROR: unhashable type: 'list'

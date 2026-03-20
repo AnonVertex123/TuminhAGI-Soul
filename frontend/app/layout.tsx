@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tự Minh AGI",
+  title: "Tự Minh",
   description: "Medical Diagnostic Dashboard"
 };
 
@@ -17,4 +17,3 @@ export default function RootLayout({
     </html>
   );
 }
-
