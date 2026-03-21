@@ -1,39 +1,26 @@
-# .github/workflows/generate_dataset.yml
-# TuminhAGI — Auto generate dataset dùng Gemini API
-#
-# Setup:
-#   GitHub repo → Settings → Secrets → Actions → New secret:
-#   GEMINI_KEY_HUNGDAI  = key tài khoản của Hùng Đại
-#   GEMINI_KEY_FRIEND   = key tài khoản của bạn
-#
-# Chạy tự động: mỗi 6 tiếng
-# Chạy tay: GitHub → Actions → "Generate Dataset" → Run workflow
-
 name: Generate Dataset
 
 on:
   schedule:
-    # Chạy mỗi 6 tiếng: 0h, 6h, 12h, 18h (UTC+7 thì +7)
     - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       topic_hung:
-        description: 'Topic cho Hùng (swift/sql/philosophy/architecture/python)'
-        default: 'swift'
-      topic_friend:
-        description: 'Topic cho Friend (swift/sql/philosophy/architecture/python)'
-        default: 'sql'
+        description: 'Topic (python/sql/philosophy/architecture/swift)'
+        default: 'python'
       count:
-        description: 'Số examples mỗi người'
-        default: '50'
+        description: 'Số examples'
+        default: '100'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  # ── Job 1: Tài khoản Hùng ──────────────────────────────────────────────────
   generate-hung:
-    name: "Hung — ${{ github.event.inputs.topic_hung || 'swift' }}"
+    name: "Hung — ${{ github.event.inputs.topic_hung || 'python' }}"
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -51,11 +38,10 @@ jobs:
         run: |
           python generate_gemini.py \
             --worker hung \
-            --topic ${{ github.event.inputs.topic_hung || 'swift' }} \
-            --count ${{ github.event.inputs.count || '50' }} \
-            --batch-size 5 \
-            --delay 3 \
-            --model gemma-3-27b-it
+            --topic ${{ github.event.inputs.topic_hung || 'python' }} \
+            --count ${{ github.event.inputs.count || '100' }} \
+            --batch-size 10 \
+            --delay 4
 
       - name: Commit & push
         run: |
@@ -65,7 +51,5 @@ jobs:
           git pull --rebase origin main
           git stash pop || true
           git add finetune/datasets/
-          git diff --staged --quiet || git commit -m "🤖 [hung] add swift examples"
+          git diff --staged --quiet || git commit -m "🤖 [hung] add ${{ github.event.inputs.topic_hung || 'python' }} examples"
           git push
-        shell: /usr/bin/bash -e {0}
-
