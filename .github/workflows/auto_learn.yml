@@ -2,48 +2,78 @@ name: TuminhAGI Auto-Learning Pipeline
 
 on:
   schedule:
-    # 2:00 AM Vietnam (UTC+7) = 19:00 UTC
-    - cron: "0 19 * * *"
+    - cron: "0 19 * * *"   # 2h sáng VN
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   auto_learn:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     timeout-minutes: 60
 
     steps:
+      # 1. Checkout
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
+      # 2. Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # 3. Cache pip (tăng tốc)
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      # 4. Install deps
       - name: Install dependencies
         run: |
+          pip install --upgrade pip
           pip install requests google-generativeai datasets
           pip install sentence-transformers pandas tqdm
 
+      # 5. Crawl GitHub
       - name: Step 1 — Crawl GitHub
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          # Reuse GitHub Actions built-in token to avoid requiring a custom PAT secret.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/crawl_github.py
 
-      - name: Step 2 — Generate dataset with Gemini
+      # 6. Generate dataset
+      - name: Step 2 — Generate dataset
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/generate_dataset.py
 
+      # 7. Filter + Dedup
       - name: Step 3 — Filter + Dedup
         run: python scripts/filter_dedup.py
 
+      # 8. Commit + Push (SAFE)
       - name: Commit dataset
-        shell: bash -e {0}
         run: |
-          git config user.name "TuminhAGI Bot"
-          git config user.email "bot@tuminhagi.ai"
-          git add data/filtered/
-          git diff --staged --quiet || git commit -m "auto-learn: $(date +'%Y-%m-%d') — dataset batch"
-          git push
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
+          git add data/filtered/
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "auto-learn: $(date +'%Y-%m-%d')"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
